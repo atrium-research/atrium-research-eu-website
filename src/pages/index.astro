@@ -1,0 +1,159 @@
+---
+import { Image } from "astro:assets";
+import { compareDesc } from "date-fns";
+
+import LinkButton from "@/components/content/link-button.astro";
+import Link from "@/components/link.astro";
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { processMdx } from "@/lib/content/mdx";
+import { reader } from "@/lib/content/reader";
+import { getFormatter } from "@/lib/formatter";
+import { getImageImport } from "@/lib/get-image-import";
+import { createI18n } from "@/lib/i18n";
+import logo from "~/public/assets/images/atrium-logo.png";
+import europe from "~/public/assets/images/atrium-map-of-europe.jpg";
+
+const page = await reader().singletons.indexPage.readOrThrow();
+const events = await reader().collections.events.all();
+const sortedEvents = events.sort((a, z) => {
+	return compareDesc(a.entry.date, z.entry.date);
+});
+const featuredEvents = sortedEvents.slice(0, 3);
+
+const { t } = await createI18n(locale);
+
+const documentTitle = t("IndexPage.meta.title");
+const { hero, main } = page;
+const { default: Content } = await processMdx(await main.content(), locale);
+
+const formatter = getFormatter(locale);
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent class="flex flex-col">
+		<div class="grid bg-brand-bg md:grid-cols-[4fr_6fr]">
+			<div class="relative order-1 grid items-center md:order-none">
+				<Image
+					alt=""
+					class="absolute inset-0 size-full object-cover opacity-15"
+					loading="eager"
+					src={logo}
+				/>
+				<div class="relative p-8 md:py-24">
+					<h1 class="sr-only">{hero.title}</h1>
+					<div class="text-md font-semibold leading-relaxed md:text-xl">
+						{hero.leadIn}
+					</div>
+				</div>
+			</div>
+			<div class="bg-brand-bg">
+				<Image
+					alt=""
+					class="aspect-video size-full object-cover md:aspect-auto"
+					loading="eager"
+					sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 100vw"
+					src={getImageImport(
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						hero.images.at(0)!,
+					)}
+					widths={[480, 768]}
+				/>
+			</div>
+		</div>
+
+		<div class="flex-1 py-8">
+			<PageSection>
+				<div class="prose">
+					<Content />
+				</div>
+			</PageSection>
+		</div>
+
+		<div class="bg-brand-bg py-8">
+			<PageSection>
+				<h2 class="text-2xl font-semibold text-brand">Latest Events & News</h2>
+				<div>
+					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
+						{
+							featuredEvents.map((event) => {
+								const href = `/events/${event.slug}/`;
+
+								return (
+									<li>
+										<article class="grid gap-y-2">
+											<div class="relative mb-2 h-48 overflow-hidden rounded-md bg-brand-brown">
+												<Link href={href}>
+													<span class="sr-only">{event.entry.title}</span>
+													<Image
+														alt=""
+														class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+														sizes="620px"
+														src={getImageImport(event.entry.image)}
+														widths={[620]}
+													/>
+												</Link>
+											</div>
+											<h3 class="font-medium leading-tight text-brand transition hover:text-inherit">
+												<Link href={href}>{event.entry.title}</Link>
+											</h3>
+											<dl class="text-sm">
+												<div class="flex gap-x-2">
+													<dt>Date:</dt>
+													<dd>
+														{event.entry.endDate != null ? (
+															<span>
+																{formatter.date.formatRange(
+																	new Date(event.entry.date),
+																	new Date(event.entry.endDate),
+																)}
+															</span>
+														) : (
+															<time datetime={event.entry.date}>
+																{formatter.date.format(new Date(event.entry.date))}
+															</time>
+														)}
+													</dd>
+												</div>
+												<div class="flex gap-x-2">
+													<dt>Location:</dt>
+													<dd>{event.entry.location}</dd>
+												</div>
+											</dl>
+										</article>
+									</li>
+								);
+							})
+						}
+					</ul>
+				</div>
+			</PageSection>
+		</div>
+
+		<div class="py-8">
+			<PageSection>
+				<div class="grid gap-8 md:grid-cols-2">
+					<div>
+						<h2 class="text-2xl font-semibold text-brand">Transnational Access – Travel Grants</h2>
+						<div class="prose my-4">
+							ATRIUM will offer researchers and research teams the chance to visit 16 research
+							infrastructures and organisations in the Arts and Humanities abroad.
+						</div>
+						<div>
+							<LinkButton
+								aria-label="More info about travel grants"
+								href="/travel-grants/"
+								label="More info"
+							/>
+						</div>
+					</div>
+					<div>
+						<Image alt="" class="rounded-md" src={europe} />
+					</div>
+				</div>
+			</PageSection>
+		</div>
+	</MainContent>
+</PageLayout>

@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import { compareDesc } from "date-fns";
+
+import Link from "@/components/link.astro";
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import PageTitle from "@/components/page-title.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { processMdx } from "@/lib/content/mdx";
+import { reader } from "@/lib/content/reader";
+import { getImageImport } from "@/lib/get-image-import";
+
+const page = await reader().collections.pages.readOrThrow("news");
+const news = await reader().collections.news.all();
+const sortedNews = news.sort((a, z) => {
+	return compareDesc(a.entry.publicationDate, z.entry.publicationDate);
+});
+
+const documentTitle = page.title;
+const { title, image } = page;
+const { default: Content } = await processMdx(await page.content(), locale);
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent>
+		<div class="relative h-56">
+			<Image
+				alt=""
+				class="absolute inset-0 size-full object-cover"
+				loading="eager"
+				src={getImageImport(image)}
+			/>
+		</div>
+		<PageSection class="my-4 md:my-12">
+			<PageTitle>{title}</PageTitle>
+			<div class="prose">
+				<Content />
+			</div>
+			<div>
+				<ul class="grid gap-8 grid-fluid-cols-72" role="list">
+					{
+						sortedNews.map((item) => {
+							const href = `/news/${item.slug}/`;
+
+							return (
+								<li>
+									<article class="grid gap-y-2">
+										<div class="relative mb-2 h-48 overflow-hidden rounded-md bg-brand-brown">
+											<Link href={href}>
+												<span class="sr-only">{item.entry.title}</span>
+												<Image
+													alt=""
+													class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+													sizes="620px"
+													src={getImageImport(item.entry.image)}
+													widths={[620]}
+												/>
+											</Link>
+										</div>
+										<h2 class="font-medium leading-tight text-brand transition hover:text-inherit">
+											{item.entry.title}
+										</h2>
+										<div class="text-sm">{item.entry.summary}</div>
+									</article>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</div>
+		</PageSection>
+	</MainContent>
+</PageLayout>

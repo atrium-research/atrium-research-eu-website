@@ -1,0 +1,13 @@
+{
+  "hero": {
+    "title": "ATRIUM",
+    "images": [
+      "/assets/content/en/index-page/hero/images/0.jpg",
+      "/assets/content/en/index-page/hero/images/1.jpg",
+      "/assets/content/en/index-page/hero/images/2.jpg",
+      "/assets/content/en/index-page/hero/images/3.jpg"
+    ],
+    "leadIn": "Facilitating access to digital research infrastructures and advancing frontier knowledge in the arts and humanities — across disciplines, languages and media."
+  },
+  "main": {}
+}

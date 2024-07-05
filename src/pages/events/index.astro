@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+import { compareDesc } from "date-fns";
+
+import Link from "@/components/link.astro";
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import PageTitle from "@/components/page-title.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { processMdx } from "@/lib/content/mdx";
+import { reader } from "@/lib/content/reader";
+import { getFormatter } from "@/lib/formatter";
+import { getImageImport } from "@/lib/get-image-import";
+
+const page = await reader().collections.pages.readOrThrow("events");
+const events = await reader().collections.events.all();
+const sortedEvents = events.sort((a, z) => {
+	return compareDesc(a.entry.date, z.entry.date);
+});
+
+const documentTitle = page.title;
+const { title, image } = page;
+const { default: Content } = await processMdx(await page.content(), locale);
+
+const formatter = getFormatter(locale);
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent>
+		<div class="relative h-56">
+			<Image
+				alt=""
+				class="absolute inset-0 size-full object-cover"
+				loading="eager"
+				src={getImageImport(image)}
+			/>
+		</div>
+		<PageSection class="my-4 md:my-12">
+			<PageTitle>{title}</PageTitle>
+			<div class="prose">
+				<Content />
+			</div>
+			<div>
+				<ul class="grid gap-8 grid-fluid-cols-72" role="list">
+					{
+						sortedEvents.map((event) => {
+							const href = `/events/${event.slug}/`;
+
+							return (
+								<li>
+									<article class="grid gap-y-2">
+										<div class="relative mb-2 h-48 overflow-hidden rounded-md bg-brand-brown">
+											<Link href={href}>
+												<span class="sr-only">{event.entry.title}</span>
+												<Image
+													alt=""
+													class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+													sizes="620px"
+													src={getImageImport(event.entry.image)}
+													widths={[620]}
+												/>
+											</Link>
+										</div>
+										<h2 class="font-medium leading-tight text-brand transition hover:text-inherit">
+											{event.entry.title}
+										</h2>
+										<dl class="text-sm">
+											<div class="flex gap-x-2">
+												<dt>Date:</dt>
+												<dd>
+													{event.entry.endDate != null ? (
+														<span>
+															{formatter.date.formatRange(
+																new Date(event.entry.date),
+																new Date(event.entry.endDate),
+															)}
+														</span>
+													) : (
+														<time datetime={event.entry.date}>
+															{formatter.date.format(new Date(event.entry.date))}
+														</time>
+													)}
+												</dd>
+											</div>
+											<div class="flex gap-x-2">
+												<dt>Location:</dt>
+												<dd>{event.entry.location}</dd>
+											</div>
+										</dl>
+										{/* <div class="text-sm">{event.entry.summary}</div> */}
+									</article>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</div>
+		</PageSection>
+	</MainContent>
+</PageLayout>

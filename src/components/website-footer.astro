@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+import TextInputField from "@/components/form/text-input-field.astro";
+import Link from "@/components/link.astro";
+import PageSection from "@/components/page-section.astro";
+import logo from "~/public/assets/images/atrium-logo-with-text.png";
+import eu from "~/public/assets/images/eu-funded.jpg";
+---
+
+<footer class="border-t">
+	<div class="bg-brand-brown py-12 text-brand-text">
+		<div>
+			<div class="grid gap-x-0.5 gap-y-8 lg:grid-cols-3 lg:bg-brand-bg">
+				<div class="grid place-items-center bg-brand-brown px-8">
+					<div>
+						<Image alt="" class="h-16 w-auto" src={logo} />
+					</div>
+				</div>
+				<div class="grid place-items-center bg-brand-brown px-8">
+					<div class="grid gap-y-4">
+						<div class="flex justify-center gap-x-2">
+							<a
+								href="https://www.linkedin.com/company/atrium-advancing-frontier-research-in-the-arts-humanities/"
+							>
+								<Icon
+									aria-hidden="true"
+									class="size-10 rounded-full bg-brand-bg p-2 text-brand-brown transition hover:opacity-90"
+									name="lucide:linkedin"
+								/>
+								<span class="sr-only">LinkedIn</span>
+							</a>
+							<a href="https://twitter.com/ATRIUM_EU">
+								<Icon
+									aria-hidden="true"
+									class="size-10 rounded-full bg-brand-bg p-2 text-brand-brown transition hover:opacity-90"
+									name="lucide:twitter"
+								/>
+								<span class="sr-only">Twitter</span>
+							</a>
+						</div>
+						<a
+							class="flex items-center gap-x-2 transition hover:opacity-90"
+							href="mailto:info@atrium-research.eu"
+						>
+							<Icon aria-hidden="true" class="h-6" name="lucide:mail" />
+							info@atrium-research.eu
+						</a>
+					</div>
+				</div>
+				<div class="grid place-items-center bg-brand-brown px-8">
+					<div class="grid gap-y-4">
+						<h2 class="text-lg font-semibold">Subscribe to our mailing list and newsletter</h2>
+						<!-- FIXME: -->
+						<form class="grid gap-y-2">
+							<TextInputField label="Email address" name="email" required />
+							<TextInputField label="First name" name="first-name" />
+							<TextInputField label="Last name" name="last-name" required />
+							<TextInputField label="Institution" name="institution" />
+							<div class="mt-2 flex justify-end">
+								<button
+									class="rounded-md bg-brand-bg px-4 py-2 font-bold text-brand-brown transition hover:opacity-90"
+									type="submit">Submit</button
+								>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<PageSection>
+			<div class="flex flex-col gap-x-12 gap-y-8 py-8 md:flex-row">
+				<div class="grid gap-y-2">
+					<small class="text-sm">
+						Funded by the European Union under Grant Agreement n. 101132163. Views and opinions
+						expressed are however those of the author(s) only and do not necessarily reflect those
+						of the European Union. Neither the European Union nor the granting authority can be held
+						responsible for them.
+					</small>
+					<div class="text-sm">
+						<Link class="underline" href="/imprint/">Privacy Policy and Terms of Use</Link>
+					</div>
+				</div>
+				<div class="shrink-0">
+					<span class="sr-only">Funded by the European Union</span>
+					<Image alt="" class="h-16 w-auto" src={eu} />
+				</div>
+			</div>
+		</PageSection>
+	</div>
+</footer>
