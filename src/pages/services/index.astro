@@ -1,0 +1,53 @@
+---
+import { createUrl, createUrlSearchParams, request } from "@acdh-oeaw/lib";
+import { Image } from "astro:assets";
+import { compareDesc } from "date-fns";
+
+import Link from "@/components/link.astro";
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import PageTitle from "@/components/page-title.astro";
+import { env } from "@/config/env.config";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { processMdx } from "@/lib/content/mdx";
+import { reader } from "@/lib/content/reader";
+import { getImageImport } from "@/lib/get-image-import";
+
+const page = await reader().collections.pages.readOrThrow("services");
+
+const documentTitle = page.title;
+const { title, image } = page;
+const { default: Content } = await processMdx(await page.content(), locale);
+
+const url = createUrl({
+	baseUrl: env.PUBLIC_SSHOC_API_BASE_URL,
+	pathname: "/search",
+	searchParams: createUrlSearchParams({
+		"f.keyword": "ATRIUM catalogue",
+	}),
+});
+const data = await request(url, { responseType: "json" });
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent>
+		<div class="relative h-56">
+			<Image
+				alt=""
+				class="absolute inset-0 size-full object-cover"
+				loading="eager"
+				src={getImageImport(image)}
+			/>
+		</div>
+		<PageSection class="my-4 md:my-12">
+			<PageTitle>{title}</PageTitle>
+			<div class="prose">
+				<Content />
+			</div>
+			<div>
+				<pre>{JSON.stringify(data, null, 2)}</pre>
+			</div>
+		</PageSection>
+	</MainContent>
+</PageLayout>

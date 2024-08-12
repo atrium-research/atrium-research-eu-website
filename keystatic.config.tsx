@@ -18,8 +18,10 @@ import {
 	LinkIcon,
 	ListIcon,
 	SuperscriptIcon,
+	TwitterIcon,
 	VideoIcon,
 } from "lucide-react";
+import { Tweet } from "react-tweet";
 
 import { Logo } from "@/components/logo";
 import { createAssetPaths, createPreviewUrl } from "@/config/content.config";
@@ -66,6 +68,7 @@ function createComponents(
 		| "GridItem"
 		| "LinkButton"
 		| "TableOfContents"
+		| "Tweet"
 		| "Video"
 	>,
 ) {
@@ -210,6 +213,24 @@ function createComponents(
 					label: "Title",
 					// validation: { isRequired: false },
 				}),
+			},
+		}),
+		Tweet: block({
+			label: "Tweet",
+			description: "A tweet.",
+			icon: <TwitterIcon />,
+			schema: {
+				id: fields.text({
+					label: "ID",
+					validation: { isRequired: true },
+				}),
+			},
+			ContentView(props) {
+				return (
+					<NotEditable>
+						<Tweet id={props.value.id} />
+					</NotEditable>
+				);
 			},
 		}),
 		Video: block({
@@ -642,7 +663,7 @@ const singletons = {
 export default config({
 	ui: {
 		brand: {
-			name: "Atrium",
+			name: "ATRIUM",
 			// @ts-expect-error `ReactNode` is a valid return type.
 			mark: Logo,
 		},

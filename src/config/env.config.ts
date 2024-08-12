@@ -50,6 +50,7 @@ export const env = createEnv({
 				v.integer(),
 				v.minValue(1),
 			),
+			PUBLIC_SSHOC_API_BASE_URL: v.pipe(v.string(), v.url()),
 		});
 		return v.parse(Schema, input);
 	},

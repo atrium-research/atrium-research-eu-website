@@ -11,6 +11,7 @@ import GridItem from "@/components/content/grid-item.astro";
 import Img from "@/components/content/img.astro";
 import LinkButton from "@/components/content/link-button.astro";
 import TableOfContents from "@/components/content/table-of-contents.astro";
+import Tweet from "@/components/content/tweet.astro";
 import Video from "@/components/content/video.astro";
 import Link from "@/components/link.astro";
 
@@ -27,6 +28,7 @@ const components = {
 	img: Img,
 	LinkButton,
 	TableOfContents,
+	Tweet,
 	Video,
 };
 
