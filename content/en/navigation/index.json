@@ -47,6 +47,13 @@
               "label": "Communications Kit",
               "reference": "communications-kit"
             }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Deliverables",
+              "reference": "deliverables"
+            }
           }
         ]
       }
