@@ -16,7 +16,7 @@ const reader = createReader();
 const page = await reader.collections.pages.readOrThrow("news");
 const news = await reader.collections.news.all();
 const sortedNews = news.sort((a, z) => {
-	return compareDesc(a.entry.publicationDate, z.entry.publicationDate);
+	return compareDesc(new Date(a.entry.publicationDate), new Date(z.entry.publicationDate));
 });
 
 const documentTitle = page.title;
