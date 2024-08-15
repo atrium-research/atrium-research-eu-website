@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import { compareDesc } from "date-fns";
 
 import LinkButton from "@/components/content/link-button.astro";
+import Tweet from "@/components/content/tweet.astro";
 import Link from "@/components/link.astro";
 import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
@@ -18,16 +18,11 @@ import europe from "~/public/assets/images/atrium-map-of-europe.jpg";
 
 const reader = createReader();
 const page = await reader.singletons.indexPage.readOrThrow();
-const events = await reader.collections.events.all();
-const sortedEvents = events.sort((a, z) => {
-	return compareDesc(a.entry.date, z.entry.date);
-});
-const featuredEvents = sortedEvents.slice(0, 3);
 
 const { t } = await createI18n(locale);
 
 const documentTitle = t("IndexPage.meta.title");
-const { hero, main } = page;
+const { hero, main, latest } = page;
 const { default: Content } = await getMdxContent(await main.content(), locale);
 
 const formatter = getFormatter(locale);
@@ -76,53 +71,105 @@ const formatter = getFormatter(locale);
 				<div>
 					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
 						{
-							featuredEvents.map((event) => {
-								const href = `/events/${event.slug}/`;
+							latest.items.map(async (item) => {
+								switch (item.item.discriminant) {
+									case "events": {
+										const id = item.item.value;
 
-								return (
-									<li>
-										<article class="grid gap-y-2">
-											<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
-												<Link href={href}>
-													<span class="sr-only">{event.entry.title}</span>
-													<Image
-														alt=""
-														class="absolute inset-0 size-full object-cover transition hover:opacity-75"
-														sizes="620px"
-														src={getImageImport(event.entry.image)}
-														widths={[620]}
-													/>
-												</Link>
-											</div>
-											<h3 class="font-medium leading-tight text-brand transition hover:text-inherit">
-												<Link href={href}>{event.entry.title}</Link>
-											</h3>
-											<dl class="text-sm">
-												<div class="flex gap-x-2">
-													<dt>Date:</dt>
-													<dd>
-														{event.entry.endDate != null ? (
-															<span>
-																{formatter.date.formatRange(
-																	new Date(event.entry.date),
-																	new Date(event.entry.endDate),
+										const event = await reader.collections.events.readOrThrow(id, {
+											resolveLinkedFiles: true,
+										});
+
+										const href = `/events/${id}/`;
+
+										return (
+											<li>
+												<article class="grid gap-y-2">
+													<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
+														<Link href={href}>
+															<span class="sr-only">{event.title}</span>
+															<Image
+																alt=""
+																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+																sizes="620px"
+																src={getImageImport(event.image)}
+																widths={[620]}
+															/>
+														</Link>
+													</div>
+													<h3 class="font-medium leading-tight text-brand transition hover:text-inherit">
+														<Link href={href}>{event.title}</Link>
+													</h3>
+													<dl class="text-sm">
+														<div class="flex gap-x-2">
+															<dt>Date:</dt>
+															<dd>
+																{event.endDate != null ? (
+																	<span>
+																		{formatter.date.formatRange(
+																			new Date(event.date),
+																			new Date(event.endDate),
+																		)}
+																	</span>
+																) : (
+																	<time datetime={event.date}>
+																		{formatter.date.format(new Date(event.date))}
+																	</time>
 																)}
-															</span>
-														) : (
-															<time datetime={event.entry.date}>
-																{formatter.date.format(new Date(event.entry.date))}
-															</time>
-														)}
-													</dd>
-												</div>
-												<div class="flex gap-x-2">
-													<dt>Location:</dt>
-													<dd>{event.entry.location}</dd>
-												</div>
-											</dl>
-										</article>
-									</li>
-								);
+															</dd>
+														</div>
+														<div class="flex gap-x-2">
+															<dt>Location:</dt>
+															<dd>{event.location}</dd>
+														</div>
+													</dl>
+												</article>
+											</li>
+										);
+									}
+
+									case "news": {
+										const id = item.item.value;
+
+										const news = await reader.collections.news.readOrThrow(id, {
+											resolveLinkedFiles: true,
+										});
+
+										const href = `/news/${id}/`;
+
+										return (
+											<li>
+												<article class="grid gap-y-2">
+													<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
+														<Link href={href}>
+															<span class="sr-only">{news.title}</span>
+															<Image
+																alt=""
+																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+																sizes="620px"
+																src={getImageImport(news.image)}
+																widths={[620]}
+															/>
+														</Link>
+													</div>
+													<h3 class="font-medium leading-tight text-brand transition hover:text-inherit">
+														<Link href={href}>{news.title}</Link>
+													</h3>
+												</article>
+											</li>
+										);
+									}
+
+									case "tweets": {
+										const id = item.item.value;
+
+										return (
+											<li>
+												<Tweet id={id} />
+											</li>
+										);
+									}
+								}
 							})
 						}
 					</ul>

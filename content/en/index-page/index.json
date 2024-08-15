@@ -1,13 +1,35 @@
 {
   "hero": {
     "title": "ATRIUM",
+    "leadIn": "Facilitating access to digital research infrastructures and advancing frontier knowledge in the arts and humanities — across disciplines, languages and media.",
     "images": [
       "/assets/content/en/index-page/hero/images/0.jpg",
       "/assets/content/en/index-page/hero/images/1.jpg",
       "/assets/content/en/index-page/hero/images/2.jpg",
       "/assets/content/en/index-page/hero/images/3.jpg"
-    ],
-    "leadIn": "Facilitating access to digital research infrastructures and advancing frontier knowledge in the arts and humanities — across disciplines, languages and media."
+    ]
   },
-  "main": {}
+  "main": {},
+  "latest": {
+    "items": [
+      {
+        "item": {
+          "discriminant": "events",
+          "value": "daschcon-archaeology-and-interoperability"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "events",
+          "value": "clarin-annual-conference-2024"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "tweets",
+          "value": "1819026756445077585"
+        }
+      }
+    ]
+  }
 }

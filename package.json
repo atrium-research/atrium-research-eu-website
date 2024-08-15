@@ -56,6 +56,7 @@
 		"@sindresorhus/slugify": "^2.2.1",
 		"astro": "^4.13.3",
 		"astro-icon": "^1.1.0",
+		"astro-tweet": "^0.0.4",
 		"cva": "^1.0.0-beta.1",
 		"date-fns": "^3.6.0",
 		"estree-util-value-to-estree": "^3.1.2",
@@ -155,6 +156,7 @@
 			}
 		},
 		"rules": {
+			"consistent-return": "off",
 			"@typescript-eslint/no-non-null-assertion": "off"
 		}
 	},

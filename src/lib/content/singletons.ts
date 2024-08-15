@@ -68,6 +68,60 @@ export const indexPage = createSingleton((locale) => {
 					label: "Main content",
 				},
 			),
+			latest: fields.object(
+				{
+					items: fields.array(
+						fields.object(
+							{
+								item: fields.conditional(
+									fields.select({
+										label: "Collection",
+										options: [
+											{ label: "Events", value: "events" },
+											{ label: "News", value: "news" },
+											{ label: "Tweets", value: "tweets" },
+										],
+										defaultValue: "events",
+									}),
+									{
+										events: fields.relationship({
+											label: "Event",
+											collection: "events",
+											validation: { isRequired: true },
+										}),
+										news: fields.relationship({
+											label: "News",
+											collection: "news",
+											validation: { isRequired: true },
+										}),
+										tweets: fields.text({
+											label: "Tweet ID",
+											validation: { isRequired: true },
+										}),
+									},
+								),
+							},
+							{
+								label: "Item",
+							},
+						),
+						{
+							label: "Items",
+							itemLabel(props) {
+								if (props.fields.item.discriminant === "tweets" && props.fields.item.value.value) {
+									return `Tweet ID ${props.fields.item.value.value}`;
+								}
+
+								return props.fields.item.value.value ?? props.fields.item.discriminant;
+							},
+							validation: { length: { min: 3 } },
+						},
+					),
+				},
+				{
+					label: "Latest events and news",
+				},
+			),
 		},
 	});
 });
