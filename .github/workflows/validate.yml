@@ -107,6 +107,7 @@ jobs:
           PUBLIC_APP_BASE_URL: "http://localhost:3000"
           PUBLIC_REDMINE_ID: "${{ vars.SERVICE_ID }}"
           PUBLIC_SSHOC_API_BASE_URL: "${{ vars.PUBLIC_SSHOC_API_BASE_URL }}"
+          PUBLIC_SSHOC_BASE_URL: "${{ vars.PUBLIC_SSHOC_BASE_URL }}"
 
       - name: Run e2e tests
         run: pnpm run test:e2e
