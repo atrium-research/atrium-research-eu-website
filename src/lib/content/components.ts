@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import Callout from "@/components/content/callout.astro";
+// import Callout from "@/components/content/callout.astro";
 import DownloadLink from "@/components/content/download-link.astro";
 import Figure from "@/components/content/figure.astro";
 // import FootnoteContent from "@/components/content/footnote-content.astro";
@@ -21,7 +21,7 @@ import Link from "@/components/link.astro";
 
 const components = {
 	a: Link,
-	Callout,
+	// Callout,
 	// Card,
 	// Disclosure,
 	DownloadLink,

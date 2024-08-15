@@ -1,4 +1,4 @@
-import { createUrl, isNonEmptyString, pick } from "@acdh-oeaw/lib";
+import { createUrl, pick } from "@acdh-oeaw/lib";
 import { fields, NotEditable } from "@keystatic/core";
 import {
 	block,
@@ -16,7 +16,7 @@ import {
 	GridIcon,
 	HeadingIcon,
 	ImageIcon,
-	InfoIcon,
+	// InfoIcon,
 	LinkIcon,
 	// ListIcon,
 	// SquareIcon,
@@ -31,13 +31,13 @@ import { createAssetPaths } from "@/lib/content/create-asset-paths";
 import { useObjectUrl } from "@/lib/content/use-object-url";
 
 /** @see https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts */
-const calloutKinds = [
-	{ label: "Caution", value: "caution" },
-	{ label: "Important", value: "important" },
-	{ label: "Note", value: "note" },
-	{ label: "Tip", value: "tip" },
-	{ label: "Warning", value: "warning" },
-] as const;
+// const calloutKinds = [
+// 	{ label: "Caution", value: "caution" },
+// 	{ label: "Important", value: "important" },
+// 	{ label: "Note", value: "note" },
+// 	{ label: "Tip", value: "tip" },
+// 	{ label: "Warning", value: "warning" },
+// ] as const;
 
 export const figureAlignments = [
 	{ label: "Center", value: "center" },
@@ -56,38 +56,38 @@ const gridVariants = [
 const videoProviders = [{ label: "YouTube", value: "youtube" }] as const;
 
 const components = {
-	Callout() {
-		return wrapper({
-			label: "Callout",
-			description: "A panel with additional information.",
-			icon: <InfoIcon />,
-			schema: {
-				kind: fields.select({
-					label: "Kind",
-					options: calloutKinds,
-					defaultValue: "note",
-				}),
-				title: fields.text({
-					label: "Title",
-					// validation: { isRequired: false },
-				}),
-			},
-			ContentView(props) {
-				const { children, value } = props;
+	// Callout() {
+	// 	return wrapper({
+	// 		label: "Callout",
+	// 		description: "A panel with additional information.",
+	// 		icon: <InfoIcon />,
+	// 		schema: {
+	// 			kind: fields.select({
+	// 				label: "Kind",
+	// 				options: calloutKinds,
+	// 				defaultValue: "note",
+	// 			}),
+	// 			title: fields.text({
+	// 				label: "Title",
+	// 				// validation: { isRequired: false },
+	// 			}),
+	// 		},
+	// 		ContentView(props) {
+	// 			const { children, value } = props;
 
-				return (
-					<aside>
-						{isNonEmptyString(value.title) ? (
-							<NotEditable>
-								<strong>{value.title}</strong>
-							</NotEditable>
-						) : null}
-						{children}
-					</aside>
-				);
-			},
-		});
-	},
+	// 			return (
+	// 				<aside>
+	// 					{isNonEmptyString(value.title) ? (
+	// 						<NotEditable>
+	// 							<strong>{value.title}</strong>
+	// 						</NotEditable>
+	// 					) : null}
+	// 					{children}
+	// 				</aside>
+	// 			);
+	// 		},
+	// 	});
+	// },
 	// Card() {
 	// 	return wrapper({
 	// 		label: "Card",
