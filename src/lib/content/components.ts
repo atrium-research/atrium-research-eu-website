@@ -9,8 +9,8 @@ import Figure from "@/components/content/figure.astro";
 import Grid from "@/components/content/grid.astro";
 import GridItem from "@/components/content/grid-item.astro";
 import Img from "@/components/content/img.astro";
+import InternalLink from "@/components/content/internal-link.astro";
 import LinkButton from "@/components/content/link-button.astro";
-import ResourceLink from "@/components/content/resource-link.astro";
 // import Tab from "@/components/content/tab.astro";
 // import TableOfContents from "@/components/content/table-of-contents.astro";
 // import Tabs from "@/components/content/tabs.astro";
@@ -34,7 +34,7 @@ const components = {
 	GridItem,
 	img: Img,
 	LinkButton,
-	ResourceLink,
+	InternalLink,
 	// Tab,
 	// TableOfContents,
 	// Tabs,

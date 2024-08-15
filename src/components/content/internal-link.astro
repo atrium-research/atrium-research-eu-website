@@ -2,18 +2,16 @@
 import Link from "@/components/link.astro";
 
 interface Props {
-	resource: {
+	item: {
 		discriminant: "events" | "news" | "pages" | "partners";
 		value: string;
 	};
 }
 
-const { resource } = Astro.props;
+const { item } = Astro.props;
 
 const href =
-	resource.discriminant === "pages"
-		? `/${resource.value}`
-		: `/${resource.discriminant}/${resource.value}`;
+	item.discriminant === "pages" ? `/${item.value}` : `/${item.discriminant}/${item.value}`;
 ---
 
 <Link href={href}><slot /></Link>

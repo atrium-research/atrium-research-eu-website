@@ -286,13 +286,13 @@ const components = {
 			},
 		});
 	},
-	ResourceLink(_assetPath, _locale) {
+	InternalLink(_assetPath, _locale) {
 		return mark({
-			label: "Resource link",
+			label: "Internal link",
 			icon: <BookTextIcon />,
 			tag: "a",
 			schema: {
-				resource: fields.conditional(
+				item: fields.conditional(
 					fields.select({
 						label: "Collection",
 						options: [
