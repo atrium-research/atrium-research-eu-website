@@ -1,0 +1,16 @@
+---
+import Img from "@/components/content/img.astro";
+
+interface Props {
+	src: string;
+}
+
+const { src } = Astro.props;
+---
+
+<div class="grid grid-cols-[1fr_4fr] items-center gap-8">
+	<Img alt="" src={src} />
+	<div>
+		<slot />
+	</div>
+</div>

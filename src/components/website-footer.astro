@@ -5,8 +5,20 @@ import { Icon } from "astro-icon/components";
 import TextInputField from "@/components/form/text-input-field.astro";
 import Link from "@/components/link.astro";
 import PageSection from "@/components/page-section.astro";
+import { createReader } from "@/lib/content/create-reader";
 import logo from "~/public/assets/images/atrium-logo-with-text.png";
 import eu from "~/public/assets/images/eu-funded.jpg";
+
+const reader = createReader();
+const socialMedia = await reader.singletons.socialMedia.readOrThrow({
+	resolveLinkedFiles: true,
+});
+
+const socialMediaConfig = {
+	linkedin: { label: "LinkedIn", icon: "simple-icons:linkedin" },
+	twitter: { label: "Twitter", icon: "simple-icons:x" },
+	youtube: { label: "YouTube", icon: "simple-icons:youtube" },
+};
 ---
 
 <footer class="border-t">
@@ -21,31 +33,27 @@ import eu from "~/public/assets/images/eu-funded.jpg";
 				<div class="grid place-items-center bg-brand-brown px-8">
 					<div class="grid gap-y-4">
 						<div class="flex justify-center gap-x-2">
-							<a
-								href="https://www.linkedin.com/company/atrium-advancing-frontier-research-in-the-arts-humanities/"
-							>
-								<Icon
-									aria-hidden="true"
-									class="size-10 rounded-full bg-brand-bg p-2 text-brand-brown transition hover:opacity-90"
-									name="lucide:linkedin"
-								/>
-								<span class="sr-only">LinkedIn</span>
-							</a>
-							<a href="https://twitter.com/ATRIUM_EU">
-								<Icon
-									aria-hidden="true"
-									class="size-10 rounded-full bg-brand-bg p-2 text-brand-brown transition hover:opacity-90"
-									name="lucide:twitter"
-								/>
-								<span class="sr-only">Twitter</span>
-							</a>
+							{
+								socialMedia.links.map((link) => {
+									const config = socialMediaConfig[link.kind];
+
+									return (
+										<a href={link.href}>
+											<div class="grid size-10 place-content-center rounded-full bg-brand-bg p-2 text-brand-brown transition hover:opacity-90">
+												<Icon aria-hidden="true" class="size-6" name={config.icon} />
+											</div>
+											<span class="sr-only">{config.label}</span>
+										</a>
+									);
+								})
+							}
 						</div>
 						<a
 							class="flex items-center gap-x-2 transition hover:opacity-90"
-							href="mailto:info@atrium-research.eu"
+							href={`mailto:${String(socialMedia.email)}`}
 						>
 							<Icon aria-hidden="true" class="h-6" name="lucide:mail" />
-							info@atrium-research.eu
+							{socialMedia.email.replace("@", "[a]")}
 						</a>
 					</div>
 				</div>
@@ -61,8 +69,10 @@ import eu from "~/public/assets/images/eu-funded.jpg";
 							<div class="mt-2 flex justify-end">
 								<button
 									class="rounded-md bg-brand-bg px-4 py-2 font-bold text-brand-brown transition hover:opacity-90"
-									type="submit">Submit</button
+									type="submit"
 								>
+									Submit
+								</button>
 							</div>
 						</form>
 					</div>

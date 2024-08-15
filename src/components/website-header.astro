@@ -47,11 +47,11 @@ const home = t("WebsiteHeader.links.home");
 							}
 
 							case "page": {
-								const { label, reference } = item.value;
+								const { label, id } = item.value;
 
 								return (
 									<li>
-										<NavMenuLink href={`/${reference}`}>{label}</NavMenuLink>
+										<NavMenuLink href={`/${id}`}>{label}</NavMenuLink>
 									</li>
 								);
 							}
@@ -78,11 +78,11 @@ const home = t("WebsiteHeader.links.home");
 															}
 
 															case "page": {
-																const { label, reference } = link.value;
+																const { label, id } = link.value;
 
 																return (
 																	<li>
-																		<NavMenuItem href={`/${reference}`}>{label}</NavMenuItem>
+																		<NavMenuItem href={`/${id}`}>{label}</NavMenuItem>
 																	</li>
 																);
 															}

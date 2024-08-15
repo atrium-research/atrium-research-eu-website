@@ -1,0 +1,19 @@
+---
+import Link from "@/components/link.astro";
+
+interface Props {
+	resource: {
+		discriminant: "events" | "news" | "pages" | "partners";
+		value: string;
+	};
+}
+
+const { resource } = Astro.props;
+
+const href =
+	resource.discriminant === "pages"
+		? `/${resource.value}`
+		: `/${resource.discriminant}/${resource.value}`;
+---
+
+<Link href={href}><slot /></Link>

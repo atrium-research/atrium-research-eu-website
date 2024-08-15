@@ -6,12 +6,13 @@ import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { processMdx } from "@/lib/content/mdx";
-import { reader } from "@/lib/content/reader";
+import { createReader } from "@/lib/content/create-reader";
+import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
 
 export async function getStaticPaths() {
-	const pages = await reader().collections.news.all();
+	const reader = createReader();
+	const pages = await reader.collections.news.all();
 
 	return pages.map((page) => {
 		return {
@@ -25,7 +26,7 @@ const { page } = Astro.props;
 
 const documentTitle = page.title;
 const { title, image } = page;
-const { default: Content } = await processMdx(await page.content(), locale);
+const { default: Content } = await getMdxContent(await page.content(), locale);
 ---
 
 <PageLayout locale={locale} title={documentTitle}>

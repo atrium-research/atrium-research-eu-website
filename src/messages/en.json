@@ -1,34 +1,4 @@
 {
-	"ContactForm": {
-		"email": "Email address",
-		"message": "Message",
-		"status": {
-			"invalid-input": "Invalid input.",
-			"success": "Successfully sent message.",
-			"unknown-error": "Could not send message."
-		},
-		"subject": "Subject",
-		"submit": "Send"
-	},
-	"ContactPage": {
-		"meta": {
-			"title": "Contact"
-		},
-		"title": "Contact"
-	},
-	"FootnoteContent": {
-		"back": "Back to reference {count}"
-	},
-	"FootnoteSection": {
-		"footnotes": "Footnotes"
-	},
-	"ImageCarousel": {
-		"next": "Next",
-		"previous": "Previous",
-		"slide": "{current} of {total}",
-		"start": "Start",
-		"stop": "Pause"
-	},
 	"ImprintPage": {
 		"meta": {
 			"title": "Imprint"
@@ -39,10 +9,6 @@
 		"meta": {
 			"title": "Home"
 		}
-	},
-	"Mdx": {
-		"FootnoteBackLabel": "Back to reference {reference}",
-		"Footnotes": "Footnotes"
 	},
 	"MobileNavToggle": {
 		"label": "Open navigation menu"
@@ -61,7 +27,7 @@
 		"skip-to-main-content": "Skip to main content"
 	},
 	"TableOfContents": {
-		"tableOfContents": "Table of contents"
+		"table-of-contents": "Table of contents"
 	},
 	"WebsiteFooter": {
 		"links": {
@@ -73,5 +39,9 @@
 			"home": "Home"
 		},
 		"navigation-primary": "Primary"
+	},
+	"mdx": {
+		"footnote-back-label": "Back to reference {reference}",
+		"footnotes": "Footnotes"
 	}
 }

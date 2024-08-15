@@ -2,14 +2,15 @@
 import Img from "@/components/content/img.astro";
 
 interface Props {
+	alignment: "center" | "stretch";
 	alt?: string;
 	href: string;
 }
 
-const { alt = "", href } = Astro.props;
+const { alignment, alt = "", href } = Astro.props;
 ---
 
-<figure>
+<figure class="flex flex-col" class:list={alignment === "center" ? "items-center" : undefined}>
 	{
 		/* TODO: consider adding the image import in a rehype plugin, similar to `rehype-mdx-import-media`. */
 	}

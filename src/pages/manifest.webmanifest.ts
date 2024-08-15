@@ -9,9 +9,9 @@ export async function GET() {
 	const metadata = t("metadata");
 
 	const manifest = {
-		name: metadata.title,
-		short_name: metadata.shortTitle,
-		description: metadata.description,
+		name: metadata.manifest.name,
+		short_name: metadata.manifest["short-name"],
+		description: metadata.manifest.description,
 		icons: [
 			{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
 			{ src: "/icon-maskable.svg", sizes: "any", type: "image/svg+xml", purpose: "maskable" },

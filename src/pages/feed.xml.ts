@@ -3,7 +3,7 @@ import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 
 import { defaultLocale } from "@/config/i18n.config";
-import { reader } from "@/lib/content/reader";
+import { createReader } from "@/lib/content/create-reader";
 import { createI18n } from "@/lib/i18n";
 
 export async function GET(context: APIContext) {
@@ -13,13 +13,14 @@ export async function GET(context: APIContext) {
 
 	const metadata = t("metadata");
 
-	const events = await reader().collections.events.all();
-	const news = await reader().collections.news.all();
+	const reader = createReader();
+	const events = await reader.collections.events.all();
+	const news = await reader.collections.news.all();
 
 	return rss({
 		title: metadata.title,
 		description: metadata.description,
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
 		site: context.site!,
 		/** @see https://docs.astro.build/en/guides/rss/#generating-items */
 		items: [

@@ -4,7 +4,6 @@ import { pathToFileURL } from "node:url";
 import type { CompileOptions } from "@mdx-js/mdx";
 import withSyntaxHighlighter from "@shikijs/rehype";
 import type { ElementContent } from "hast";
-import withAssets from "rehype-mdx-import-media";
 import withHeadingIds from "rehype-slug";
 import withFrontmatter from "remark-frontmatter";
 import withGfm from "remark-gfm";
@@ -12,13 +11,16 @@ import withMdxFrontmatter from "remark-mdx-frontmatter";
 import withTypographicQuotes from "remark-smartypants";
 import type { Options as TypographicOptions } from "retext-smartypants";
 
-import type { Locale } from "@/config/i18n.config";
-import { config as syntaxHighlighterConfig } from "@/config/syntax-highlighter.config";
-import { withMdxFootnotes } from "@/lib/content/footnotes";
-import { withMdxTableOfContents, withTableOfContents } from "@/lib/content/table-of-contents";
+import type { Locale } from "@/config/i18n.config.js";
 import { createI18n } from "@/lib/i18n";
 
-const configs = new Map<Locale, CompileOptions>();
+import { withCustomHeadingIds } from "../lib/content/with-custom-heading-ids.js";
+import { withFootnotes } from "../lib/content/with-footnotes.js";
+import {
+	withMdxTableOfContents,
+	withTableOfContents,
+} from "../lib/content/with-table-of-contents.js";
+import { config as syntaxHighlighterConfig } from "./syntax-highlighter.config.js";
 
 const typography: Record<Locale, TypographicOptions> = {
 	en: {
@@ -27,10 +29,7 @@ const typography: Record<Locale, TypographicOptions> = {
 	},
 };
 
-export async function createConfig(locale: Locale): Promise<CompileOptions> {
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	if (configs.has(locale)) return configs.get(locale)!;
-
+export async function createMdxConfig(locale: Locale): Promise<CompileOptions> {
 	const { t } = await createI18n(locale);
 
 	const config: CompileOptions = {
@@ -42,6 +41,7 @@ export async function createConfig(locale: Locale): Promise<CompileOptions> {
 			withFrontmatter,
 			withMdxFrontmatter,
 			withGfm,
+			withFootnotes,
 			[withTypographicQuotes, typography[locale]],
 		],
 		remarkRehypeOptions: {
@@ -62,27 +62,24 @@ export async function createConfig(locale: Locale): Promise<CompileOptions> {
 			},
 			/** @see https://github.com/syntax-tree/mdast-util-to-hast/blob/13.0.0/lib/footer.js#L108 */
 			footnoteBackLabel(referenceIndex, rereferenceIndex) {
-				return t("Mdx.FootnoteBackLabel", {
+				return t("mdx.footnote-back-label", {
 					reference:
 						String(referenceIndex + 1) +
 						(rereferenceIndex > 1 ? `-${String(rereferenceIndex)}` : ""),
 				});
 			},
-			footnoteLabel: t("Mdx.Footnotes"),
+			footnoteLabel: t("mdx.footnotes"),
 			footnoteLabelProperties: { className: ["sr-only"] },
 			footnoteLabelTagName: "h2",
 		},
 		rehypePlugins: [
-			withMdxFootnotes,
+			withCustomHeadingIds,
 			withHeadingIds,
 			withTableOfContents,
 			withMdxTableOfContents,
 			[withSyntaxHighlighter, syntaxHighlighterConfig],
-			[withAssets, { elementAttributeNameCase: "html" }],
 		],
 	};
 
-	configs.set(locale, config);
-
-	return config;
+	return Promise.resolve(config);
 }

@@ -19,8 +19,9 @@ export default defineConfig({
 	base: env.PUBLIC_APP_BASE_PATH,
 	experimental: {
 		// actions: true,
-		contentCollectionCache: true,
-		rewriting: true,
+		// contentCollectionCache: true,
+		// env: {},
+		// serverIslands: true,
 	},
 	integrations: [
 		icon({
@@ -28,15 +29,17 @@ export default defineConfig({
 			include: {
 				lucide: [
 					"chevron-down",
-					"linkedin",
+					// "linkedin",
 					"mail",
 					"menu",
 					"message-circle",
 					"search",
 					"square-arrow-left",
-					"twitter",
+					// "twitter",
 					"x",
+					// "youtube",
 				],
+				simpleIcons: ["linkedin", "x", "youtube"],
 			},
 			svgoOptions: {
 				multipass: true,
@@ -57,7 +60,7 @@ export default defineConfig({
 		react(),
 		sitemap(),
 	],
-	/** Use `@/lib/content/mdx.ts` instead of astro's built-in markdown processor. */
+	/** Use `@/lib/content/get-mdx-content.ts` instead of astro's built-in markdown processor. */
 	// // @ts-expect-error Astro types are incomplete.
 	// markdown: {
 	// 	...(await createMdxConfig(defaultLocale)),

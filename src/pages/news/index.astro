@@ -8,19 +8,20 @@ import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { processMdx } from "@/lib/content/mdx";
-import { reader } from "@/lib/content/reader";
+import { createReader } from "@/lib/content/create-reader";
+import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
 
-const page = await reader().collections.pages.readOrThrow("news");
-const news = await reader().collections.news.all();
+const reader = createReader();
+const page = await reader.collections.pages.readOrThrow("news");
+const news = await reader.collections.news.all();
 const sortedNews = news.sort((a, z) => {
 	return compareDesc(a.entry.publicationDate, z.entry.publicationDate);
 });
 
 const documentTitle = page.title;
 const { title, image } = page;
-const { default: Content } = await processMdx(await page.content(), locale);
+const { default: Content } = await getMdxContent(await page.content(), locale);
 ---
 
 <PageLayout locale={locale} title={documentTitle}>
@@ -47,7 +48,7 @@ const { default: Content } = await processMdx(await page.content(), locale);
 							return (
 								<li>
 									<article class="grid gap-y-2">
-										<div class="relative mb-2 h-48 overflow-hidden rounded-md bg-brand-brown">
+										<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
 											<Link href={href}>
 												<span class="sr-only">{item.entry.title}</span>
 												<Image

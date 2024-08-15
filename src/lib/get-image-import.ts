@@ -12,7 +12,7 @@ export function getImageImport(path: string) {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
 	if (!path.startsWith("/")) return path as any;
 
-	const publicPath = join("/public", path);
+	const publicPath = join("/public", decodeURIComponent(path));
 	const image = images[publicPath];
 	assert(image, `Missing image "${publicPath}".`);
 

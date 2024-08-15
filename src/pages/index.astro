@@ -8,16 +8,17 @@ import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { processMdx } from "@/lib/content/mdx";
-import { reader } from "@/lib/content/reader";
+import { createReader } from "@/lib/content/create-reader";
+import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getFormatter } from "@/lib/formatter";
 import { getImageImport } from "@/lib/get-image-import";
 import { createI18n } from "@/lib/i18n";
 import logo from "~/public/assets/images/atrium-logo.png";
 import europe from "~/public/assets/images/atrium-map-of-europe.jpg";
 
-const page = await reader().singletons.indexPage.readOrThrow();
-const events = await reader().collections.events.all();
+const reader = createReader();
+const page = await reader.singletons.indexPage.readOrThrow();
+const events = await reader.collections.events.all();
 const sortedEvents = events.sort((a, z) => {
 	return compareDesc(a.entry.date, z.entry.date);
 });
@@ -27,7 +28,7 @@ const { t } = await createI18n(locale);
 
 const documentTitle = t("IndexPage.meta.title");
 const { hero, main } = page;
-const { default: Content } = await processMdx(await main.content(), locale);
+const { default: Content } = await getMdxContent(await main.content(), locale);
 
 const formatter = getFormatter(locale);
 ---
@@ -55,10 +56,7 @@ const formatter = getFormatter(locale);
 					class="aspect-video size-full object-cover md:aspect-auto"
 					loading="eager"
 					sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 100vw"
-					src={getImageImport(
-						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-						hero.images.at(0)!,
-					)}
+					src={getImageImport(hero.images.at(0)!)}
 					widths={[480, 768]}
 				/>
 			</div>
@@ -84,7 +82,7 @@ const formatter = getFormatter(locale);
 								return (
 									<li>
 										<article class="grid gap-y-2">
-											<div class="relative mb-2 h-48 overflow-hidden rounded-md bg-brand-brown">
+											<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
 												<Link href={href}>
 													<span class="sr-only">{event.entry.title}</span>
 													<Image

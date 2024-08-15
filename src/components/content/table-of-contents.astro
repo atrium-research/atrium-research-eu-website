@@ -1,7 +1,7 @@
 ---
 import TableOfContentsLevel from "@/components/content/table-of-contents-level.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
-import type { Toc } from "@/lib/content/table-of-contents";
+import type { Toc } from "@/lib/content/with-table-of-contents";
 import { generateUniqueId } from "@/lib/generate-unique-id";
 import { createI18n } from "@/lib/i18n";
 
@@ -20,7 +20,7 @@ const id = generateUniqueId();
 {
 	Array.isArray(tableOfContents) && tableOfContents.length > 0 ? (
 		<nav
-			aria-label={title != null ? undefined : t("TableOfContents.tableOfContents")}
+			aria-label={title != null ? undefined : t("TableOfContents.table-of-contents")}
 			aria-labelledby={title != null ? id : undefined}
 		>
 			{title != null ? <h2 id={id}>{title}</h2> : null}

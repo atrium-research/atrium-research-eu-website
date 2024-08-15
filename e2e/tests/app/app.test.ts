@@ -3,7 +3,6 @@ import { createUrl } from "@acdh-oeaw/lib";
 import { defaultLocale, locales } from "@/config/i18n.config";
 import { expect, test } from "~/e2e/lib/test";
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const baseUrl = process.env.PUBLIC_APP_BASE_URL!;
 
 test.describe("app", () => {
@@ -74,9 +73,9 @@ test.describe("app", () => {
 
 		expect(body.toString()).toEqual(
 			JSON.stringify({
-				name: i18n.t("metadata.title"),
-				short_name: i18n.t("metadata.shortTitle"),
-				description: i18n.t("metadata.description"),
+				name: i18n.t("metadata.manifest.name"),
+				short_name: i18n.t("metadata.manifest.short-name"),
+				description: i18n.t("metadata.manifest.description"),
 				icons: [
 					{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
 					{ src: "/icon-maskable.svg", sizes: "any", type: "image/svg+xml", purpose: "maskable" },

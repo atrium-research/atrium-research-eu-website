@@ -1,0 +1,96 @@
+---
+import { groupBy } from "@acdh-oeaw/lib";
+import { Image } from "astro:assets";
+
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import PageTitle from "@/components/page-title.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { createReader } from "@/lib/content/create-reader";
+import { getMdxContent } from "@/lib/content/get-mdx-content";
+import { getImageImport } from "@/lib/get-image-import";
+
+const reader = createReader();
+const page = await reader.collections.pages.readOrThrow("partners");
+const partners = await reader.collections.partners.all();
+
+const groupedPartners = groupBy(partners, (partner) => partner.entry.kind);
+const sortedPartners = {
+	"Research infrastructures": groupedPartners["research-infrastructure"],
+	Beneficiaries: groupedPartners.beneficiary,
+	"Affiliated Entities": groupedPartners.affiliated,
+};
+
+const documentTitle = page.title;
+const { title, image } = page;
+const { default: Content } = await getMdxContent(await page.content(), locale);
+
+/** Custom sorting for research infrastructures. */
+sortedPartners["Research infrastructures"].sort((a, z) => {
+	if (a.slug === "dariah-eu") return -1;
+	if (z.slug === "dariah-eu") return 1;
+
+	if (a.slug === "ariadne") return -1;
+	if (z.slug === "ariadne") return 1;
+
+	if (a.slug === "clarin") return -1;
+	if (z.slug === "clarin") return 1;
+
+	if (a.slug === "operas") return -1;
+	if (z.slug === "operas") return 1;
+
+	return 0;
+});
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent>
+		<div class="relative h-56">
+			<Image
+				alt=""
+				class="absolute inset-0 size-full object-cover"
+				loading="eager"
+				src={getImageImport(image)}
+			/>
+		</div>
+		<PageSection class="my-12">
+			<PageTitle>{title}</PageTitle>
+			<div class="prose">
+				<Content />
+			</div>
+			<div class="grid gap-y-16">
+				{
+					Object.entries(sortedPartners).map(([kind, partners]) => {
+						return (
+							<div class="grid gap-y-8">
+								<h2 class="text-xl font-semibold">{kind}</h2>
+								<ul class="grid gap-x-4 gap-y-8 grid-fluid-cols-56" role="list">
+									{partners.map((partner) => {
+										return (
+											<li>
+												<articlce>
+													<a
+														class="relative block h-36 rounded-lg border p-4 shadow-md"
+														href={partner.entry.website}
+													>
+														<span class="sr-only">{partner.entry.name}</span>
+														<Image
+															alt=""
+															class="absolute inset-0 size-full object-contain p-1"
+															src={getImageImport(partner.entry.image)}
+														/>
+													</a>
+												</articlce>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
+						);
+					})
+				}
+			</div>
+		</PageSection>
+	</MainContent>
+</PageLayout>

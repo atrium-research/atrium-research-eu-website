@@ -1,91 +1,98 @@
 {
-  "links": [
-    {
-      "discriminant": "menu",
-      "value": {
-        "label": "About",
-        "links": [
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "Objectives",
-              "reference": "objectives"
-            }
-          },
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "Partners",
-              "reference": "partners"
-            }
-          },
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "Governance",
-              "reference": "governance"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "discriminant": "menu",
-      "value": {
-        "label": "Resources",
-        "links": [
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "Transnational Access",
-              "reference": "travel-grants"
-            }
-          },
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "Communications Kit",
-              "reference": "communications-kit"
-            }
-          },
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "Deliverables",
-              "reference": "deliverables"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "discriminant": "menu",
-      "value": {
-        "label": "News",
-        "links": [
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "News",
-              "reference": "news"
-            }
-          },
-          {
-            "discriminant": "page",
-            "value": {
-              "label": "Newsletters",
-              "reference": "newsletters"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "discriminant": "page",
-      "value": {
-        "label": "Events",
-        "reference": "events"
-      }
-    }
-  ]
+	"links": [
+		{
+			"discriminant": "menu",
+			"value": {
+				"label": "About",
+				"links": [
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Objectives",
+							"id": "objectives"
+						}
+					},
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Partners",
+							"id": "partners"
+						}
+					},
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Governance",
+							"id": "governance"
+						}
+					}
+				]
+			}
+		},
+		{
+			"discriminant": "menu",
+			"value": {
+				"label": "Resources",
+				"links": [
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Transnational Access",
+							"id": "travel-grants"
+						}
+					},
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Communications Kit",
+							"id": "communications-kit"
+						}
+					},
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Deliverables",
+							"id": "deliverables"
+						}
+					},
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Service catalogue",
+							"id": "services"
+						}
+					}
+				]
+			}
+		},
+		{
+			"discriminant": "menu",
+			"value": {
+				"label": "News",
+				"links": [
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "News",
+							"id": "news"
+						}
+					},
+					{
+						"discriminant": "page",
+						"value": {
+							"label": "Newsletters",
+							"id": "newsletters"
+						}
+					}
+				]
+			}
+		},
+		{
+			"discriminant": "page",
+			"value": {
+				"label": "Events",
+				"id": "events"
+			}
+		}
+	]
 }

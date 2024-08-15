@@ -1,6 +1,13 @@
 {
 	"title": "ATRIUM",
-	"shortTitle": "ATRIUM",
-	"description": "Facilitating access to digital research infrastructures and advancing frontier knowledge in the arts and humanities — across disciplines, languages and media.",
-	"twitter": "@ATRIUM_EU"
+	"description": "Facilitating access to digital research infrastructures and advancing frontier knowledge in the arts and humanities - across disciplines, languages and media.",
+	"twitter": {
+		"creator": "@ATRIUM_EU",
+		"site": "@ATRIUM_EU"
+	},
+	"manifest": {
+		"name": "ATRIUM",
+		"short-name": "ATRIUM",
+		"description": "Facilitating access to digital research infrastructures and advancing frontier knowledge in the arts and humanities - across disciplines, languages and media."
+	}
 }

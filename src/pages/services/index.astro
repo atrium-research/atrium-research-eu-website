@@ -8,24 +8,89 @@ import PageTitle from "@/components/page-title.astro";
 import { env } from "@/config/env.config";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { processMdx } from "@/lib/content/mdx";
-import { reader } from "@/lib/content/reader";
+import { createReader } from "@/lib/content/create-reader";
+import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
 
-const page = await reader().collections.pages.readOrThrow("services");
+const reader = createReader();
+const page = await reader.collections.pages.readOrThrow("services");
 
 const documentTitle = page.title;
 const { title, image } = page;
-const { default: Content } = await processMdx(await page.content(), locale);
+const { default: Content } = await getMdxContent(await page.content(), locale);
 
 const url = createUrl({
 	baseUrl: env.PUBLIC_SSHOC_API_BASE_URL,
-	pathname: "/search",
+	pathname: "/api/item-search",
 	searchParams: createUrlSearchParams({
 		"f.keyword": "ATRIUM catalogue",
+		order: "label",
+		perpage: 100,
 	}),
 });
-const data = await request(url, { responseType: "json" }).catch(() => ({}));
+
+type IsoDateString = string;
+
+interface ItemSearchResponse {
+	hits: number;
+	count: number;
+	page: number;
+	perpage: number;
+	pages: number;
+	order: Array<"label" | "score">;
+	items: Array<{
+		id: number;
+		persistentId: string;
+		category: "dataset" | "publication" | "tool-or-service" | "training-material" | "workflow";
+		label: string;
+		lastInfoUpdate: IsoDateString;
+		description: string;
+		contributors: Array<unknown>;
+		properties: Array<unknown>;
+		status: string;
+		owner: string;
+	}>;
+	categories: {
+		"tool-or-service": {
+			count: number;
+			checked: boolean;
+			label: "Tools & Services";
+		};
+		"training-material": {
+			count: number;
+			checked: boolean;
+			label: "Training Materials";
+		};
+		publication: {
+			count: number;
+			checked: boolean;
+			label: "Publications";
+		};
+		dataset: {
+			count: number;
+			checked: boolean;
+			label: "Datasets";
+		};
+		workflow: {
+			count: number;
+			checked: boolean;
+			label: "Workflows";
+		};
+		step: {
+			count: number;
+			checked: boolean;
+			label: "Steps";
+		};
+	};
+	facets: {
+		activity: Record<string, { count: number; checked: boolean }>;
+		source: Record<string, { count: number; checked: boolean }>;
+		keyword: Record<string, { count: number; checked: boolean }>;
+		language: Record<string, { count: number; checked: boolean }>;
+	};
+}
+
+const data = (await request(url, { responseType: "json" })) as ItemSearchResponse;
 ---
 
 <PageLayout locale={locale} title={documentTitle}>
@@ -44,7 +109,20 @@ const data = await request(url, { responseType: "json" }).catch(() => ({}));
 				<Content />
 			</div>
 			<div>
-				<pre>{JSON.stringify(data, null, 2)}</pre>
+				<h2>Results ({data.hits})</h2>
+				<ul role="list">
+					{
+						data.items.map((item) => {
+							return (
+								<li>
+									<article>
+										<h3>{item.label}</h3>
+									</article>
+								</li>
+							);
+						})
+					}
+				</ul>
 			</div>
 		</PageSection>
 	</MainContent>
