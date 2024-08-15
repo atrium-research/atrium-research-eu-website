@@ -1,5 +1,5 @@
 ---
-import { createUrl } from "@acdh-oeaw/lib";
+import { createUrl, createUrlSearchParams } from "@acdh-oeaw/lib";
 
 interface Props {
 	caption?: string;
@@ -8,12 +8,13 @@ interface Props {
 	startTime?: number;
 }
 
-const { caption, id } = Astro.props;
+const { caption, id, startTime } = Astro.props;
 
 const href = String(
 	createUrl({
 		baseUrl: "https://www.youtube-nocookie.com",
 		pathname: `/embed/${id}`,
+		searchParams: startTime ? createUrlSearchParams({ t: startTime }) : undefined,
 	}),
 );
 ---
