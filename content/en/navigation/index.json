@@ -73,7 +73,7 @@
 					{
 						"discriminant": "page",
 						"value": {
-							"label": "News",
+							"label": "Latest news",
 							"id": "news"
 						}
 					},
