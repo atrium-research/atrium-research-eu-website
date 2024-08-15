@@ -1,3 +1,18 @@
 :root {
-	--font-body: "Inter Variable";
+	--font-body: "Acumin Variable";
+	--font-heading: "Barlow";
+}
+
+@font-face {
+	font-family: "Acumin Variable";
+	src: url("/assets/fonts/acumin-variable-concept.otf") format("opentype");
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-heading, ui-sans-serif), system-ui, sans-serif;
 }

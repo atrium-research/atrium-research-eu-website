@@ -35,6 +35,9 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.0.20
         version: 5.0.20
+      '@fontsource/barlow':
+        specifier: ^5.0.13
+        version: 5.0.13
       '@iconify-json/lucide':
         specifier: ^1.1.206
         version: 1.1.206
@@ -880,6 +883,9 @@ packages:
 
   '@fontsource-variable/inter@5.0.20':
     resolution: {integrity: sha512-dhzG4Zls/tIrf8h0FhTNi8jT/uFwNhdTY2vKe6DYqoXDYOfEcTVZDyh1hKml1rlLT44Y7OoKoGz8w7czDW7twQ==}
+
+  '@fontsource/barlow@5.0.13':
+    resolution: {integrity: sha512-Jk3/s/0zHPyc7zd7trOskjhVpTGn8k9tlgAUOnfeB7V8xw+E+UGcDRSYw09ahLHrFnjbjrhcJDnXhpEk6b0QlA==}
 
   '@formatjs/ecma402-abstract@1.18.2':
     resolution: {integrity: sha512-+QoPW4csYALsQIl8GbN14igZzDbuwzcpWrku9nyMXlaqAlwRBgl5V+p0vWMGFqHOw37czNXaP/lEk4wbLgcmtA==}
@@ -6355,6 +6361,8 @@ snapshots:
   '@floating-ui/utils@0.2.7': {}
 
   '@fontsource-variable/inter@5.0.20': {}
+
+  '@fontsource/barlow@5.0.13': {}
 
   '@formatjs/ecma402-abstract@1.18.2':
     dependencies:
