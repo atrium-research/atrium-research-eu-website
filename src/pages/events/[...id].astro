@@ -8,6 +8,7 @@ import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
 import { createReader } from "@/lib/content/create-reader";
 import { getMdxContent } from "@/lib/content/get-mdx-content";
+import { getFormatter } from "@/lib/formatter";
 import { getImageImport } from "@/lib/get-image-import";
 
 export async function getStaticPaths() {
@@ -25,8 +26,10 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 
 const documentTitle = page.title;
-const { title, image } = page;
+const { title, image, date: startDate, endDate, location } = page;
 const { default: Content } = await getMdxContent(await page.content(), locale);
+
+const formatter = getFormatter(locale);
 ---
 
 <PageLayout locale={locale} title={documentTitle}>
@@ -41,6 +44,22 @@ const { default: Content } = await getMdxContent(await page.content(), locale);
 		</div>
 		<PageSection class="my-4 md:my-12">
 			<PageTitle>{title}</PageTitle>
+			<dl class="grid gap-y-2">
+				<div>
+					<dt class="text-xs font-medium uppercase text-neutral-600">Date</dt>
+					<dd>
+						{
+							endDate
+								? formatter.date.formatRange(new Date(startDate), new Date(endDate))
+								: formatter.date.format(new Date(startDate))
+						}
+					</dd>
+				</div>
+				<div>
+					<dt class="text-xs font-medium uppercase text-neutral-600">Location</dt>
+					<dd>{location}</dd>
+				</div>
+			</dl>
 			<div class="prose">
 				<Content />
 			</div>
