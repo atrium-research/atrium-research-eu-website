@@ -9,3 +9,11 @@ const { id } = Astro.props;
 ---
 
 <StaticTweet id={id} />
+
+<style is:global>
+	.astro-tweet-theme {
+		--tweet-body-font-size: 1rem;
+		--tweet-container-margin: 0;
+		--tweet-font-family: system-ui, sans-serif;
+	}
+</style>
