@@ -1,16 +1,15 @@
 ---
-import { createUrl, createUrlSearchParams, request } from "@acdh-oeaw/lib";
 import { Image } from "astro:assets";
 
 import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
-import { env } from "@/config/env.config";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
 import { createReader } from "@/lib/content/create-reader";
 import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
+import { createSshOpenMarketplaceItemUrl, getSshOpenMarketplaceItems } from "@/lib/sshoc";
 
 const reader = createReader();
 const page = await reader.collections.pages.readOrThrow("services");
@@ -19,78 +18,7 @@ const documentTitle = page.title;
 const { title, image } = page;
 const { default: Content } = await getMdxContent(await page.content(), locale);
 
-const url = createUrl({
-	baseUrl: env.PUBLIC_SSHOC_API_BASE_URL,
-	pathname: "/api/item-search",
-	searchParams: createUrlSearchParams({
-		"f.keyword": "ATRIUM catalogue",
-		order: "label",
-		perpage: 100,
-	}),
-});
-
-type IsoDateString = string;
-
-interface ItemSearchResponse {
-	hits: number;
-	count: number;
-	page: number;
-	perpage: number;
-	pages: number;
-	order: Array<"label" | "score">;
-	items: Array<{
-		id: number;
-		persistentId: string;
-		category: "dataset" | "publication" | "tool-or-service" | "training-material" | "workflow";
-		label: string;
-		lastInfoUpdate: IsoDateString;
-		description: string;
-		contributors: Array<unknown>;
-		properties: Array<unknown>;
-		status: string;
-		owner: string;
-	}>;
-	categories: {
-		"tool-or-service": {
-			count: number;
-			checked: boolean;
-			label: "Tools & Services";
-		};
-		"training-material": {
-			count: number;
-			checked: boolean;
-			label: "Training Materials";
-		};
-		publication: {
-			count: number;
-			checked: boolean;
-			label: "Publications";
-		};
-		dataset: {
-			count: number;
-			checked: boolean;
-			label: "Datasets";
-		};
-		workflow: {
-			count: number;
-			checked: boolean;
-			label: "Workflows";
-		};
-		step: {
-			count: number;
-			checked: boolean;
-			label: "Steps";
-		};
-	};
-	facets: {
-		activity: Record<string, { count: number; checked: boolean }>;
-		source: Record<string, { count: number; checked: boolean }>;
-		keyword: Record<string, { count: number; checked: boolean }>;
-		language: Record<string, { count: number; checked: boolean }>;
-	};
-}
-
-const data = (await request(url, { responseType: "json" })) as ItemSearchResponse;
+const { items, total } = await getSshOpenMarketplaceItems();
 ---
 
 <PageLayout locale={locale} title={documentTitle}>
@@ -108,15 +36,26 @@ const data = (await request(url, { responseType: "json" })) as ItemSearchRespons
 			<div class="prose">
 				<Content />
 			</div>
-			<div>
-				<h2>Results ({data.hits})</h2>
-				<ul role="list">
+			<div class="grid gap-y-8">
+				<h2 class="text-2xl font-semibold text-brand">Results ({total})</h2>
+				<ul class="grid gap-y-12" role="list">
 					{
-						data.items.map((item) => {
+						items.map(async (item) => {
+							const { default: Content } = await getMdxContent(item.description, locale);
+
 							return (
 								<li>
-									<article>
-										<h3>{item.label}</h3>
+									<article class="prose">
+										<h3 class="text-lg font-semibold text-brand">
+											<a
+												href={String(
+													createSshOpenMarketplaceItemUrl(item.category, item.persistentId),
+												)}
+											>
+												{item.label}
+											</a>
+										</h3>
+										<Content />
 									</article>
 								</li>
 							);
