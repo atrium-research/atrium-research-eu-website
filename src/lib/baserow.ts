@@ -37,9 +37,3 @@ export async function createNewsletterSubscription(subscription: Subscription) {
 
 	return data;
 }
-
-export function isNewsletterSubscriptionEnabled() {
-	return (
-		env.BASEROW_API_BASE_URL != null && env.BASEROW_API_KEY != null && env.BASEROW_TABLE_ID != null
-	);
-}

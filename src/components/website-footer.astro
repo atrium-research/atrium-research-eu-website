@@ -6,7 +6,6 @@ import TextInputField from "@/components/form/text-input-field.astro";
 import Link from "@/components/link.astro";
 import PageSection from "@/components/page-section.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
-import { isNewsletterSubscriptionEnabled } from "@/lib/baserow";
 import { createReader } from "@/lib/content/create-reader";
 import { createI18n } from "@/lib/i18n";
 import logo from "~/public/assets/images/atrium-logo-with-text.png";
@@ -82,7 +81,6 @@ const submit = t("WebsiteFooter.form.submit");
 							<div class="mt-2 flex justify-end">
 								<button
 									class="rounded-md bg-sunbleached px-4 py-2 font-heading font-semibold text-granite transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-50"
-									disabled={!isNewsletterSubscriptionEnabled()}
 									type="submit"
 								>
 									{submit}
