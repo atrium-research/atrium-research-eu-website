@@ -6,6 +6,7 @@
 @font-face {
 	font-family: "Acumin Variable";
 	src: url("/assets/fonts/acumin-variable-concept.otf") format("opentype");
+	font-display: swap;
 }
 
 h1,

@@ -6,12 +6,6 @@ import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
 import { createI18n } from "@/lib/i18n";
 
-/**
- * A prerendered 404 page works locally, but when deployed on acdh-ch servers,
- * we get a content-encoding error.
- */
-export const prerender = false;
-
 const { t } = await createI18n(locale);
 
 const documentTitle = t("NotFoundPage.meta.title");

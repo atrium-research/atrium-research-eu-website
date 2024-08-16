@@ -2,15 +2,17 @@
 import Link from "@/components/link.astro";
 
 interface Props {
+	"aria-label"?: string;
 	href: string;
 	label: string;
 }
 
-const { href, label } = Astro.props;
+const { "aria-label": ariaLabel, href, label } = Astro.props;
 ---
 
 <div class="flex justify-center">
 	<Link
+		aria-label={ariaLabel}
 		class="my-4 inline-flex rounded-md bg-red-clay px-6 py-2 font-heading font-semibold text-white no-underline transition hover:bg-red-clay-intent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-granite"
 		href={href}
 	>

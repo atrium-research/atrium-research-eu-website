@@ -37,7 +37,7 @@ const submit = t("WebsiteFooter.form.submit");
 			<div class="grid gap-x-0.5 gap-y-8 lg:grid-cols-3 lg:bg-sunbleached">
 				<div class="grid place-items-center bg-granite px-8">
 					<div>
-						<Image alt="" class="h-16 w-auto" src={logo} />
+						<Image alt="" class="h-16 w-auto" sizes="280px" src={logo} widths={[280]} />
 					</div>
 				</div>
 				<div class="grid place-items-center bg-granite px-8">
@@ -127,7 +127,7 @@ const submit = t("WebsiteFooter.form.submit");
 				</div>
 				<div class="shrink-0">
 					<span class="sr-only">Funded by the European Union</span>
-					<Image alt="" class="h-16 w-auto" src={eu} />
+					<Image alt="" class="h-16 w-auto" src={eu} sizes="320px" widths={[320]} />
 				</div>
 			</div>
 		</PageSection>

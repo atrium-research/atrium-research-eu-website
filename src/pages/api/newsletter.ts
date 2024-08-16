@@ -17,6 +17,7 @@ const NewsletterFormSchema = v.object({
 
 export async function POST(context: APIContext) {
 	const accept = context.request.headers.get("accept");
+	console.log("[ACCEPT]", accept);
 	// const referer = context.request.headers.get("referer");
 	const formData = await context.request.formData();
 	const result = await v.safeParseAsync(NewsletterFormSchema, getFormDataValues(formData));
