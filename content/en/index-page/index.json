@@ -20,14 +20,14 @@
       },
       {
         "item": {
-          "discriminant": "events",
-          "value": "clarin-annual-conference-2024"
+          "discriminant": "tweets",
+          "value": "1819026756445077585"
         }
       },
       {
         "item": {
-          "discriminant": "tweets",
-          "value": "1819026756445077585"
+          "discriminant": "news",
+          "value": "dariah-launches-new-diamond-open-access-journal-transformations"
         }
       }
     ]
