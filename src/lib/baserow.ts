@@ -1,4 +1,4 @@
-import { assert, createUrl, createUrlSearchParams, request } from "@acdh-oeaw/lib";
+import { assert, createUrl, createUrlSearchParams, isoDate, request } from "@acdh-oeaw/lib";
 
 import { env } from "@/config/env.config";
 
@@ -23,16 +23,17 @@ export async function createNewsletterSubscription(subscription: Subscription) {
 	const data = await request(url, {
 		method: "post",
 		headers: {
-			Authorization: `Token ${env.BASEROW_API_KEY}`,
+			authorization: `Token ${env.BASEROW_API_KEY}`,
 		},
 		body: {
 			"Last name": subscription.lastName,
 			"First name": subscription.firstName,
 			"Email address": subscription.email,
 			Institution: subscription.institution,
-			Date: new Date().toISOString(),
+			Date: isoDate(new Date()),
 			Subscribed: false,
 		},
+		responseType: "json",
 	});
 
 	return data;
