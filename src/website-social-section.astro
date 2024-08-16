@@ -1,0 +1,153 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+import TextInputField from "@/components/form/text-input-field.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import { createReader } from "@/lib/content/create-reader";
+import { createI18n } from "@/lib/i18n";
+import logo from "~/public/assets/images/atrium-logo-with-text.png";
+
+const reader = createReader();
+const socialMedia = await reader.singletons.socialMedia.readOrThrow({
+	resolveLinkedFiles: true,
+});
+
+const socialMediaConfig = {
+	linkedin: { label: "LinkedIn", icon: "simple-icons:linkedin" },
+	twitter: { label: "Twitter", icon: "simple-icons:x" },
+	youtube: { label: "YouTube", icon: "simple-icons:youtube" },
+};
+
+const { t } = await createI18n(locale);
+
+const email = t("WebsiteFooter.form.email");
+const firstName = t("WebsiteFooter.form.first-name");
+const lastName = t("WebsiteFooter.form.last-name");
+const institution = t("WebsiteFooter.form.institution");
+const submit = t("WebsiteFooter.form.submit");
+const honeypot = t("WebsiteFooter.form.honeypot");
+---
+
+<div class="bg-granite py-12 text-sunbleached">
+	<div>
+		<div class="grid gap-x-0.5 gap-y-8 lg:grid-cols-3 lg:bg-sunbleached">
+			<div class="grid place-items-center bg-granite px-8">
+				<div>
+					<Image alt="" class="h-16 w-auto" sizes="280px" src={logo} widths={[280]} />
+				</div>
+			</div>
+			<div class="grid place-items-center bg-granite px-8">
+				<div class="grid gap-y-4">
+					<div class="flex justify-center gap-x-2">
+						{
+							socialMedia.links.map((link) => {
+								const config = socialMediaConfig[link.kind];
+
+								return (
+									<a
+										class="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+										href={link.href}
+									>
+										<div class="grid size-10 place-content-center rounded-full bg-sunbleached p-2 text-granite transition hover:opacity-90">
+											<Icon aria-hidden="true" class="size-6" name={config.icon} />
+										</div>
+										<span class="sr-only">{config.label}</span>
+									</a>
+								);
+							})
+						}
+					</div>
+					<a
+						class="flex items-center gap-x-2 rounded-md px-1 py-0.5 transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+						href={`mailto:${socialMedia.email}`}
+					>
+						<Icon aria-hidden="true" class="h-6" name="lucide:mail" />
+						{socialMedia.email.replace("@", "[a]")}
+					</a>
+				</div>
+			</div>
+			<div class="grid bg-granite px-8 lg:place-items-center">
+				<div class="grid gap-y-4">
+					<h2 class="text-lg font-semibold">Subscribe to our mailing list and newsletter</h2>
+					<form action="/api/newsletter" class="grid gap-y-2" method="POST" name="newsletter">
+						<TextInputField label={email} name="email" required type="email" />
+						<TextInputField label={firstName} name="firstName" />
+						<TextInputField label={lastName} name="lastName" required />
+						<TextInputField label={institution} name="institution" />
+						<div style="display: none;">
+							<TextInputField label={honeypot} name="url" />
+						</div>
+						<div class="mt-2 flex justify-end">
+							<button
+								class="rounded-md bg-sunbleached px-4 py-2 font-heading font-semibold text-granite transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-50"
+								type="submit"
+							>
+								{submit}
+							</button>
+						</div>
+						<div
+							aria-live="polite"
+							aria-atomic="true"
+							data-state="initial"
+							class="group flex items-center gap-x-2 data-[state=initial]:sr-only data-[state=error]:text-negative data-[state=success]:text-positive"
+						>
+							<Icon
+								aria-hidden="true"
+								class="hidden size-4 group-data-[state=error]:block"
+								name="lucide:triangle-alert"
+							/>
+							<Icon
+								aria-hidden="true"
+								class="hidden size-4 group-data-[state=success]:block"
+								name="lucide:check"
+							/>
+							<div data-form-status></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	import { assert } from "@acdh-oeaw/lib";
+
+	document.addEventListener("DOMContentLoaded", () => {
+		const form = document.querySelector<HTMLFormElement>("form[name=newsletter]");
+		assert(form);
+
+		const status = form.querySelector<HTMLDivElement>("[aria-live]");
+		assert(status);
+
+		const statusText = form.querySelector<HTMLDivElement>("[data-form-status]");
+		assert(statusText);
+
+		form.addEventListener("submit", async (event) => {
+			event.preventDefault();
+
+			const formElement = event.currentTarget as HTMLFormElement;
+			const formData = new FormData(formElement);
+
+			try {
+				const response = await fetch("/api/newsletter", {
+					body: formData,
+					headers: { accept: "application/json" },
+					method: "POST",
+				});
+
+				const data = await response.json();
+
+				if (!response.ok) throw new Error(data.message);
+
+				status.dataset.state = "success";
+				statusText.textContent = data.message;
+				formElement.reset();
+			} catch (error) {
+				status.dataset.state = "error";
+				statusText.textContent = error instanceof Error ? error.message : String(error);
+			}
+		});
+	});
+</script>

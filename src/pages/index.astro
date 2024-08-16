@@ -36,7 +36,9 @@ const formatter = getFormatter(locale);
 					alt=""
 					class="absolute inset-0 size-full object-cover opacity-15"
 					loading="eager"
+					sizes="(max-width: 480px) 480px, 100vw"
 					src={logo}
+					widths={[480, 768]}
 				/>
 				<div class="relative p-8 md:py-24">
 					<h1 class="sr-only">{hero.title}</h1>

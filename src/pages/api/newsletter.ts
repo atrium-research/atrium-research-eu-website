@@ -13,11 +13,12 @@ const NewsletterFormSchema = v.object({
 	lastName: v.pipe(v.string(), v.nonEmpty()),
 	firstName: v.pipe(v.string(), v.nonEmpty()),
 	institution: v.optional(v.string()),
+	/** Honeypot field. */
+	url: v.optional(v.string()),
 });
 
 export async function POST(context: APIContext) {
 	const accept = context.request.headers.get("accept");
-	console.log("[ACCEPT]", accept);
 	// const referer = context.request.headers.get("referer");
 	const formData = await context.request.formData();
 	const result = await v.safeParseAsync(NewsletterFormSchema, getFormDataValues(formData));
@@ -25,6 +26,10 @@ export async function POST(context: APIContext) {
 	const { t } = await createI18n(locale);
 
 	if (!result.success) {
+		return Response.json({ message: t("actions.newsletter.invalid-input") }, { status: 400 });
+	}
+
+	if (result.output.url != null) {
 		return Response.json({ message: t("actions.newsletter.invalid-input") }, { status: 400 });
 	}
 

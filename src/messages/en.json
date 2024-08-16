@@ -44,7 +44,8 @@
 			"first-name": "First name",
 			"last-name": "Last name",
 			"institution": "Institution",
-			"submit": "Submit"
+			"submit": "Submit",
+			"honeypot": "Please do not fill this out"
 		},
 		"links": {
 			"imprint": "Imprint"

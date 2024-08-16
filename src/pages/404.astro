@@ -3,8 +3,13 @@ import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
-import PageLayout from "@/layouts/page-layout.astro";
+import ErrorPageLayout from "@/layouts/error-page-layout.astro";
 import { createI18n } from "@/lib/i18n";
+
+/**
+ * Prerenderer page works locally, but not on acdh-ch deployment.
+ */
+export const prerender = false;
 
 const { t } = await createI18n(locale);
 
@@ -12,10 +17,10 @@ const documentTitle = t("NotFoundPage.meta.title");
 const title = t("NotFoundPage.title");
 ---
 
-<PageLayout locale={locale} robots="noindex" title={documentTitle}>
+<ErrorPageLayout locale={locale} title={documentTitle}>
 	<MainContent search="exclude">
 		<PageSection class="grid min-h-full place-items-center">
 			<PageTitle>{title}</PageTitle>
 		</PageSection>
 	</MainContent>
-</PageLayout>
+</ErrorPageLayout>
