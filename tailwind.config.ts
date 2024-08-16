@@ -24,6 +24,8 @@ const config: Config = {
 					bg: "#e8dac8",
 					brown: "#3a3736",
 				},
+				positive: "#f5ede3",
+				negative: "#f5ede3",
 				/** @see https://drive.google.com/file/d/16XtcoYy2o6m58xbWXo8Ol1DW-7ehnAfx/view */
 				"red-clay": "#a6503e",
 				sunbleached: "#e8dac8",

@@ -28,6 +28,7 @@ export default defineConfig({
 			/** @see https://www.astroicon.dev/reference/configuration/#include */
 			include: {
 				lucide: [
+					"check",
 					"chevron-down",
 					// "linkedin",
 					"mail",
@@ -35,6 +36,7 @@ export default defineConfig({
 					"message-circle",
 					"search",
 					"square-arrow-left",
+					"triangle-alert",
 					// "twitter",
 					"x",
 					// "youtube",

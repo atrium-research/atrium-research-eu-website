@@ -22,3 +22,12 @@ section .astro-tweet-theme {
 	--tweet-container-margin: 0;
 	--tweet-font-family: system-ui, sans-serif;
 }
+
+:focus {
+	outline-color: transparent;
+}
+
+:focus-visible {
+	outline: 2px solid theme("colors.granite");
+	outline-offset: 2px;
+}

@@ -52,7 +52,7 @@ const formatter = getFormatter(locale);
 								<li>
 									<article class="grid gap-y-2">
 										<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
-											<Link href={href}>
+											<Link aria-hidden="true" href={href} tabindex={-1}>
 												<span class="sr-only">{event.entry.title}</span>
 												<Image
 													alt=""

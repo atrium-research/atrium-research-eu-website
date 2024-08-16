@@ -1,4 +1,10 @@
 {
+	"ErrorPage": {
+		"meta": {
+			"title": "Error"
+		},
+		"title": "Internal server error"
+	},
 	"ImprintPage": {
 		"meta": {
 			"title": "Imprint"
@@ -35,12 +41,7 @@
 			"first-name": "First name",
 			"last-name": "Last name",
 			"institution": "Institution",
-			"submit": "Submit",
-			"status": {
-				"invalid-input": "Invalid input.",
-				"success": "Successfully subscribed to newsletter.",
-				"unknown-error": "Failed to subscribe to newsletter."
-			}
+			"submit": "Submit"
 		},
 		"links": {
 			"imprint": "Imprint"
@@ -51,6 +52,13 @@
 			"home": "Home"
 		},
 		"navigation-primary": "Primary"
+	},
+	"actions": {
+		"newsletter": {
+			"invalid-input": "Invalid input.",
+			"success": "Successfully subscribed to newsletter.",
+			"unknown-error": "Failed to subscribe to newsletter."
+		}
 	},
 	"mdx": {
 		"footnote-back-label": "Back to reference {reference}",

@@ -1,14 +1,12 @@
 ---
-import { getFormDataValues, log } from "@acdh-oeaw/lib";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import * as v from "valibot";
 
 import TextInputField from "@/components/form/text-input-field.astro";
 import Link from "@/components/link.astro";
 import PageSection from "@/components/page-section.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
-import { createNewsletterSubscription, isNewsletterSubscriptionEnabled } from "@/lib/baserow";
+import { isNewsletterSubscriptionEnabled } from "@/lib/baserow";
 import { createReader } from "@/lib/content/create-reader";
 import { createI18n } from "@/lib/i18n";
 import logo from "~/public/assets/images/atrium-logo-with-text.png";
@@ -32,42 +30,6 @@ const firstName = t("WebsiteFooter.form.first-name");
 const lastName = t("WebsiteFooter.form.last-name");
 const institution = t("WebsiteFooter.form.institution");
 const submit = t("WebsiteFooter.form.submit");
-
-let status = { kind: "initial" } as
-	| { kind: "error"; message: string }
-	| { kind: "initial" }
-	| { kind: "success"; message: string };
-
-if (Astro.request.method === "POST") {
-	try {
-		const data = await Astro.request.formData();
-
-		const formData = getFormDataValues(data);
-
-		const schema = v.object({
-			email: v.pipe(v.string(), v.email()),
-			lastName: v.pipe(v.string(), v.nonEmpty()),
-			firstName: v.pipe(v.string(), v.nonEmpty()),
-			institution: v.optional(v.string()),
-		});
-
-		const result = v.safeParse(schema, formData);
-
-		if (!result.success) {
-			status = { kind: "error", message: t("WebsiteFooter.form.status.invalid-input") };
-		} else {
-			await createNewsletterSubscription(result.output);
-
-			status = { kind: "success", message: t("WebsiteFooter.form.status.success") };
-		}
-	} catch (error) {
-		if (error instanceof Error) {
-			log.error(error.message);
-		}
-
-		status = { kind: "error", message: t("WebsiteFooter.form.status.unknown-error") };
-	}
-}
 ---
 
 <footer class="border-t">
@@ -87,7 +49,10 @@ if (Astro.request.method === "POST") {
 									const config = socialMediaConfig[link.kind];
 
 									return (
-										<a href={link.href}>
+										<a
+											class="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+											href={link.href}
+										>
 											<div class="grid size-10 place-content-center rounded-full bg-brand-bg p-2 text-brand-brown transition hover:opacity-90">
 												<Icon aria-hidden="true" class="size-6" name={config.icon} />
 											</div>
@@ -98,7 +63,7 @@ if (Astro.request.method === "POST") {
 							}
 						</div>
 						<a
-							class="flex items-center gap-x-2 transition hover:opacity-90"
+							class="flex items-center gap-x-2 rounded-md px-1 py-0.5 transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 							href={`mailto:${socialMedia.email}`}
 						>
 							<Icon aria-hidden="true" class="h-6" name="lucide:mail" />
@@ -106,18 +71,18 @@ if (Astro.request.method === "POST") {
 						</a>
 					</div>
 				</div>
-				<div class="grid place-items-center bg-brand-brown px-8">
+				<div class="grid bg-brand-brown px-8 lg:place-items-center">
 					<div class="grid gap-y-4">
 						<h2 class="text-lg font-semibold">Subscribe to our mailing list and newsletter</h2>
-						<form class="grid gap-y-2" data-astro-reload method="post">
+						<form action="/api/newsletter" class="grid gap-y-2" method="POST" name="newsletter">
 							<TextInputField label={email} name="email" required type="email" />
 							<TextInputField label={firstName} name="firstName" />
 							<TextInputField label={lastName} name="lastName" required />
 							<TextInputField label={institution} name="institution" />
 							<div class="mt-2 flex justify-end">
 								<button
-									class="rounded-md bg-brand-bg px-4 py-2 font-heading font-semibold text-brand-brown transition hover:opacity-90"
-									disabled={isNewsletterSubscriptionEnabled()}
+									class="rounded-md bg-brand-bg px-4 py-2 font-heading font-semibold text-brand-brown transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-50"
+									disabled={!isNewsletterSubscriptionEnabled()}
 									type="submit"
 								>
 									{submit}
@@ -126,13 +91,20 @@ if (Astro.request.method === "POST") {
 							<div
 								aria-live="polite"
 								aria-atomic="true"
-								class={status.kind === "error"
-									? "text-negative"
-									: status.kind === "success"
-										? "text-positive"
-										: undefined}
+								data-state="initial"
+								class="group flex items-center gap-x-2 data-[state=initial]:sr-only data-[state=error]:text-negative data-[state=success]:text-positive"
 							>
-								{status.kind !== "initial" ? status.message : null}
+								<Icon
+									aria-hidden="true"
+									class="hidden size-4 group-data-[state=error]:block"
+									name="lucide:triangle-alert"
+								/>
+								<Icon
+									aria-hidden="true"
+									class="hidden size-4 group-data-[state=success]:block"
+									name="lucide:check"
+								/>
+								<div data-form-status></div>
 							</div>
 						</form>
 					</div>
@@ -163,3 +135,42 @@ if (Astro.request.method === "POST") {
 		</PageSection>
 	</div>
 </footer>
+
+<script>
+	import { assert } from "@acdh-oeaw/lib";
+
+	const form = document.querySelector<HTMLFormElement>("form[name=newsletter]");
+	assert(form);
+
+	const status = form.querySelector<HTMLDivElement>("[aria-live]");
+	assert(status);
+
+	const statusText = form.querySelector<HTMLDivElement>("[data-form-status]");
+	assert(statusText);
+
+	form.addEventListener("submit", async (event) => {
+		event.preventDefault();
+
+		const formElement = event.currentTarget as HTMLFormElement;
+		const formData = new FormData(formElement);
+
+		try {
+			const response = await fetch("/api/newsletter", {
+				body: formData,
+				headers: { accept: "application/json" },
+				method: "POST",
+			});
+
+			const data = await response.json();
+
+			if (!response.ok) throw new Error(data.message);
+
+			status.dataset.state = "success";
+			statusText.textContent = data.message;
+			formElement.reset();
+		} catch (error) {
+			status.dataset.state = "error";
+			statusText.textContent = error instanceof Error ? error.message : String(error);
+		}
+	});
+</script>
