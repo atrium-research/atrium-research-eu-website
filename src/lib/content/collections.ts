@@ -69,6 +69,11 @@ export const events = createCollection((locale) => {
 				validation: { isRequired: true },
 				multiline: true,
 			}),
+			bannerImage: fields.image({
+				label: "Image",
+				// validation: { isRequired: false },
+				...createAssetPaths(assetPath),
+			}),
 			content: fields.mdx({
 				label: "Content",
 				options: {
@@ -113,6 +118,11 @@ export const news = createCollection((locale) => {
 				label: "Summary",
 				validation: { isRequired: true },
 				multiline: true,
+			}),
+			bannerImage: fields.image({
+				label: "Image",
+				// validation: { isRequired: false },
+				...createAssetPaths(assetPath),
 			}),
 			content: fields.mdx({
 				label: "Content",

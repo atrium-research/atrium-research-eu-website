@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 
 const documentTitle = page.title;
-const { title, image, date: startDate, endDate, location } = page;
+const { title, bannerImage, image, date: startDate, endDate, location } = page;
 const { default: Content } = await getMdxContent(await page.content(), locale);
 
 const formatter = getFormatter(locale);
@@ -39,7 +39,7 @@ const formatter = getFormatter(locale);
 				alt=""
 				class="absolute inset-0 size-full object-cover"
 				loading="eager"
-				src={getImageImport(image)}
+				src={getImageImport(bannerImage ?? image)}
 			/>
 		</div>
 		<PageSection class="my-4 md:my-12">
