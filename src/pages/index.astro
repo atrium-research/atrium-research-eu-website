@@ -30,7 +30,7 @@ const formatter = getFormatter(locale);
 
 <PageLayout locale={locale} title={documentTitle}>
 	<MainContent class="flex flex-col">
-		<div class="grid bg-brand-bg md:grid-cols-[4fr_6fr]">
+		<div class="grid bg-sunbleached md:grid-cols-[4fr_6fr]">
 			<div class="relative order-1 grid items-center md:order-none">
 				<Image
 					alt=""
@@ -40,15 +40,15 @@ const formatter = getFormatter(locale);
 				/>
 				<div class="relative p-8 md:py-24">
 					<h1 class="sr-only">{hero.title}</h1>
-					<div class="text-md font-semibold leading-relaxed md:text-xl">
+					<div class="text-md font-semibold leading-relaxed md:text-xl md:leading-[1.75]">
 						{hero.leadIn}
 					</div>
 				</div>
 			</div>
-			<div class="bg-brand-bg">
+			<div class="bg-sunbleached">
 				<Image
 					alt=""
-					class="aspect-video size-full object-cover md:aspect-auto"
+					class="aspect-video size-full max-h-screen-xs object-cover md:aspect-[2.5]"
 					loading="eager"
 					sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 100vw"
 					src={getImageImport(hero.images.at(0)!)}
@@ -65,9 +65,9 @@ const formatter = getFormatter(locale);
 			</PageSection>
 		</div>
 
-		<div class="bg-brand-bg py-8">
+		<div class="bg-sunbleached py-8">
 			<PageSection>
-				<h2 class="text-2xl font-semibold text-brand">Latest Events & News</h2>
+				<h2 class="text-2xl font-semibold text-red-clay">Latest Events & News</h2>
 				<div>
 					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
 						{
@@ -85,7 +85,7 @@ const formatter = getFormatter(locale);
 										return (
 											<li>
 												<article class="grid gap-y-2">
-													<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
+													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
 														<Link aria-hidden="true" href={href} tabindex={-1}>
 															<span class="sr-only">{event.title}</span>
 															<Image
@@ -97,7 +97,7 @@ const formatter = getFormatter(locale);
 															/>
 														</Link>
 													</div>
-													<h3 class="font-medium leading-tight text-brand transition hover:text-inherit">
+													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
 														<Link href={href}>{event.title}</Link>
 													</h3>
 													<dl class="text-sm">
@@ -140,7 +140,7 @@ const formatter = getFormatter(locale);
 										return (
 											<li>
 												<article class="grid gap-y-2">
-													<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
+													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
 														<Link href={href}>
 															<span class="sr-only">{news.title}</span>
 															<Image
@@ -152,7 +152,7 @@ const formatter = getFormatter(locale);
 															/>
 														</Link>
 													</div>
-													<h3 class="font-medium leading-tight text-brand transition hover:text-inherit">
+													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
 														<Link href={href}>{news.title}</Link>
 													</h3>
 												</article>
@@ -181,8 +181,10 @@ const formatter = getFormatter(locale);
 			<PageSection>
 				<div class="grid gap-8 md:grid-cols-2">
 					<div>
-						<h2 class="text-2xl font-semibold text-brand">Transnational Access – Travel Grants</h2>
-						<div class="prose my-4">
+						<h2 class="text-center text-2xl font-semibold text-red-clay">
+							Transnational Access – Travel Grants
+						</h2>
+						<div class="prose my-4 text-center">
 							ATRIUM will offer researchers and research teams the chance to visit 16 research
 							infrastructures and organisations in the Arts and Humanities abroad.
 						</div>

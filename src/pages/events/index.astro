@@ -51,7 +51,7 @@ const formatter = getFormatter(locale);
 							return (
 								<li>
 									<article class="grid gap-y-2">
-										<div class="relative mb-2 h-48 overflow-hidden rounded-lg bg-brand-brown">
+										<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
 											<Link aria-hidden="true" href={href} tabindex={-1}>
 												<span class="sr-only">{event.entry.title}</span>
 												<Image
@@ -63,7 +63,7 @@ const formatter = getFormatter(locale);
 												/>
 											</Link>
 										</div>
-										<h2 class="font-medium leading-tight text-brand transition hover:text-inherit">
+										<h2 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
 											{event.entry.title}
 										</h2>
 										<dl class="text-sm">

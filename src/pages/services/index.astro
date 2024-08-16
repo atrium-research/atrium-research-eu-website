@@ -37,7 +37,7 @@ const { items, total } = await getSshOpenMarketplaceItems();
 				<Content />
 			</div>
 			<div class="grid gap-y-8">
-				<h2 class="text-2xl font-semibold text-brand">Results ({total})</h2>
+				<h2 class="text-2xl font-semibold text-red-clay">{total} services</h2>
 				<ul class="grid gap-y-12" role="list">
 					{
 						items.map(async (item) => {
@@ -46,7 +46,7 @@ const { items, total } = await getSshOpenMarketplaceItems();
 							return (
 								<li>
 									<article class="prose">
-										<h3 class="text-lg font-semibold text-brand">
+										<h3 class="text-xl font-semibold text-red-clay">
 											<a
 												href={String(
 													createSshOpenMarketplaceItemUrl(item.category, item.persistentId),

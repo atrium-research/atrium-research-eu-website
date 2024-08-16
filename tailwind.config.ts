@@ -13,24 +13,19 @@ const config: Config = {
 	presets: [preset],
 	theme: {
 		extend: {
+			/** @see https://drive.google.com/file/d/16XtcoYy2o6m58xbWXo8Ol1DW-7ehnAfx/view */
 			colors: {
-				brand: {
+				"red-clay": {
 					DEFAULT: "#a6503e",
 					intent: "#ae6051",
 					light: "#ae503e",
-					// text: "#ebdcca",
-					/** Adjusted to fix color contrast. */
-					text: "#f5ede3",
-					bg: "#e8dac8",
-					brown: "#3a3736",
 				},
-				positive: "#f5ede3",
-				negative: "#f5ede3",
-				/** @see https://drive.google.com/file/d/16XtcoYy2o6m58xbWXo8Ol1DW-7ehnAfx/view */
-				"red-clay": "#a6503e",
 				sunbleached: "#e8dac8",
 				sandstone: "#d39770",
 				granite: "#3a3736",
+				positive: "#f5ede3",
+				negative: "#f5ede3",
+				text: "#f5ede3",
 			},
 			screens: {
 				lg: "68rem",
@@ -39,6 +34,8 @@ const config: Config = {
 				return {
 					DEFAULT: {
 						css: {
+							"--tw-prose-bullets": "currentColor",
+							fontSize: "1.0625rem",
 							maxWidth: "none",
 							/** Don't add quotes around `blockquote`. */
 							"blockquote p:first-of-type::before": null,
@@ -47,7 +44,7 @@ const config: Config = {
 							"code::before": null,
 							"code::after": null,
 							a: {
-								color: theme("colors.brand.DEFAULT"),
+								color: theme("colors.red-clay.DEFAULT"),
 							},
 						},
 					},

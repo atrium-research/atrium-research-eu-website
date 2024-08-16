@@ -33,15 +33,15 @@ const submit = t("WebsiteFooter.form.submit");
 ---
 
 <footer class="border-t">
-	<div class="bg-brand-brown py-12 text-brand-text">
+	<div class="bg-granite py-12 text-sunbleached">
 		<div>
-			<div class="grid gap-x-0.5 gap-y-8 lg:grid-cols-3 lg:bg-brand-bg">
-				<div class="grid place-items-center bg-brand-brown px-8">
+			<div class="grid gap-x-0.5 gap-y-8 lg:grid-cols-3 lg:bg-sunbleached">
+				<div class="grid place-items-center bg-granite px-8">
 					<div>
 						<Image alt="" class="h-16 w-auto" src={logo} />
 					</div>
 				</div>
-				<div class="grid place-items-center bg-brand-brown px-8">
+				<div class="grid place-items-center bg-granite px-8">
 					<div class="grid gap-y-4">
 						<div class="flex justify-center gap-x-2">
 							{
@@ -53,7 +53,7 @@ const submit = t("WebsiteFooter.form.submit");
 											class="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 											href={link.href}
 										>
-											<div class="grid size-10 place-content-center rounded-full bg-brand-bg p-2 text-brand-brown transition hover:opacity-90">
+											<div class="grid size-10 place-content-center rounded-full bg-sunbleached p-2 text-granite transition hover:opacity-90">
 												<Icon aria-hidden="true" class="size-6" name={config.icon} />
 											</div>
 											<span class="sr-only">{config.label}</span>
@@ -71,7 +71,7 @@ const submit = t("WebsiteFooter.form.submit");
 						</a>
 					</div>
 				</div>
-				<div class="grid bg-brand-brown px-8 lg:place-items-center">
+				<div class="grid bg-granite px-8 lg:place-items-center">
 					<div class="grid gap-y-4">
 						<h2 class="text-lg font-semibold">Subscribe to our mailing list and newsletter</h2>
 						<form action="/api/newsletter" class="grid gap-y-2" method="POST" name="newsletter">
@@ -81,7 +81,7 @@ const submit = t("WebsiteFooter.form.submit");
 							<TextInputField label={institution} name="institution" />
 							<div class="mt-2 flex justify-end">
 								<button
-									class="rounded-md bg-brand-bg px-4 py-2 font-heading font-semibold text-brand-brown transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-50"
+									class="rounded-md bg-sunbleached px-4 py-2 font-heading font-semibold text-granite transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-50"
 									disabled={!isNewsletterSubscriptionEnabled()}
 									type="submit"
 								>
