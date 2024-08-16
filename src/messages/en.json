@@ -5,6 +5,9 @@
 		},
 		"title": "Internal server error"
 	},
+	"EventsPage": {
+		"filters": "Filter events by tags"
+	},
 	"ImprintPage": {
 		"meta": {
 			"title": "Imprint"

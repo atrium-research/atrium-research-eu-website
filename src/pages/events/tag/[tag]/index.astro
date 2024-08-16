@@ -12,18 +12,38 @@ import { createReader } from "@/lib/content/create-reader";
 import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getFormatter } from "@/lib/formatter";
 import { getImageImport } from "@/lib/get-image-import";
+import { createI18n } from "@/lib/i18n";
+import { tags } from "@/lib/event-tags";
+
+export function getStaticPaths() {
+	return tags.map((tag) => {
+		return { params: { tag: tag.value } };
+	});
+}
+
+const { tag } = Astro.params;
 
 const reader = createReader();
 const page = await reader.collections.pages.readOrThrow("events");
+
 const events = await reader.collections.events.all();
-const sortedEvents = events.sort((a, z) => {
+const filteredEvents =
+	tag === "all"
+		? events
+		: events.filter((event) => {
+				return event.entry.tags.includes(tag);
+			});
+const sortedEvents = filteredEvents.sort((a, z) => {
 	return compareDesc(new Date(a.entry.date), new Date(z.entry.date));
 });
+
+const { t } = await createI18n(locale);
 
 const documentTitle = page.title;
 const { title, image } = page;
 const { default: Content } = await getMdxContent(await page.content(), locale);
 
+const fullTitle = tag === "all" ? title : `${title} (${tags.find((t) => t.value === tag)?.label})`;
 const formatter = getFormatter(locale);
 ---
 
@@ -38,11 +58,33 @@ const formatter = getFormatter(locale);
 			/>
 		</div>
 		<PageSection class="my-4 md:my-12">
-			<PageTitle>{title}</PageTitle>
+			<PageTitle>{fullTitle}</PageTitle>
 			<div class="prose">
 				<Content />
 			</div>
 			<div>
+				<nav aria-label={t("EventsPage.filters")} class="mb-12">
+					<ul
+						class="flex flex-wrap gap-x-4 text-red-clay text-lg font-medium justify-center"
+						role="list"
+					>
+						{
+							tags.map((t) => {
+								return (
+									<li>
+										<a
+											aria-current={t.value === tag ? "page" : undefined}
+											class="aria-[current]:underline hover:underline inline-flex px-2 py-1 rounded-md focus-visible:outline-red-clay"
+											href={`/events/tag/${t.value}`}
+										>
+											{t.label}
+										</a>
+									</li>
+								);
+							})
+						}
+					</ul>
+				</nav>
 				<ul class="grid gap-8 grid-fluid-cols-72" role="list">
 					{
 						sortedEvents.map((event) => {

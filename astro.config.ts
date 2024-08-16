@@ -82,6 +82,10 @@ export default defineConfig({
 				: "/keystatic",
 			status: 307,
 		},
+		"/events": {
+			destination: "/events/tag/all",
+			status: 307,
+		},
 	},
 	scopedStyleStrategy: "where",
 	security: {
