@@ -164,7 +164,8 @@ const formatter = getFormatter(locale);
 										const id = item.item.value;
 
 										return (
-											<li>
+											// eslint-disable-next-line tailwindcss/no-custom-classname
+											<li class="light">
 												<Tweet id={id} />
 											</li>
 										);

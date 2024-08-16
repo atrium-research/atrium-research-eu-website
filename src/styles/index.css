@@ -18,9 +18,12 @@ h6 {
 }
 
 section .astro-tweet-theme {
-	--tweet-body-font-size: 1rem;
+	--tweet-body-font-size: 0.875rem;
 	--tweet-container-margin: 0;
 	--tweet-font-family: system-ui, sans-serif;
+
+	overflow-y: auto;
+	max-height: 17.25rem;
 }
 
 :focus {
