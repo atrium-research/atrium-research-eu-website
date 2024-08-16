@@ -70,7 +70,7 @@ export const events = createCollection((locale) => {
 				multiline: true,
 			}),
 			bannerImage: fields.image({
-				label: "Image",
+				label: "Banner image",
 				// validation: { isRequired: false },
 				...createAssetPaths(assetPath),
 			}),
@@ -120,7 +120,7 @@ export const news = createCollection((locale) => {
 				multiline: true,
 			}),
 			bannerImage: fields.image({
-				label: "Image",
+				label: "Banner image",
 				// validation: { isRequired: false },
 				...createAssetPaths(assetPath),
 			}),
