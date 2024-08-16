@@ -30,6 +30,18 @@
 		"table-of-contents": "Table of contents"
 	},
 	"WebsiteFooter": {
+		"form": {
+			"email": "Email address",
+			"first-name": "First name",
+			"last-name": "Last name",
+			"institution": "Institution",
+			"submit": "submit",
+			"status": {
+				"invalid-input": "Invalid input.",
+				"success": "Successfully subscribed to newsletter.",
+				"unknown-error": "Failed to subscribe to newsletter."
+			}
+		},
 		"links": {
 			"imprint": "Imprint"
 		}

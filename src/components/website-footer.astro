@@ -1,11 +1,16 @@
 ---
+import { getFormDataValues, log } from "@acdh-oeaw/lib";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import * as v from "valibot";
 
 import TextInputField from "@/components/form/text-input-field.astro";
 import Link from "@/components/link.astro";
 import PageSection from "@/components/page-section.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import { createNewsletterSubscription, isNewsletterSubscriptionEnabled } from "@/lib/baserow";
 import { createReader } from "@/lib/content/create-reader";
+import { createI18n } from "@/lib/i18n";
 import logo from "~/public/assets/images/atrium-logo-with-text.png";
 import eu from "~/public/assets/images/eu-funded.jpg";
 
@@ -19,6 +24,50 @@ const socialMediaConfig = {
 	twitter: { label: "Twitter", icon: "simple-icons:x" },
 	youtube: { label: "YouTube", icon: "simple-icons:youtube" },
 };
+
+const { t } = await createI18n(locale);
+
+const email = t("WebsiteFooter.form.email");
+const firstName = t("WebsiteFooter.form.first-name");
+const lastName = t("WebsiteFooter.form.last-name");
+const institution = t("WebsiteFooter.form.institution");
+const submit = t("WebsiteFooter.form.submit");
+
+let status = { kind: "initial" } as
+	| { kind: "error"; message: string }
+	| { kind: "initial" }
+	| { kind: "success"; message: string };
+
+if (Astro.request.method === "POST") {
+	try {
+		const data = await Astro.request.formData();
+
+		const formData = getFormDataValues(data);
+
+		const schema = v.object({
+			email: v.pipe(v.string(), v.email()),
+			lastName: v.pipe(v.string(), v.nonEmpty()),
+			firstName: v.pipe(v.string(), v.nonEmpty()),
+			institution: v.optional(v.string()),
+		});
+
+		const result = v.safeParse(schema, formData);
+
+		if (!result.success) {
+			status = { kind: "error", message: t("WebsiteFooter.form.status.invalid-input") };
+		} else {
+			await createNewsletterSubscription(result.output);
+
+			status = { kind: "success", message: t("WebsiteFooter.form.status.success") };
+		}
+	} catch (error) {
+		if (error instanceof Error) {
+			log.error(error.message);
+		}
+
+		status = { kind: "error", message: t("WebsiteFooter.form.status.unknown-error") };
+	}
+}
 ---
 
 <footer class="border-t">
@@ -60,19 +109,30 @@ const socialMediaConfig = {
 				<div class="grid place-items-center bg-brand-brown px-8">
 					<div class="grid gap-y-4">
 						<h2 class="text-lg font-semibold">Subscribe to our mailing list and newsletter</h2>
-						<!-- FIXME: -->
-						<form class="grid gap-y-2">
-							<TextInputField label="Email address" name="email" required />
-							<TextInputField label="First name" name="first-name" />
-							<TextInputField label="Last name" name="last-name" required />
-							<TextInputField label="Institution" name="institution" />
+						<form class="grid gap-y-2" data-astro-reload method="post">
+							<TextInputField label={email} name="email" required type="email" />
+							<TextInputField label={firstName} name="firstName" />
+							<TextInputField label={lastName} name="lastName" required />
+							<TextInputField label={institution} name="institution" />
 							<div class="mt-2 flex justify-end">
 								<button
-									class="rounded-md bg-brand-bg px-4 py-2 font-bold text-brand-brown transition hover:opacity-90"
+									class="rounded-md bg-brand-bg px-4 py-2 font-heading font-semibold text-brand-brown transition hover:opacity-90"
+									disabled={isNewsletterSubscriptionEnabled()}
 									type="submit"
 								>
-									Submit
+									{submit}
 								</button>
+							</div>
+							<div
+								aria-live="polite"
+								aria-atomic="true"
+								class={status.kind === "error"
+									? "text-negative"
+									: status.kind === "success"
+										? "text-positive"
+										: undefined}
+							>
+								{status.kind !== "initial" ? status.message : null}
 							</div>
 						</form>
 					</div>
