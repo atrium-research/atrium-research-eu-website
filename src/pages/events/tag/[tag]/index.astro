@@ -10,10 +10,10 @@ import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
 import { createReader } from "@/lib/content/create-reader";
 import { getMdxContent } from "@/lib/content/get-mdx-content";
+import { tags } from "@/lib/event-tags";
 import { getFormatter } from "@/lib/formatter";
 import { getImageImport } from "@/lib/get-image-import";
 import { createI18n } from "@/lib/i18n";
-import { tags } from "@/lib/event-tags";
 
 export function getStaticPaths() {
 	return tags.map((tag) => {
@@ -43,7 +43,7 @@ const documentTitle = page.title;
 const { title, image } = page;
 const { default: Content } = await getMdxContent(await page.content(), locale);
 
-const fullTitle = tag === "all" ? title : `${title} (${tags.find((t) => t.value === tag)?.label})`;
+const fullTitle = tag === "all" ? title : `${title} (${tags.find((t) => t.value === tag)!.label})`;
 const formatter = getFormatter(locale);
 ---
 
@@ -65,7 +65,7 @@ const formatter = getFormatter(locale);
 			<div>
 				<nav aria-label={t("EventsPage.filters")} class="mb-12">
 					<ul
-						class="flex flex-wrap gap-x-4 text-red-clay text-lg font-medium justify-center"
+						class="flex flex-wrap justify-center gap-x-4 text-lg font-medium text-red-clay"
 						role="list"
 					>
 						{
@@ -74,7 +74,7 @@ const formatter = getFormatter(locale);
 									<li>
 										<a
 											aria-current={t.value === tag ? "page" : undefined}
-											class="aria-[current]:underline hover:underline inline-flex px-2 py-1 rounded-md focus-visible:outline-red-clay"
+											class="inline-flex rounded-md px-2 py-1 hover:underline focus-visible:outline-red-clay aria-[current]:underline"
 											href={`/events/tag/${t.value}`}
 										>
 											{t.label}
