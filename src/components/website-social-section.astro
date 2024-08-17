@@ -71,6 +71,24 @@ const honeypot = t("WebsiteFooter.form.honeypot");
 				<div class="grid gap-y-4">
 					<h2 class="text-lg font-semibold">Subscribe to our mailing list and newsletter</h2>
 					<form action="/api/newsletter" class="grid gap-y-2" method="POST" name="newsletter">
+						<div
+							aria-live="polite"
+							aria-atomic="true"
+							data-state="initial"
+							class="group mb-4 flex items-center gap-x-2 rounded-md px-2 py-1 font-heading font-semibold data-[state=initial]:sr-only data-[state=error]:bg-sunbleached data-[state=success]:bg-sunbleached data-[state=error]:text-granite data-[state=success]:text-granite"
+						>
+							<Icon
+								aria-hidden="true"
+								class="hidden size-4 group-data-[state=error]:block"
+								name="lucide:triangle-alert"
+							/>
+							<Icon
+								aria-hidden="true"
+								class="hidden size-4 group-data-[state=success]:block"
+								name="lucide:check"
+							/>
+							<div data-form-status></div>
+						</div>
 						<TextInputField label={email} name="email" required type="email" />
 						<TextInputField label={firstName} name="firstName" />
 						<TextInputField label={lastName} name="lastName" required />
@@ -85,24 +103,6 @@ const honeypot = t("WebsiteFooter.form.honeypot");
 							>
 								{submit}
 							</button>
-						</div>
-						<div
-							aria-live="polite"
-							aria-atomic="true"
-							data-state="initial"
-							class="group flex items-center gap-x-2 data-[state=initial]:sr-only data-[state=error]:text-negative data-[state=success]:text-positive"
-						>
-							<Icon
-								aria-hidden="true"
-								class="hidden size-4 group-data-[state=error]:block"
-								name="lucide:triangle-alert"
-							/>
-							<Icon
-								aria-hidden="true"
-								class="hidden size-4 group-data-[state=success]:block"
-								name="lucide:check"
-							/>
-							<div data-form-status></div>
 						</div>
 					</form>
 				</div>

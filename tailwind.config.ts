@@ -23,8 +23,6 @@ const config: Config = {
 				sunbleached: "#e8dac8",
 				sandstone: "#d39770",
 				granite: "#3a3736",
-				positive: "#f5ede3",
-				negative: "#f5ede3",
 				text: "#f5ede3",
 			},
 			screens: {

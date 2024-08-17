@@ -1,4 +1,5 @@
 ---
+import Link from "@/components/link.astro";
 import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
@@ -6,27 +7,21 @@ import { defaultLocale as locale } from "@/config/i18n.config";
 import SimplePageLayout from "@/layouts/simple-page-layout.astro";
 import { createI18n } from "@/lib/i18n";
 
-export const prerender = false;
-
-interface Props {
-	error: unknown;
-}
-
-const { error } = Astro.props;
-
 const { t } = await createI18n(locale);
 
-const documentTitle = t("ErrorPage.meta.title");
-const title =
-	error instanceof Error
-		? error.message
-		: (Astro.url.searchParams.get("error") ?? t("ErrorPage.title"));
+const documentTitle = t("SuccessPage.meta.title");
+const title = t("SuccessPage.title");
+const message = t("SuccessPage.message");
 ---
 
 <SimplePageLayout locale={locale} title={documentTitle}>
 	<MainContent search="exclude">
 		<PageSection class="grid min-h-full place-content-center place-items-center">
 			<PageTitle>{title}</PageTitle>
+			<p class="text-lg font-medium text-red-clay">{message}</p>
+			<Link class="rounded-md px-2 py-1 underline underline-offset-8 hover:no-underline" href="/">
+				Back to home page
+			</Link>
 		</PageSection>
 	</MainContent>
 </SimplePageLayout>

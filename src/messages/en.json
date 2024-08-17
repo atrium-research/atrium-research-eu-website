@@ -35,6 +35,13 @@
 	"SkipLink": {
 		"skip-to-main-content": "Skip to main content"
 	},
+	"SuccessPage": {
+		"meta": {
+			"title": "Thank you!"
+		},
+		"title": "Thank you!",
+		"message": "Successfully subscribed to newsletter."
+	},
 	"TableOfContents": {
 		"table-of-contents": "Table of contents"
 	},

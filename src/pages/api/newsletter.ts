@@ -40,7 +40,7 @@ export async function POST(context: APIContext) {
 			return Response.json({ message: t("actions.newsletter.success") }, { status: 200 });
 		}
 
-		return context.redirect("/", 303);
+		return context.redirect("/success", 303);
 	} catch (error) {
 		log.error(error);
 
