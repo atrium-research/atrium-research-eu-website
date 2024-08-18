@@ -13,16 +13,15 @@ import { ensureTrailingSlash } from "./src/lib/ensure-trailing-slash";
 const env = loadEnv(import.meta.env.MODE, process.cwd(), "");
 
 export default defineConfig({
+	/**
+	 * When switching to static site generation, place an empty `index.astro` file in
+	 * the `src/pages` folder, so `astro` will generate a redirect to the default locale
+	 * via `<meta http-equiv="refresh" content="0;url=/en/">`.
+	 */
 	adapter: node({
 		mode: "standalone",
 	}),
 	base: env.PUBLIC_APP_BASE_PATH,
-	experimental: {
-		// actions: true,
-		// contentCollectionCache: true,
-		// env: {},
-		// serverIslands: true,
-	},
 	integrations: [
 		icon({
 			/** @see https://www.astroicon.dev/reference/configuration/#include */
@@ -59,7 +58,11 @@ export default defineConfig({
 		}),
 		keystatic(),
 		mdx(),
-		react(),
+		/**
+		 * @see https://docs.astro.build/en/guides/integrations-guide/solid-js/#combining-multiple-jsx-frameworks
+		 * @see https://github.com/Thinkmill/keystatic/discussions/951
+		 */
+		react({ include: ["**/keystatic/*"] }),
 		sitemap(),
 	],
 	/** Use `@/lib/content/get-mdx-content.ts` instead of astro's built-in markdown processor. */

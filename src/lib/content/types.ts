@@ -12,10 +12,10 @@ export type Navigation = Entry<(typeof config)["singletons"]["navigation"]>;
 
 export type SocialMedia = Entry<(typeof config)["singletons"]["socialMedia"]>;
 
-export type Evetns = Entry<(typeof config)["collections"]["events"]>;
+export type Event = Entry<(typeof config)["collections"]["events"]>;
 
 export type News = Entry<(typeof config)["collections"]["news"]>;
 
 export type Page = Entry<(typeof config)["collections"]["pages"]>;
 
-export type Partners = Entry<(typeof config)["collections"]["partners"]>;
+export type Partner = Entry<(typeof config)["collections"]["partners"]>;

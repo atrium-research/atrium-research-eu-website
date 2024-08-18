@@ -200,12 +200,12 @@ const components = {
 				}
 
 				return (
-					<NotEditable>
-						<figure>
-							<img alt={props.value.alt} src={src} />
-							<figcaption>{children}</figcaption>
-						</figure>
-					</NotEditable>
+					<figure>
+						<NotEditable>
+							<img alt={value.alt} src={src} />
+						</NotEditable>
+						<figcaption>{children}</figcaption>
+					</figure>
 				);
 			},
 		});
@@ -392,12 +392,14 @@ const components = {
 				}),
 			},
 			ContentView(props) {
+				const { children, value } = props;
+
 				return (
 					<figure>
 						<NotEditable>
-							<Tweet id={props.value.id} />
+							<Tweet id={value.id} />
 						</NotEditable>
-						{props.children ? <figcaption>{props.children}</figcaption> : null}
+						{children ? <figcaption>{children}</figcaption> : null}
 					</figure>
 				);
 			},
@@ -424,12 +426,12 @@ const components = {
 				}),
 			},
 			ContentView(props) {
-				const { id } = props.value;
+				const { children, value } = props;
 
 				const href = String(
 					createUrl({
 						baseUrl: "https://www.youtube-nocookie.com",
-						pathname: `/embed/${id}`,
+						pathname: `/embed/${value.id}`,
 					}),
 				);
 
@@ -438,7 +440,7 @@ const components = {
 						<NotEditable>
 							<iframe allowFullScreen={true} src={href} title="Video" />
 						</NotEditable>
-						{props.children ? <figcaption>{props.children}</figcaption> : null}
+						{children ? <figcaption>{children}</figcaption> : null}
 					</figure>
 				);
 			},

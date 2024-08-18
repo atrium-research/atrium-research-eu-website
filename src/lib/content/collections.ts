@@ -5,7 +5,6 @@ import { createCollection } from "@/lib/content/create-collection";
 import { createComponents, headingLevels } from "@/lib/content/create-components";
 import { createCollectionPaths } from "@/lib/content/create-paths";
 // import { createPreviewUrl } from "@/lib/content/create-preview-url";
-import * as _fields from "@/lib/content/fields";
 
 export const eventTags = [
 	{ label: "Organised", value: "organised" },
