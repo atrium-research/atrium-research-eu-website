@@ -41,9 +41,6 @@ importers:
       '@iconify-json/simple-icons':
         specifier: ^1.1.113
         version: 1.1.113
-      '@keystar/ui':
-        specifier: ^0.7.9
-        version: 0.7.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@keystatic/astro':
         specifier: ^5.0.0
         version: 5.0.0(@keystatic/core@0.5.32(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(astro@4.14.2(@types/node@20.14.15)(rollup@4.16.4)(typescript@5.5.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
