@@ -20,14 +20,14 @@
       },
       {
         "item": {
-          "discriminant": "tweets",
-          "value": "1819026756445077585"
+          "discriminant": "events",
+          "value": "society-for-american-archaeology-annual-meeting"
         }
       },
       {
         "item": {
-          "discriminant": "news",
-          "value": "dariah-launches-new-diamond-open-access-journal-transformations"
+          "discriminant": "tweets",
+          "value": "1819026756445077585"
         }
       }
     ]
