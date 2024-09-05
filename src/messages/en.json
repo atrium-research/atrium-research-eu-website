@@ -19,6 +19,20 @@
 			"title": "Home"
 		}
 	},
+	"MailingListForm": {
+		"email": "Email address",
+		"first-name": "First name",
+		"last-name": "Last name",
+		"institution": "Institution",
+		"submit": "Submit",
+		"honeypot": "Please do not fill this out"
+	},
+	"MailingListPage": {
+		"meta": {
+			"title": "Mailing list"
+		},
+		"title": "Subscribe to our mailing list and newsletter"
+	},
 	"MobileNavToggle": {
 		"label": "Open navigation menu"
 	},
@@ -46,14 +60,6 @@
 		"table-of-contents": "Table of contents"
 	},
 	"WebsiteFooter": {
-		"form": {
-			"email": "Email address",
-			"first-name": "First name",
-			"last-name": "Last name",
-			"institution": "Institution",
-			"submit": "Submit",
-			"honeypot": "Please do not fill this out"
-		},
 		"links": {
 			"imprint": "Imprint"
 		}
@@ -63,6 +69,9 @@
 			"home": "Home"
 		},
 		"navigation-primary": "Primary"
+	},
+	"WebsiteSocialSection": {
+		"form-title": "Subscribe to our mailing list and newsletter"
 	},
 	"actions": {
 		"newsletter": {

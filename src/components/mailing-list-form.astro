@@ -1,0 +1,105 @@
+---
+import { Icon } from "astro-icon/components";
+
+import TextInputField from "@/components/form/text-input-field.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import { createI18n } from "@/lib/i18n";
+
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const { t } = await createI18n(locale);
+
+const email = t("MailingListForm.email");
+const firstName = t("MailingListForm.first-name");
+const lastName = t("MailingListForm.last-name");
+const institution = t("MailingListForm.institution");
+const submit = t("MailingListForm.submit");
+const honeypot = t("MailingListForm.honeypot");
+---
+
+<form
+	action="/api/newsletter"
+	class="grid gap-y-2"
+	class:list={className}
+	method="POST"
+	name="newsletter"
+>
+	<div
+		aria-live="polite"
+		aria-atomic="true"
+		data-state="initial"
+		class="group mb-4 flex items-center gap-x-2 rounded-md px-2 py-1 font-heading font-semibold data-[state=initial]:sr-only data-[state=error]:bg-sunbleached data-[state=success]:bg-sunbleached data-[state=error]:text-granite data-[state=success]:text-granite"
+	>
+		<Icon
+			aria-hidden="true"
+			class="hidden size-4 group-data-[state=error]:block"
+			name="lucide:triangle-alert"
+		/>
+		<Icon
+			aria-hidden="true"
+			class="hidden size-4 group-data-[state=success]:block"
+			name="lucide:check"
+		/>
+		<div data-form-status></div>
+	</div>
+	<TextInputField label={email} name="email" required type="email" />
+	<TextInputField label={firstName} name="firstName" />
+	<TextInputField label={lastName} name="lastName" required />
+	<TextInputField label={institution} name="institution" />
+	<div style="display: none;">
+		<TextInputField label={honeypot} name="url" />
+	</div>
+	<div class="mt-2 flex justify-end">
+		<button
+			class="rounded-md bg-sunbleached px-4 py-2 font-heading font-semibold text-granite transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring,white)] disabled:pointer-events-none disabled:opacity-50"
+			type="submit"
+		>
+			{submit}
+		</button>
+	</div>
+</form>
+
+<script>
+	import { assert } from "@acdh-oeaw/lib";
+
+	document.addEventListener("DOMContentLoaded", () => {
+		const form = document.querySelector<HTMLFormElement>("form[name=newsletter]");
+		assert(form);
+
+		const status = form.querySelector<HTMLDivElement>("[aria-live]");
+		assert(status);
+
+		const statusText = form.querySelector<HTMLDivElement>("[data-form-status]");
+		assert(statusText);
+
+		form.addEventListener("submit", async (event) => {
+			event.preventDefault();
+
+			const formElement = event.currentTarget as HTMLFormElement;
+			const formData = new FormData(formElement);
+
+			try {
+				const response = await fetch("/api/newsletter", {
+					body: formData,
+					headers: { accept: "application/json" },
+					method: "POST",
+				});
+
+				const data = await response.json();
+
+				if (!response.ok) throw new Error(data.message);
+
+				status.dataset.state = "success";
+				statusText.textContent = data.message;
+				formElement.reset();
+			} catch (error) {
+				status.dataset.state = "error";
+				statusText.textContent = error instanceof Error ? error.message : String(error);
+			}
+		});
+	});
+</script>
