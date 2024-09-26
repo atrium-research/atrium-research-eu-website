@@ -70,11 +70,29 @@ interface ItemSearchResponse {
 	};
 }
 
-export async function getSshOpenMarketplaceItems() {
+export async function getSshOpenMarketplaceToolsServices() {
 	const url = createUrl({
 		baseUrl: env.PUBLIC_SSHOC_API_BASE_URL,
 		pathname: "/api/item-search",
 		searchParams: createUrlSearchParams({
+			categories: ["tool-or-service"],
+			"f.keyword": "ATRIUM catalogue",
+			order: "label",
+			perpage: 100,
+		}),
+	});
+
+	const data = (await request(url, { responseType: "json" })) as ItemSearchResponse;
+
+	return { items: data.items, total: data.hits };
+}
+
+export async function getSshOpenMarketplaceWorkflows() {
+	const url = createUrl({
+		baseUrl: env.PUBLIC_SSHOC_API_BASE_URL,
+		pathname: "/api/item-search",
+		searchParams: createUrlSearchParams({
+			categories: ["workflow"],
 			"f.keyword": "ATRIUM catalogue",
 			order: "label",
 			perpage: 100,
