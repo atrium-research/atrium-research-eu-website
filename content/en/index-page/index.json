@@ -14,20 +14,20 @@
     "items": [
       {
         "item": {
+          "discriminant": "news",
+          "value": "caa-2025-call-for-papers-for-atrium-session"
+        }
+      },
+      {
+        "item": {
           "discriminant": "events",
           "value": "daschcon-archaeology-and-interoperability"
         }
       },
       {
         "item": {
-          "discriminant": "events",
-          "value": "eaa-european-archaeological-association-conference"
-        }
-      },
-      {
-        "item": {
           "discriminant": "tweets",
-          "value": "1827990042863600077"
+          "value": "1843993758217523400"
         }
       }
     ]
