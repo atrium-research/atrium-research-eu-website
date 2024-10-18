@@ -1,0 +1,57 @@
+---
+import { Image } from "astro:assets";
+
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import PageTitle from "@/components/page-title.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { createReader } from "@/lib/content/create-reader";
+import { getMdxContent } from "@/lib/content/get-mdx-content";
+import { getFormatter } from "@/lib/formatter";
+import { getImageImport } from "@/lib/get-image-import";
+import { createI18n } from "@/lib/i18n";
+
+export async function getStaticPaths() {
+	const reader = createReader();
+	const pages = await reader.collections.blog.all();
+
+	return pages.map((page) => {
+		return {
+			params: { id: page.slug },
+			props: { page: page.entry },
+		};
+	});
+}
+
+const { page } = Astro.props;
+
+const documentTitle = page.title;
+const { title, bannerImage, image, authors } = page;
+const { default: Content } = await getMdxContent(await page.content(), locale);
+
+const { t } = await createI18n(locale);
+const formatter = getFormatter(locale);
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent>
+		<div class="relative h-56">
+			<Image
+				alt=""
+				class="absolute inset-0 size-full object-cover"
+				loading="eager"
+				src={getImageImport(bannerImage ?? image)}
+			/>
+		</div>
+		<PageSection class="my-4 md:my-12">
+			<PageTitle>{title}</PageTitle>
+			<div class="text-lg font-semibold text-red-clay sm:my-4 sm:text-xl">
+				{t("BlogsPage.by", { authors: formatter.list.format(authors) })}
+			</div>
+			<div class="prose">
+				<Content />
+			</div>
+		</PageSection>
+	</MainContent>
+</PageLayout>

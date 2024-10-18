@@ -63,7 +63,7 @@ const { default: Content } = await getMdxContent(await page.content(), locale);
 										<h2 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
 											{item.entry.title}
 										</h2>
-										<div class="text-sm">{item.entry.summary}</div>
+										<div class="text-sm leading-relaxed text-neutral-700">{item.entry.summary}</div>
 									</article>
 								</li>
 							);

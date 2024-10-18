@@ -18,6 +18,69 @@ export const partnerKinds = [
 	{ label: "Affiliated Entity", value: "affiliated" },
 ] as const;
 
+export const blog = createCollection((locale) => {
+	const { assetPath, contentPath } = createCollectionPaths("/blog/", locale);
+
+	return collection({
+		label: "Blog",
+		path: contentPath,
+		slugField: "title",
+		format: { contentField: "content" },
+		// previewUrl: createPreviewUrl("/blog/{slug}"),
+		entryLayout: "content",
+		columns: ["title"],
+		schema: {
+			title: fields.slug({
+				name: {
+					label: "Title",
+					validation: { isRequired: true },
+				},
+			}),
+			publicationDate: fields.date({
+				label: "Publication date",
+				validation: { isRequired: true },
+				defaultValue: { kind: "today" },
+			}),
+			image: fields.image({
+				label: "Image",
+				validation: { isRequired: true },
+				...createAssetPaths(assetPath),
+			}),
+			authors: fields.array(
+				fields.text({
+					label: "Name",
+					validation: { isRequired: true },
+				}),
+				{
+					label: "Authors",
+					itemLabel(props) {
+						return props.value;
+					},
+					validation: { length: { min: 1 } },
+				},
+			),
+			summary: fields.text({
+				label: "Summary",
+				validation: { isRequired: true },
+				multiline: true,
+			}),
+			bannerImage: fields.image({
+				label: "Banner image",
+				// validation: { isRequired: false },
+				...createAssetPaths(assetPath),
+			}),
+			content: fields.mdx({
+				label: "Content",
+				options: {
+					heading: headingLevels,
+					image: createAssetPaths(assetPath),
+				},
+				components: createComponents(assetPath, locale),
+			}),
+		},
+	});
+});
+
 export const events = createCollection((locale) => {
 	const { assetPath, contentPath } = createCollectionPaths("/events/", locale);
 

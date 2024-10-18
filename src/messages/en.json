@@ -1,4 +1,10 @@
 {
+	"BlogPage": {
+		"by": "by {authors}"
+	},
+	"BlogsPage": {
+		"by": "by {authors}"
+	},
 	"ErrorPage": {
 		"meta": {
 			"title": "Error"

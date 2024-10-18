@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import { compareDesc } from "date-fns";
+
+import Link from "@/components/link.astro";
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import PageTitle from "@/components/page-title.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { createReader } from "@/lib/content/create-reader";
+import { getMdxContent } from "@/lib/content/get-mdx-content";
+import { getFormatter } from "@/lib/formatter";
+import { getImageImport } from "@/lib/get-image-import";
+import { createI18n } from "@/lib/i18n";
+
+const reader = createReader();
+const page = await reader.collections.pages.readOrThrow("blog");
+const blog = await reader.collections.blog.all();
+const sortedBlog = blog.sort((a, z) => {
+	return compareDesc(new Date(a.entry.publicationDate), new Date(z.entry.publicationDate));
+});
+
+const documentTitle = page.title;
+const { title, image } = page;
+const { default: Content } = await getMdxContent(await page.content(), locale);
+
+const { t } = await createI18n(locale);
+const formatter = getFormatter(locale);
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent>
+		<div class="relative h-56">
+			<Image
+				alt=""
+				class="absolute inset-0 size-full object-cover"
+				loading="eager"
+				src={getImageImport(image)}
+			/>
+		</div>
+		<PageSection class="my-4 md:my-12">
+			<PageTitle>{title}</PageTitle>
+			<div class="prose">
+				<Content />
+			</div>
+			<div>
+				<ul class="grid gap-8 grid-fluid-cols-72" role="list">
+					{
+						sortedBlog.map((item) => {
+							const href = `/blog/${item.slug}/`;
+
+							return (
+								<li>
+									<article class="grid gap-y-2">
+										<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
+											<Link aria-hidden href={href} tabindex={-1}>
+												<span class="sr-only">{item.entry.title}</span>
+												<Image
+													alt=""
+													class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+													sizes="620px"
+													src={getImageImport(item.entry.image)}
+													widths={[620]}
+												/>
+											</Link>
+										</div>
+										<h2 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
+											{item.entry.title}
+										</h2>
+										<div class="text-sm font-medium text-red-clay">
+											{t("BlogsPage.by", { authors: formatter.list.format(item.entry.authors) })}
+										</div>
+										<div class="text-sm leading-relaxed text-neutral-700">{item.entry.summary}</div>
+									</article>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</div>
+		</PageSection>
+	</MainContent>
+</PageLayout>

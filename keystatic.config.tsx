@@ -3,11 +3,12 @@ import { config } from "@keystatic/core";
 import { Logo } from "@/components/logo";
 import { env } from "@/config/env.config";
 import { defaultLocale } from "@/config/i18n.config";
-import { events, news, pages, partners } from "@/lib/content/collections";
+import { blog, events, news, pages, partners } from "@/lib/content/collections";
 import { imprint, indexPage, metadata, navigation, socialMedia } from "@/lib/content/singletons";
 
 export default config({
 	collections: {
+		blog: blog(defaultLocale),
 		events: events(defaultLocale),
 		news: news(defaultLocale),
 		pages: pages(defaultLocale),
@@ -43,7 +44,7 @@ export default config({
 			name: "ATRIUM",
 		},
 		navigation: {
-			data: ["events", "news", "partners"],
+			data: ["events", "news", "partners", "blog"],
 			pages: ["indexPage", "pages", "imprint"],
 			settings: ["metadata", "navigation", "socialMedia"],
 		},
