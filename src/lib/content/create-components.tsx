@@ -48,9 +48,14 @@ const gridVariants = [
 	{ label: "Two columns", value: "two-columns" },
 	{ label: "Three columns", value: "three-columns" },
 	{ label: "Four columns", value: "four-columns" },
+
 	{ label: "Two columns, right is 2x as wide", value: "one-two-columns" },
 	{ label: "Two columns, right is 3x as wide", value: "one-three-columns" },
 	{ label: "Two columns, right is 4x as wide", value: "one-four-columns" },
+
+	{ label: "Two columns, left is 2x as wide", value: "two-one-columns" },
+	{ label: "Two columns, left is 3x as wide", value: "three-one-columns" },
+	{ label: "Two columns, left is 4x as wide", value: "four-one-columns" },
 ] as const;
 
 const videoProviders = [{ label: "YouTube", value: "youtube" }] as const;
