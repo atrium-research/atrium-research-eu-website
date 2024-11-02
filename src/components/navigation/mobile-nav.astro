@@ -10,7 +10,7 @@ import { createSingletonResource } from "@/lib/keystatic/resources";
 const navigation = await createSingletonResource("navigation", locale).read();
 ---
 
-<div class="px-4 pb-6 lg:hidden" data-mobile-navhiddenid={mobileNavId}>
+<div class="px-4 pb-6 lg:hidden" data-mobile-nav hidden id={mobileNavId}>
 	<ul class="grid gap-y-2 text-text" role="list">
 		{
 			navigation.data.links.map((item) => {
