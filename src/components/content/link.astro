@@ -10,4 +10,9 @@ interface Props {
 const { link, ...rest } = Astro.props;
 ---
 
-<Anchor {...rest} {...getLinkProps(link)}><slot /></Anchor>
+<Anchor {...rest} {...getLinkProps(link)}>
+	<pre>{link.value}</pre>
+	<pre>{getLinkProps(link).href}</pre>
+
+	<slot />
+</Anchor>

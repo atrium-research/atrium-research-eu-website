@@ -15,7 +15,5 @@ const { alignment, alt = "", src } = Astro.props;
 		/* TODO: consider adding the image import in a rehype plugin, similar to `rehype-mdx-import-media`. */
 	}
 	<Img alt={alt} src={src} />
-	<figcaption>
-		<slot />
-	</figcaption>
+	<figcaption><slot /></figcaption>
 </figure>

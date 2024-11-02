@@ -7,6 +7,6 @@ interface Props {
 const { alignment = "stretch" } = Astro.props;
 ---
 
-<div class={alignment === "center" ? "self-center" : undefined}>
+<div class={alignment === "center" ? "sm:self-center" : undefined}>
 	<slot />
 </div>

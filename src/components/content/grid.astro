@@ -17,7 +17,7 @@ interface Props {
 const { alignment = "stretch", layout } = Astro.props;
 
 const alignments = {
-	center: "items-center",
+	center: "sm:items-center",
 	stretch: "",
 };
 
@@ -36,6 +36,6 @@ const layouts: Record<Props["layout"], string> = {
 };
 ---
 
-<div class:list={["grid content-start gap-8", alignments[alignment], layouts[layout]]}>
+<div class:list={["grid content-start gap-x-8", alignments[alignment], layouts[layout]]}>
 	<slot />
 </div>

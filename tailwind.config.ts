@@ -44,6 +44,12 @@ const config: Config = {
 							a: {
 								color: theme("colors.red-clay.DEFAULT"),
 							},
+							"figcaption p:first-child": {
+								marginTop: 0,
+							},
+							"figcaption p:last-child": {
+								marginBottom: 0,
+							},
 						},
 					},
 				};
