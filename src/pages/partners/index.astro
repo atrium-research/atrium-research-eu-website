@@ -7,38 +7,38 @@ import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { createReader } from "@/lib/content/create-reader";
-import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
+import { createCollectionResource } from "@/lib/keystatic/resources";
 
-const reader = createReader();
-const page = await reader.collections.pages.readOrThrow("partners");
-const partners = await reader.collections.partners.all();
+const page = await createCollectionResource("pages", locale).read("partners");
+const partners = await createCollectionResource("partners", locale).all();
 
-const groupedPartners = groupBy(partners, (partner) => partner.entry.kind);
+const groupedPartners = groupBy(partners, (partner) => {
+	return partner.data.kind;
+});
 const sortedPartners = {
 	"Research infrastructures": groupedPartners["research-infrastructure"],
 	Beneficiaries: groupedPartners.beneficiary,
 	"Affiliated Entities": groupedPartners.affiliated,
 };
 
-const documentTitle = page.title;
-const { title, image } = page;
-const { default: Content } = await getMdxContent(await page.content(), locale);
+const { content, image, title } = page.data;
+const documentTitle = title;
+const { default: Content } = await page.compile(content);
 
 /** Custom sorting for research infrastructures. */
 sortedPartners["Research infrastructures"].sort((a, z) => {
-	if (a.slug === "dariah-eu") return -1;
-	if (z.slug === "dariah-eu") return 1;
+	if (a.id === "dariah-eu") return -1;
+	if (z.id === "dariah-eu") return 1;
 
-	if (a.slug === "ariadne") return -1;
-	if (z.slug === "ariadne") return 1;
+	if (a.id === "ariadne") return -1;
+	if (z.id === "ariadne") return 1;
 
-	if (a.slug === "clarin") return -1;
-	if (z.slug === "clarin") return 1;
+	if (a.id === "clarin") return -1;
+	if (z.id === "clarin") return 1;
 
-	if (a.slug === "operas") return -1;
-	if (z.slug === "operas") return 1;
+	if (a.id === "operas") return -1;
+	if (z.id === "operas") return 1;
 
 	return 0;
 });
@@ -67,18 +67,20 @@ sortedPartners["Research infrastructures"].sort((a, z) => {
 								<h2 class="text-xl font-semibold">{kind}</h2>
 								<ul class="grid gap-x-4 gap-y-8 grid-fluid-cols-56" role="list">
 									{partners.map((partner) => {
+										const { image, name, website } = partner.data;
+
 										return (
 											<li>
 												<articlce>
 													<a
 														class="relative block h-36 rounded-lg border p-4 shadow-md"
-														href={partner.entry.website}
+														href={website}
 													>
-														<span class="sr-only">{partner.entry.name}</span>
+														<span class="sr-only">{name}</span>
 														<Image
 															alt=""
 															class="absolute inset-0 size-full object-contain p-1"
-															src={getImageImport(partner.entry.image)}
+															src={getImageImport(image)}
 														/>
 													</a>
 												</articlce>

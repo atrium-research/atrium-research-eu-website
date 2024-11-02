@@ -6,31 +6,38 @@ import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { createReader } from "@/lib/content/create-reader";
-import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
+import { createCollectionResource } from "@/lib/keystatic/resources";
 
 export async function getStaticPaths() {
-	const reader = createReader();
-	const pages = await reader.collections.pages.all({});
+	const pages = await createCollectionResource("pages", locale).all();
 
 	return pages
 		.filter((page) => {
-			return !["events", "news", "partner", "services"].includes(page.slug);
+			return ![
+				"api",
+				"blog",
+				"events",
+				"keystatic",
+				"news",
+				"partner",
+				"services",
+				"workflows",
+			].includes(page.id);
 		})
 		.map((page) => {
 			return {
-				params: { id: page.slug },
-				props: { page: page.entry },
+				params: { id: page.id },
+				props: { page },
 			};
 		});
 }
 
 const { page } = Astro.props;
 
-const documentTitle = page.title;
-const { title, image } = page;
-const { default: Content } = await getMdxContent(await page.content(), locale);
+const { content, image, title } = page.data;
+const documentTitle = title;
+const { default: Content } = await page.compile(content);
 ---
 
 <PageLayout locale={locale} title={documentTitle}>

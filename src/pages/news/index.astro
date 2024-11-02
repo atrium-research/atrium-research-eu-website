@@ -8,20 +8,18 @@ import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { createReader } from "@/lib/content/create-reader";
-import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
+import { createCollectionResource } from "@/lib/keystatic/resources";
 
-const reader = createReader();
-const page = await reader.collections.pages.readOrThrow("news");
-const news = await reader.collections.news.all();
+const page = await createCollectionResource("pages", locale).read("news");
+const news = await createCollectionResource("news", locale).all();
 const sortedNews = news.sort((a, z) => {
-	return compareDesc(new Date(a.entry.publicationDate), new Date(z.entry.publicationDate));
+	return compareDesc(new Date(a.data.publicationDate), new Date(z.data.publicationDate));
 });
 
-const documentTitle = page.title;
-const { title, image } = page;
-const { default: Content } = await getMdxContent(await page.content(), locale);
+const { content, image, title } = page.data;
+const documentTitle = title;
+const { default: Content } = await page.compile(content);
 ---
 
 <PageLayout locale={locale} title={documentTitle}>
@@ -43,27 +41,28 @@ const { default: Content } = await getMdxContent(await page.content(), locale);
 				<ul class="grid gap-8 grid-fluid-cols-72" role="list">
 					{
 						sortedNews.map((item) => {
-							const href = `/news/${item.slug}/`;
+							const { image, summary, title } = item.data;
+							const href = `/news/${item.id}/`;
 
 							return (
 								<li>
 									<article class="grid gap-y-2">
 										<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
 											<Link aria-hidden href={href} tabindex={-1}>
-												<span class="sr-only">{item.entry.title}</span>
+												<span class="sr-only">{title}</span>
 												<Image
 													alt=""
 													class="absolute inset-0 size-full object-cover transition hover:opacity-75"
 													sizes="620px"
-													src={getImageImport(item.entry.image)}
+													src={getImageImport(image)}
 													widths={[620]}
 												/>
 											</Link>
 										</div>
 										<h2 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-											{item.entry.title}
+											{title}
 										</h2>
-										<div class="text-sm leading-relaxed text-neutral-700">{item.entry.summary}</div>
+										<div class="text-sm leading-relaxed text-neutral-700">{summary}</div>
 									</article>
 								</li>
 							);

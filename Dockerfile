@@ -19,7 +19,7 @@ RUN pnpm fetch --prod
 RUN pnpm install --frozen-lockfile --ignore-scripts --offline --prod
 
 # build
-FROM base AS build
+FROM base as build
 
 RUN pnpm fetch --dev
 

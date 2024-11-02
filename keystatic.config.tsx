@@ -1,25 +1,40 @@
+/* @jsxImportSource react */
+
+import { withI18nPrefix } from "@acdh-oeaw/keystatic-lib";
 import { config } from "@keystatic/core";
 
-import { Logo } from "@/components/logo";
 import { env } from "@/config/env.config";
 import { defaultLocale } from "@/config/i18n.config";
-import { blog, events, news, pages, partners } from "@/lib/content/collections";
-import { imprint, indexPage, metadata, navigation, socialMedia } from "@/lib/content/singletons";
+import {
+	createBlog,
+	createEvents,
+	createNews,
+	createPages,
+	createPartners,
+} from "@/lib/keystatic/collections";
+import { Logo } from "@/lib/keystatic/logo";
+import {
+	createImprint,
+	createIndexPage,
+	createMetadata,
+	createNavigation,
+	createSocialMedia,
+} from "@/lib/keystatic/singletons";
 
 export default config({
 	collections: {
-		blog: blog(defaultLocale),
-		events: events(defaultLocale),
-		news: news(defaultLocale),
-		pages: pages(defaultLocale),
-		partners: partners(defaultLocale),
+		[withI18nPrefix("blog", defaultLocale)]: createBlog(defaultLocale),
+		[withI18nPrefix("events", defaultLocale)]: createEvents(defaultLocale),
+		[withI18nPrefix("news", defaultLocale)]: createNews(defaultLocale),
+		[withI18nPrefix("pages", defaultLocale)]: createPages(defaultLocale),
+		[withI18nPrefix("partners", defaultLocale)]: createPartners(defaultLocale),
 	},
 	singletons: {
-		imprint: imprint(defaultLocale),
-		indexPage: indexPage(defaultLocale),
-		metadata: metadata(defaultLocale),
-		navigation: navigation(defaultLocale),
-		socialMedia: socialMedia(defaultLocale),
+		[withI18nPrefix("imprint", defaultLocale)]: createImprint(defaultLocale),
+		[withI18nPrefix("indexPage", defaultLocale)]: createIndexPage(defaultLocale),
+		[withI18nPrefix("metadata", defaultLocale)]: createMetadata(defaultLocale),
+		[withI18nPrefix("navigation", defaultLocale)]: createNavigation(defaultLocale),
+		[withI18nPrefix("socialMedia", defaultLocale)]: createSocialMedia(defaultLocale),
 	},
 	storage:
 		env.PUBLIC_KEYSTATIC_MODE === "github" &&
@@ -44,9 +59,22 @@ export default config({
 			name: "ATRIUM",
 		},
 		navigation: {
-			data: ["events", "news", "partners", "blog"],
-			pages: ["indexPage", "pages", "imprint"],
-			settings: ["metadata", "navigation", "socialMedia"],
+			data: [
+				withI18nPrefix("events", defaultLocale),
+				withI18nPrefix("news", defaultLocale),
+				withI18nPrefix("partners", defaultLocale),
+				withI18nPrefix("blog", defaultLocale),
+			],
+			pages: [
+				withI18nPrefix("indexPage", defaultLocale),
+				withI18nPrefix("pages", defaultLocale),
+				withI18nPrefix("imprint", defaultLocale),
+			],
+			settings: [
+				withI18nPrefix("metadata", defaultLocale),
+				withI18nPrefix("navigation", defaultLocale),
+				withI18nPrefix("socialMedia", defaultLocale),
+			],
 		},
 	},
 });

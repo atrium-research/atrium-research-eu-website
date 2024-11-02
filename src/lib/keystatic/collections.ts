@@ -1,34 +1,33 @@
+/* @jsxImportSource react */
+
+import {
+	createAssetOptions,
+	createCollection,
+	createContentFieldOptions,
+} from "@acdh-oeaw/keystatic-lib";
 import { collection, fields } from "@keystatic/core";
 
-import { createAssetPaths } from "@/lib/content/create-asset-paths";
-import { createCollection } from "@/lib/content/create-collection";
-import { createComponents, headingLevels } from "@/lib/content/create-components";
-import { createCollectionPaths } from "@/lib/content/create-paths";
-// import { createPreviewUrl } from "@/lib/content/create-preview-url";
+import { eventTags, partnerKinds } from "@/lib/keystatic/component-options";
+import {
+	createFigure,
+	createFootnote,
+	createGrid,
+	createHeadingId,
+	createLink,
+	createLinkButton,
+	createThumbnail,
+	createTweet,
+	createVideo,
+} from "@/lib/keystatic/components";
 
-export const eventTags = [
-	{ label: "Organised", value: "organised" },
-	{ label: "Presented at", value: "presented-at" },
-	{ label: "Supported", value: "supported" },
-] as const;
-
-export const partnerKinds = [
-	{ label: "Research Infrastructure", value: "research-infrastructure" },
-	{ label: "Beneficiary", value: "beneficiary" },
-	{ label: "Affiliated Entity", value: "affiliated" },
-] as const;
-
-export const blog = createCollection((locale) => {
-	const { assetPath, contentPath } = createCollectionPaths("/blog/", locale);
-
+export const createBlog = createCollection("/blog/", (paths, locale) => {
 	return collection({
 		label: "Blog",
-		path: contentPath,
-		slugField: "title",
+		path: paths.contentPath,
 		format: { contentField: "content" },
-		// previewUrl: createPreviewUrl("/blog/{slug}"),
-		entryLayout: "content",
+		slugField: "title",
 		columns: ["title"],
+		entryLayout: "content",
 		schema: {
 			title: fields.slug({
 				name: {
@@ -44,7 +43,7 @@ export const blog = createCollection((locale) => {
 			image: fields.image({
 				label: "Image",
 				validation: { isRequired: true },
-				...createAssetPaths(assetPath),
+				...createAssetOptions(paths.assetPath),
 			}),
 			authors: fields.array(
 				fields.text({
@@ -66,32 +65,36 @@ export const blog = createCollection((locale) => {
 			}),
 			bannerImage: fields.image({
 				label: "Banner image",
-				// validation: { isRequired: false },
-				...createAssetPaths(assetPath),
+				validation: { isRequired: false },
+				...createAssetOptions(paths.assetPath),
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: {
-					heading: headingLevels,
-					image: createAssetPaths(assetPath),
+				options: createContentFieldOptions(paths.assetPath),
+				components: {
+					...createFigure(paths.assetPath, locale),
+					...createFootnote(paths.assetPath, locale),
+					...createGrid(paths.assetPath, locale),
+					...createHeadingId(paths.assetPath, locale),
+					...createLink(paths.assetPath, locale),
+					...createLinkButton(paths.assetPath, locale),
+					...createThumbnail(paths.assetPath, locale),
+					...createTweet(paths.assetPath, locale),
+					...createVideo(paths.assetPath, locale),
 				},
-				components: createComponents(assetPath, locale),
 			}),
 		},
 	});
 });
 
-export const events = createCollection((locale) => {
-	const { assetPath, contentPath } = createCollectionPaths("/events/", locale);
-
+export const createEvents = createCollection("/events/", (paths, locale) => {
 	return collection({
 		label: "Events",
-		path: contentPath,
-		slugField: "title",
+		path: paths.contentPath,
 		format: { contentField: "content" },
-		// previewUrl: createPreviewUrl("/events/{slug}"),
-		entryLayout: "content",
+		slugField: "title",
 		columns: ["title"],
+		entryLayout: "content",
 		schema: {
 			title: fields.slug({
 				name: {
@@ -115,7 +118,7 @@ export const events = createCollection((locale) => {
 			}),
 			endDate: fields.date({
 				label: "End date",
-				// validation: { isRequired: false },
+				validation: { isRequired: false },
 			}),
 			location: fields.text({
 				label: "Location",
@@ -124,7 +127,7 @@ export const events = createCollection((locale) => {
 			image: fields.image({
 				label: "Image",
 				validation: { isRequired: true },
-				...createAssetPaths(assetPath),
+				...createAssetOptions(paths.assetPath),
 			}),
 			summary: fields.text({
 				label: "Summary",
@@ -133,32 +136,36 @@ export const events = createCollection((locale) => {
 			}),
 			bannerImage: fields.image({
 				label: "Banner image",
-				// validation: { isRequired: false },
-				...createAssetPaths(assetPath),
+				validation: { isRequired: false },
+				...createAssetOptions(paths.assetPath),
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: {
-					heading: headingLevels,
-					image: createAssetPaths(assetPath),
+				options: createContentFieldOptions(paths.assetPath),
+				components: {
+					...createFigure(paths.assetPath, locale),
+					...createFootnote(paths.assetPath, locale),
+					...createGrid(paths.assetPath, locale),
+					...createHeadingId(paths.assetPath, locale),
+					...createLink(paths.assetPath, locale),
+					...createLinkButton(paths.assetPath, locale),
+					...createThumbnail(paths.assetPath, locale),
+					...createTweet(paths.assetPath, locale),
+					...createVideo(paths.assetPath, locale),
 				},
-				components: createComponents(assetPath, locale),
 			}),
 		},
 	});
 });
 
-export const news = createCollection((locale) => {
-	const { assetPath, contentPath } = createCollectionPaths("/news/", locale);
-
+export const createNews = createCollection("/news/", (paths, locale) => {
 	return collection({
 		label: "News",
-		path: contentPath,
-		slugField: "title",
+		path: paths.contentPath,
 		format: { contentField: "content" },
-		// previewUrl: createPreviewUrl("/news/{slug}"),
-		entryLayout: "content",
+		slugField: "title",
 		columns: ["title"],
+		entryLayout: "content",
 		schema: {
 			title: fields.slug({
 				name: {
@@ -174,7 +181,7 @@ export const news = createCollection((locale) => {
 			image: fields.image({
 				label: "Image",
 				validation: { isRequired: true },
-				...createAssetPaths(assetPath),
+				...createAssetOptions(paths.assetPath),
 			}),
 			summary: fields.text({
 				label: "Summary",
@@ -183,32 +190,36 @@ export const news = createCollection((locale) => {
 			}),
 			bannerImage: fields.image({
 				label: "Banner image",
-				// validation: { isRequired: false },
-				...createAssetPaths(assetPath),
+				validation: { isRequired: false },
+				...createAssetOptions(paths.assetPath),
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: {
-					heading: headingLevels,
-					image: createAssetPaths(assetPath),
+				options: createContentFieldOptions(paths.assetPath),
+				components: {
+					...createFigure(paths.assetPath, locale),
+					...createFootnote(paths.assetPath, locale),
+					...createGrid(paths.assetPath, locale),
+					...createHeadingId(paths.assetPath, locale),
+					...createLink(paths.assetPath, locale),
+					...createLinkButton(paths.assetPath, locale),
+					...createThumbnail(paths.assetPath, locale),
+					...createTweet(paths.assetPath, locale),
+					...createVideo(paths.assetPath, locale),
 				},
-				components: createComponents(assetPath, locale),
 			}),
 		},
 	});
 });
 
-export const pages = createCollection((locale) => {
-	const { assetPath, contentPath } = createCollectionPaths("/pages/", locale);
-
+export const createPages = createCollection("/pages/", (paths, locale) => {
 	return collection({
 		label: "Pages",
-		path: contentPath,
-		slugField: "title",
+		path: paths.contentPath,
 		format: { contentField: "content" },
-		// previewUrl: createPreviewUrl("/{slug}"),
-		entryLayout: "content",
+		slugField: "title",
 		columns: ["title"],
+		entryLayout: "content",
 		schema: {
 			title: fields.slug({
 				name: {
@@ -219,7 +230,7 @@ export const pages = createCollection((locale) => {
 			image: fields.image({
 				label: "Image",
 				validation: { isRequired: true },
-				...createAssetPaths(assetPath),
+				...createAssetOptions(paths.assetPath),
 			}),
 			summary: fields.text({
 				label: "Summary",
@@ -228,27 +239,31 @@ export const pages = createCollection((locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: {
-					heading: headingLevels,
-					image: createAssetPaths(assetPath),
+				options: createContentFieldOptions(paths.assetPath),
+				components: {
+					...createFigure(paths.assetPath, locale),
+					...createFootnote(paths.assetPath, locale),
+					...createGrid(paths.assetPath, locale),
+					...createHeadingId(paths.assetPath, locale),
+					...createLink(paths.assetPath, locale),
+					...createLinkButton(paths.assetPath, locale),
+					...createThumbnail(paths.assetPath, locale),
+					...createTweet(paths.assetPath, locale),
+					...createVideo(paths.assetPath, locale),
 				},
-				components: createComponents(assetPath, locale),
 			}),
 		},
 	});
 });
 
-export const partners = createCollection((locale) => {
-	const { assetPath, contentPath } = createCollectionPaths("/partners/", locale);
-
+export const createPartners = createCollection("/partners/", (paths, _locale) => {
 	return collection({
 		label: "Partners",
-		path: contentPath,
-		slugField: "name",
+		path: paths.contentPath,
 		format: { data: "json" },
-		// previewUrl: createPreviewUrl("/partners/{slug}"),
-		entryLayout: "content",
+		slugField: "name",
 		columns: ["name", "kind"],
+		entryLayout: "content",
 		schema: {
 			name: fields.slug({
 				name: {
@@ -264,7 +279,7 @@ export const partners = createCollection((locale) => {
 			image: fields.image({
 				label: "Image",
 				validation: { isRequired: true },
-				...createAssetPaths(assetPath),
+				...createAssetOptions(paths.assetPath),
 			}),
 			website: fields.url({
 				label: "Website",

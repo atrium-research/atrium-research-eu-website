@@ -4,14 +4,29 @@ import type { HTMLAttributes } from "astro/types";
 import { ensureTrailingSlash } from "@/lib/ensure-trailing-slash";
 import { withBasePath } from "@/lib/with-base-path";
 
-interface Props extends HTMLAttributes<"a"> {}
+interface Props extends HTMLAttributes<"a"> {
+	reload?: boolean;
+}
 
-const { href, ...rest } = Astro.props;
+const { download, href, reload, ...rest } = Astro.props;
 
-const localisedHref =
-	typeof href === "string" && href.startsWith("/") ? withBasePath(ensureTrailingSlash(href)) : href;
+const isDownloadLink = download != null;
+
+const localisedHref = isDownloadLink
+	? href
+	: typeof href === "string" && href.startsWith("/")
+		? withBasePath(ensureTrailingSlash(href))
+		: href;
 const pathname = localisedHref instanceof URL ? localisedHref.pathname : localisedHref;
 const isCurrent = pathname === Astro.url.pathname;
 ---
 
-<a {...rest} aria-current={isCurrent ? "page" : undefined} href={localisedHref}><slot /></a>
+<a
+	{...rest}
+	aria-current={isCurrent ? "page" : undefined}
+	data-astro-reload={reload}
+	download={download}
+	href={localisedHref}
+>
+	<slot />
+</a>

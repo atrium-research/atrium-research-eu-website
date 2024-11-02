@@ -8,22 +8,20 @@ import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { createReader } from "@/lib/content/create-reader";
-import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getFormatter } from "@/lib/formatter";
 import { getImageImport } from "@/lib/get-image-import";
 import { createI18n } from "@/lib/i18n";
+import { createCollectionResource, createSingletonResource } from "@/lib/keystatic/resources";
 import logo from "~/public/assets/images/atrium-logo.png";
 import europe from "~/public/assets/images/atrium-map-of-europe.jpg";
 
-const reader = createReader();
-const page = await reader.singletons.indexPage.readOrThrow();
+const page = await createSingletonResource("indexPage", locale).read();
 
 const { t } = await createI18n(locale);
 
 const documentTitle = t("IndexPage.meta.title");
-const { hero, main, latest } = page;
-const { default: Content } = await getMdxContent(await main.content(), locale);
+const { hero, main, latest } = page.data;
+const { default: Content } = await page.compile(main.content);
 
 const formatter = getFormatter(locale);
 ---
@@ -77,10 +75,9 @@ const formatter = getFormatter(locale);
 									case "events": {
 										const id = item.item.value;
 
-										const event = await reader.collections.events.readOrThrow(id, {
-											resolveLinkedFiles: true,
-										});
+										const event = await createCollectionResource("events", locale).read(id);
 
+										const { date, endDate, image, location, title } = event.data;
 										const href = `/events/${id}/`;
 
 										return (
@@ -88,40 +85,37 @@ const formatter = getFormatter(locale);
 												<article class="grid gap-y-2">
 													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
 														<Link aria-hidden="true" href={href} tabindex={-1}>
-															<span class="sr-only">{event.title}</span>
+															<span class="sr-only">{title}</span>
 															<Image
 																alt=""
 																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
 																sizes="620px"
-																src={getImageImport(event.image)}
+																src={getImageImport(image)}
 																widths={[620]}
 															/>
 														</Link>
 													</div>
 													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-														<Link href={href}>{event.title}</Link>
+														<Link href={href}>{title}</Link>
 													</h3>
 													<dl class="text-sm">
 														<div class="flex gap-x-2">
 															<dt>Date:</dt>
 															<dd>
-																{event.endDate != null ? (
+																{endDate != null ? (
 																	<span>
-																		{formatter.date.formatRange(
-																			new Date(event.date),
-																			new Date(event.endDate),
-																		)}
+																		{formatter.date.formatRange(new Date(date), new Date(endDate))}
 																	</span>
 																) : (
-																	<time datetime={event.date}>
-																		{formatter.date.format(new Date(event.date))}
+																	<time datetime={date}>
+																		{formatter.date.format(new Date(date))}
 																	</time>
 																)}
 															</dd>
 														</div>
 														<div class="flex gap-x-2">
 															<dt>Location:</dt>
-															<dd>{event.location}</dd>
+															<dd>{location}</dd>
 														</div>
 													</dl>
 												</article>
@@ -132,10 +126,9 @@ const formatter = getFormatter(locale);
 									case "news": {
 										const id = item.item.value;
 
-										const news = await reader.collections.news.readOrThrow(id, {
-											resolveLinkedFiles: true,
-										});
+										const news = await createCollectionResource("news", locale).read(id);
 
+										const { image, title } = news.data;
 										const href = `/news/${id}/`;
 
 										return (
@@ -143,18 +136,18 @@ const formatter = getFormatter(locale);
 												<article class="grid gap-y-2">
 													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
 														<Link href={href}>
-															<span class="sr-only">{news.title}</span>
+															<span class="sr-only">{title}</span>
 															<Image
 																alt=""
 																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
 																sizes="620px"
-																src={getImageImport(news.image)}
+																src={getImageImport(image)}
 																widths={[620]}
 															/>
 														</Link>
 													</div>
 													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-														<Link href={href}>{news.title}</Link>
+														<Link href={href}>{title}</Link>
 													</h3>
 												</article>
 											</li>
@@ -181,7 +174,7 @@ const formatter = getFormatter(locale);
 
 		<div class="py-8">
 			<PageSection>
-				<div class="grid gap-8 md:grid-cols-2">
+				<div class="grid gap-8 md:grid-cols-2 md:items-center">
 					<div>
 						<h2 class="text-center text-2xl font-semibold text-red-clay">
 							Transnational Access – Travel Grants
@@ -193,8 +186,8 @@ const formatter = getFormatter(locale);
 						<div>
 							<LinkButton
 								aria-label="More info about travel grants"
-								href="/travel-grants/"
 								label="More info"
+								link={{ discriminant: "pages", value: "/travel-grants/" }}
 							/>
 						</div>
 					</div>
