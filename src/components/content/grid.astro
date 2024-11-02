@@ -1,6 +1,6 @@
 ---
 interface Props {
-	variant:
+	layout:
 		| "four-columns"
 		| "four-one-columns"
 		| "one-four-columns"
@@ -12,9 +12,9 @@ interface Props {
 		| "two-one-columns";
 }
 
-const { variant } = Astro.props;
+const { layout } = Astro.props;
 
-const variants: Record<Props["variant"], string> = {
+const layouts: Record<Props["layout"], string> = {
 	"two-columns": "sm:grid-cols-2",
 	"three-columns": "sm:grid-cols-3",
 	"four-columns": "sm:grid-cols-4",
@@ -29,6 +29,6 @@ const variants: Record<Props["variant"], string> = {
 };
 ---
 
-<div class:list={[variants[variant], "grid content-start gap-8"]}>
+<div class:list={[layouts[layout], "grid content-start gap-8"]}>
 	<slot />
 </div>
