@@ -1,26 +1,20 @@
+/* @jsxImportSource react */
+
+import {
+	createAssetOptions,
+	createContentFieldOptions,
+	createSingleton,
+} from "@acdh-oeaw/keystatic-lib";
 import { fields, singleton } from "@keystatic/core";
 
-import { createAssetPaths } from "@/lib/content/create-asset-paths";
-import { createComponents, headingLevels } from "@/lib/content/create-components";
-import { createSingletonPaths } from "@/lib/content/create-paths";
-// import { createPreviewUrl } from "@/lib/content/create-preview-url";
-import { createSingleton } from "@/lib/content/create-singleton";
-import * as validation from "@/lib/content/validation";
+import { socialMediaKinds } from "@/lib/keystatic/component-options";
+import * as validation from "@/lib/keystatic/validation";
 
-export const socialMediaKinds = [
-	{ label: "LinkedIn", value: "linkedin" },
-	{ label: "Twitter", value: "twitter" },
-	{ label: "YouTube", value: "youtube" },
-] as const;
-
-export const indexPage = createSingleton((locale) => {
-	const { assetPath, contentPath } = createSingletonPaths("/index-page/", locale);
-
+export const createIndexPage = createSingleton("/index-page/", (paths, _locale) => {
 	return singleton({
 		label: "Home page",
-		path: contentPath,
+		path: paths.contentPath,
 		format: { data: "json" },
-		// previewUrl: createPreviewUrl("/"),
 		entryLayout: "form",
 		schema: {
 			hero: fields.object(
@@ -38,7 +32,7 @@ export const indexPage = createSingleton((locale) => {
 						fields.image({
 							label: "Image",
 							validation: { isRequired: true },
-							...createAssetPaths(assetPath),
+							...createAssetOptions(paths.assetPath),
 						}),
 						{
 							label: "Images",
@@ -57,11 +51,18 @@ export const indexPage = createSingleton((locale) => {
 				{
 					content: fields.mdx({
 						label: "Content",
-						options: {
-							heading: headingLevels,
-							image: createAssetPaths(assetPath),
+						options: createContentFieldOptions(paths.assetPath),
+						components: {
+							// ...createFigure(paths.assetPath, locale),
+							// ...createFootnote(paths.assetPath, locale),
+							// ...createGrid(paths.assetPath, locale),
+							// ...createHeadingId(paths.assetPath, locale),
+							// ...createLink(paths.assetPath, locale),
+							// ...createLinkButton(paths.assetPath, locale),
+							// ...createThumbnail(paths.assetPath, locale),
+							// ...createTweet(paths.assetPath, locale),
+							// ...createVideo(paths.assetPath, locale),
 						},
-						components: createComponents(assetPath, locale),
 					}),
 				},
 				{
@@ -86,13 +87,13 @@ export const indexPage = createSingleton((locale) => {
 									{
 										events: fields.relationship({
 											label: "Event",
-											collection: "events",
 											validation: { isRequired: true },
+											collection: "events",
 										}),
 										news: fields.relationship({
 											label: "News",
-											collection: "news",
 											validation: { isRequired: true },
+											collection: "news",
 										}),
 										tweets: fields.text({
 											label: "Tweet ID",
@@ -126,12 +127,10 @@ export const indexPage = createSingleton((locale) => {
 	});
 });
 
-export const imprint = createSingleton((locale) => {
-	const { assetPath, contentPath } = createSingletonPaths("/imprint/", locale);
-
+export const createImprint = createSingleton("/imprint/", (paths, _locale) => {
 	return singleton({
 		label: "Imprint",
-		path: contentPath,
+		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
 		schema: {
@@ -143,11 +142,18 @@ export const imprint = createSingleton((locale) => {
 					}),
 					content: fields.mdx({
 						label: "Content",
-						options: {
-							heading: headingLevels,
-							image: createAssetPaths(assetPath),
+						options: createContentFieldOptions(paths.assetPath),
+						components: {
+							// ...createFigure(paths.assetPath, locale),
+							// ...createFootnote(paths.assetPath, locale),
+							// ...createGrid(paths.assetPath, locale),
+							// ...createHeadingId(paths.assetPath, locale),
+							// ...createLink(paths.assetPath, locale),
+							// ...createLinkButton(paths.assetPath, locale),
+							// ...createThumbnail(paths.assetPath, locale),
+							// ...createTweet(paths.assetPath, locale),
+							// ...createVideo(paths.assetPath, locale),
 						},
-						components: createComponents(assetPath, locale),
 					}),
 				},
 				{
@@ -158,12 +164,10 @@ export const imprint = createSingleton((locale) => {
 	});
 });
 
-export const metadata = createSingleton((locale) => {
-	const { contentPath } = createSingletonPaths("/metadata/", locale);
-
+export const createMetadata = createSingleton("/metadata/", (paths, _locale) => {
 	return singleton({
 		label: "Metadata",
-		path: contentPath,
+		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
 		schema: {
@@ -248,12 +252,10 @@ const links = {
 	separator: fields.empty(),
 };
 
-export const navigation = createSingleton((locale) => {
-	const { contentPath } = createSingletonPaths("/navigation/", locale);
-
+export const createNavigation = createSingleton("/navigation/", (paths, _locale) => {
 	return singleton({
 		label: "Navigation",
-		path: contentPath,
+		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
 		schema: {
@@ -330,12 +332,10 @@ export const navigation = createSingleton((locale) => {
 	});
 });
 
-export const socialMedia = createSingleton((locale) => {
-	const { contentPath } = createSingletonPaths("/social-media/", locale);
-
+export const createSocialMedia = createSingleton("/social-media/", (paths, _locale) => {
 	return singleton({
 		label: "Social media",
-		path: contentPath,
+		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
 		schema: {

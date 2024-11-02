@@ -1,21 +1,22 @@
 ---
-import Link from "@/components/link.astro";
+import ContentLink from "@/components/content/link.astro";
+import type { LinkSchema } from "@/lib/keystatic/get-link-props";
 
 interface Props {
 	"aria-label"?: string;
-	href: string;
 	label: string;
+	link: LinkSchema;
 }
 
-const { "aria-label": ariaLabel, href, label } = Astro.props;
+const { "aria-label": ariaLabel, link, label } = Astro.props;
 ---
 
 <div class="flex justify-center">
-	<Link
+	<ContentLink
 		aria-label={ariaLabel}
 		class="my-4 inline-flex rounded-md bg-red-clay px-6 py-2 font-heading font-semibold text-white no-underline transition hover:bg-red-clay-intent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-granite"
-		href={href}
+		link={link}
 	>
 		{label}
-	</Link>
+	</ContentLink>
 </div>

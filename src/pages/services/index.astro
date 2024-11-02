@@ -6,17 +6,15 @@ import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { createReader } from "@/lib/content/create-reader";
-import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { getImageImport } from "@/lib/get-image-import";
+import { createCollectionResource } from "@/lib/keystatic/resources";
 import { createSshOpenMarketplaceItemUrl, getSshOpenMarketplaceToolsServices } from "@/lib/sshoc";
 
-const reader = createReader();
-const page = await reader.collections.pages.readOrThrow("services");
+const page = await createCollectionResource("pages", locale).read("services");
 
-const documentTitle = page.title;
-const { title, image } = page;
-const { default: Content } = await getMdxContent(await page.content(), locale);
+const { content, image, title } = page.data;
+const documentTitle = title;
+const { default: Content } = await page.compile(content);
 
 const { items, total } = await getSshOpenMarketplaceToolsServices();
 ---
@@ -41,7 +39,7 @@ const { items, total } = await getSshOpenMarketplaceToolsServices();
 				<ul class="grid gap-y-12" role="list">
 					{
 						items.map(async (item) => {
-							const { default: Content } = await getMdxContent(item.description, locale);
+							const { default: Content } = await page.compile(item.description);
 
 							return (
 								<li>

@@ -4,16 +4,15 @@ import { Icon } from "astro-icon/components";
 
 import MailingListForm from "@/components/mailing-list-form.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
-import { createReader } from "@/lib/content/create-reader";
 import { createI18n } from "@/lib/i18n";
+import { createSingletonResource } from "@/lib/keystatic/resources";
 import logo from "~/public/assets/images/atrium-logo-with-text.png";
 
 const { t } = await createI18n(locale);
 
-const reader = createReader();
-const socialMedia = await reader.singletons.socialMedia.readOrThrow({
-	resolveLinkedFiles: true,
-});
+const socialMedia = await createSingletonResource("socialMedia", locale).read();
+
+const { email, links } = socialMedia.data;
 
 const socialMediaConfig = {
 	linkedin: { label: "LinkedIn", icon: "simple-icons:linkedin" },
@@ -34,7 +33,7 @@ const socialMediaConfig = {
 				<div class="grid gap-y-4">
 					<div class="flex justify-center gap-x-2">
 						{
-							socialMedia.links.map((link) => {
+							links.map((link) => {
 								const config = socialMediaConfig[link.kind];
 
 								return (
@@ -54,10 +53,10 @@ const socialMediaConfig = {
 					</div>
 					<a
 						class="flex items-center gap-x-2 rounded-md px-1 py-0.5 transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-						href={`mailto:${socialMedia.email}`}
+						href={`mailto:${email}`}
 					>
 						<Icon aria-hidden="true" class="h-6" name="lucide:mail" />
-						{socialMedia.email.replace("@", "[at]")}
+						{email.replace("@", "[at]")}
 					</a>
 				</div>
 			</div>

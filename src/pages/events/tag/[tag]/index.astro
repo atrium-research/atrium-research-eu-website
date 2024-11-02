@@ -8,12 +8,11 @@ import PageSection from "@/components/page-section.astro";
 import PageTitle from "@/components/page-title.astro";
 import { defaultLocale as locale } from "@/config/i18n.config";
 import PageLayout from "@/layouts/page-layout.astro";
-import { createReader } from "@/lib/content/create-reader";
-import { getMdxContent } from "@/lib/content/get-mdx-content";
 import { tags } from "@/lib/event-tags";
 import { getFormatter } from "@/lib/formatter";
 import { getImageImport } from "@/lib/get-image-import";
 import { createI18n } from "@/lib/i18n";
+import { createCollectionResource } from "@/lib/keystatic/resources";
 
 export function getStaticPaths() {
 	return tags.map((tag) => {
@@ -23,27 +22,33 @@ export function getStaticPaths() {
 
 const { tag } = Astro.params;
 
-const reader = createReader();
-const page = await reader.collections.pages.readOrThrow("events");
+const page = await createCollectionResource("pages", locale).read("events");
 
-const events = await reader.collections.events.all();
+const events = await createCollectionResource("events", locale).all();
 const filteredEvents =
 	tag === "all"
 		? events
 		: events.filter((event) => {
-				return event.entry.tags.includes(tag);
+				return event.data.tags.includes(tag);
 			});
 const sortedEvents = filteredEvents.sort((a, z) => {
-	return compareDesc(new Date(a.entry.date), new Date(z.entry.date));
+	return compareDesc(new Date(a.data.date), new Date(z.data.date));
 });
 
 const { t } = await createI18n(locale);
 
-const documentTitle = page.title;
-const { title, image } = page;
-const { default: Content } = await getMdxContent(await page.content(), locale);
+const { content, image, title } = page.data;
+const documentTitle = title;
+const { default: Content } = await page.compile(content);
 
-const fullTitle = tag === "all" ? title : `${title} (${tags.find((t) => t.value === tag)!.label})`;
+const fullTitle =
+	tag === "all"
+		? title
+		: `${title} (${
+				tags.find((t) => {
+					return t.value === tag;
+				})!.label
+			})`;
 const formatter = getFormatter(locale);
 ---
 
@@ -88,50 +93,48 @@ const formatter = getFormatter(locale);
 				<ul class="grid gap-8 grid-fluid-cols-72" role="list">
 					{
 						sortedEvents.map((event) => {
-							const href = `/events/${event.slug}/`;
+							const { date: startDate, endDate, image, location, title } = event.data;
+							const href = `/events/${event.id}/`;
 
 							return (
 								<li>
 									<article class="grid gap-y-2">
 										<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
 											<Link aria-hidden="true" href={href} tabindex={-1}>
-												<span class="sr-only">{event.entry.title}</span>
+												<span class="sr-only">{title}</span>
 												<Image
 													alt=""
 													class="absolute inset-0 size-full object-cover transition hover:opacity-75"
 													sizes="620px"
-													src={getImageImport(event.entry.image)}
+													src={getImageImport(image)}
 													widths={[620]}
 												/>
 											</Link>
 										</div>
 										<h2 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-											{event.entry.title}
+											{title}
 										</h2>
 										<dl class="text-sm text-neutral-700">
 											<div class="flex gap-x-2">
 												<dt>Date:</dt>
 												<dd>
-													{event.entry.endDate != null ? (
+													{endDate != null ? (
 														<span>
-															{formatter.date.formatRange(
-																new Date(event.entry.date),
-																new Date(event.entry.endDate),
-															)}
+															{formatter.date.formatRange(new Date(startDate), new Date(endDate))}
 														</span>
 													) : (
-														<time datetime={event.entry.date}>
-															{formatter.date.format(new Date(event.entry.date))}
+														<time datetime={startDate}>
+															{formatter.date.format(new Date(startDate))}
 														</time>
 													)}
 												</dd>
 											</div>
 											<div class="flex gap-x-2">
 												<dt>Location:</dt>
-												<dd>{event.entry.location}</dd>
+												<dd>{location}</dd>
 											</div>
 										</dl>
-										{/* <div class="text-sm">{event.entry.summary}</div> */}
+										{/* <div class="text-sm">{summary}</div> */}
 									</article>
 								</li>
 							);
