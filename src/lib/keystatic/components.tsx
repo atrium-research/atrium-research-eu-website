@@ -159,7 +159,7 @@ export const createLinkButton = createComponent((assetPath, locale) => {
 			ContentView(props) {
 				const { value } = props;
 
-				return <LinkButtonPreview link={value.link}>{value.label}</LinkButtonPreview>;
+				return <LinkButtonPreview>{value.label}</LinkButtonPreview>;
 			},
 		}),
 	};

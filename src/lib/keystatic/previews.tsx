@@ -8,7 +8,7 @@ import { Tweet as StaticTweet } from "react-tweet";
 
 import type { VideoProvider } from "@/lib/keystatic/component-options";
 import { createVideoUrl } from "@/lib/keystatic/create-video-url";
-import type { LinkSchema } from "@/lib/keystatic/get-link-props";
+// import type { LinkSchema } from "@/lib/keystatic/get-link-props";
 
 interface FigurePreviewProps {
 	/** @default "stretch" */
@@ -79,7 +79,7 @@ export function FigurePreview(props: FigurePreviewProps): ReactNode {
 
 interface LinkButtonPreviewProps {
 	children: ReactNode;
-	link: LinkSchema;
+	// link: LinkSchema;
 }
 
 export function LinkButtonPreview(props: LinkButtonPreviewProps): ReactNode {
