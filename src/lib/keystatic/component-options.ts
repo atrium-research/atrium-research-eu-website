@@ -13,6 +13,13 @@ export const figureAlignments = [
 
 export type FigureAlignment = (typeof figureAlignments)[number]["value"];
 
+export const gridAlignments = [
+	{ label: "Center", value: "center" },
+	{ label: "Stretch", value: "stretch" },
+] as const;
+
+export type GridAlignments = (typeof gridAlignments)[number]["value"];
+
 export const gridLayouts = [
 	{ label: "Two columns", value: "two-columns" },
 	{ label: "Three columns", value: "three-columns" },

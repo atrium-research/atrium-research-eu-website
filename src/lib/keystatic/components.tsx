@@ -14,7 +14,12 @@ import {
 	VideoIcon,
 } from "lucide-react";
 
-import { figureAlignments, gridLayouts, videoProviders } from "@/lib/keystatic/component-options";
+import {
+	figureAlignments,
+	gridAlignments,
+	gridLayouts,
+	videoProviders,
+} from "@/lib/keystatic/component-options";
 import { createLinkSchema } from "@/lib/keystatic/create-link-schema";
 import {
 	FigurePreview,
@@ -82,6 +87,11 @@ export const createGrid = createComponent((_assetPath, _locale) => {
 					options: gridLayouts,
 					defaultValue: "two-columns",
 				}),
+				alignment: fields.select({
+					label: "Vertical alignment",
+					options: gridAlignments,
+					defaultValue: "stretch",
+				}),
 			},
 			children: ["GridItem"],
 			// ContentView(props) {
@@ -94,7 +104,13 @@ export const createGrid = createComponent((_assetPath, _locale) => {
 			label: "Grid item",
 			description: "A grid cell.",
 			icon: <SquareIcon />,
-			schema: {},
+			schema: {
+				alignment: fields.select({
+					label: "Vertical alignment",
+					options: gridAlignments,
+					defaultValue: "stretch",
+				}),
+			},
 			forSpecificLocations: true,
 			// ContentView(props) {
 			// 	const { children } = props;

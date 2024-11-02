@@ -1,5 +1,7 @@
 ---
 interface Props {
+	/** @default "stretch" */
+	alignment?: "center" | "stretch";
 	layout:
 		| "four-columns"
 		| "four-one-columns"
@@ -12,7 +14,12 @@ interface Props {
 		| "two-one-columns";
 }
 
-const { layout } = Astro.props;
+const { alignment = "stretch", layout } = Astro.props;
+
+const alignments = {
+	center: "items-center",
+	stretch: "",
+};
 
 const layouts: Record<Props["layout"], string> = {
 	"two-columns": "sm:grid-cols-2",
@@ -29,6 +36,6 @@ const layouts: Record<Props["layout"], string> = {
 };
 ---
 
-<div class:list={[layouts[layout], "grid content-start gap-8"]}>
+<div class:list={["grid content-start gap-8", alignments[alignment], layouts[layout]]}>
 	<slot />
 </div>
