@@ -8,9 +8,10 @@ import {
 import { fields, singleton } from "@keystatic/core";
 
 import { socialMediaKinds } from "@/lib/keystatic/component-options";
+import { createVideo } from "@/lib/keystatic/components";
 import * as validation from "@/lib/keystatic/validation";
 
-export const createIndexPage = createSingleton("/index-page/", (paths, _locale) => {
+export const createIndexPage = createSingleton("/index-page/", (paths, locale) => {
 	return singleton({
 		label: "Home page",
 		path: paths.contentPath,
@@ -61,7 +62,7 @@ export const createIndexPage = createSingleton("/index-page/", (paths, _locale) 
 							// ...createLinkButton(paths.assetPath, locale),
 							// ...createThumbnail(paths.assetPath, locale),
 							// ...createTweet(paths.assetPath, locale),
-							// ...createVideo(paths.assetPath, locale),
+							...createVideo(paths.assetPath, locale),
 						},
 					}),
 				},

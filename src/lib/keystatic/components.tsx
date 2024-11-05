@@ -161,7 +161,7 @@ export const createLink = createComponent((assetPath, locale) => {
 
 export const createLinkButton = createComponent((assetPath, locale) => {
 	return {
-		Link: block({
+		LinkButton: block({
 			label: "LinkButton",
 			description: "A link which looks like a button.",
 			icon: <LinkIcon />,
