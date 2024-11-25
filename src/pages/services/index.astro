@@ -46,7 +46,9 @@ const { items, total } = await getSshOpenMarketplaceToolsServices();
 								<li>
 									<details class="group" name="services">
 										<summary class="flex cursor-pointer items-center justify-between gap-x-8">
-											<h3 class="text-xl font-semibold text-red-clay">{item.label}</h3>
+											<h3 class="text-xl font-semibold text-red-clay underline underline-offset-2 hover:no-underline">
+												{item.label}
+											</h3>
 											<Icon
 												class="size-5 shrink-0 text-red-clay group-open:rotate-90"
 												name="lucide:chevron-right"
