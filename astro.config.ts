@@ -23,6 +23,7 @@ export default defineConfig({
 				lucide: [
 					"check",
 					"chevron-down",
+					"chevron-right",
 					// "linkedin",
 					"mail",
 					"menu",
