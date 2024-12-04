@@ -60,7 +60,6 @@ export default defineConfig({
 	// 	smartypants: false,
 	// 	syntaxHighlight: false,
 	// },
-	output: "hybrid",
 	prefetch: {
 		defaultStrategy: "hover",
 		prefetchAll: true,
