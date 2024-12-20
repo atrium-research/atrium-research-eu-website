@@ -35,7 +35,7 @@ export default defineConfig({
 					"x",
 					// "youtube",
 				],
-				simpleIcons: ["linkedin", "x", "youtube"],
+				simpleIcons: ["bluesky", "linkedin", "x", "youtube"],
 			},
 		}),
 		/** Only needed to make the astro jsx runtime work correctly. */

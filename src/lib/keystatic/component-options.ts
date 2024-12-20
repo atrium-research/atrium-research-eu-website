@@ -58,6 +58,7 @@ export const partnerKinds = [
 export type PartnerKind = (typeof partnerKinds)[number]["value"];
 
 export const socialMediaKinds = [
+	{ label: "Bluesky", value: "bluesky" },
 	{ label: "LinkedIn", value: "linkedin" },
 	{ label: "Twitter", value: "twitter" },
 	{ label: "YouTube", value: "youtube" },

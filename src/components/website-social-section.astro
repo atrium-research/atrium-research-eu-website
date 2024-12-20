@@ -15,6 +15,7 @@ const socialMedia = await createSingletonResource("socialMedia", locale).read();
 const { email, links } = socialMedia.data;
 
 const socialMediaConfig = {
+	bluesky: { label: "Bluesky", icon: "simple-icons:bluesky" },
 	linkedin: { label: "LinkedIn", icon: "simple-icons:linkedin" },
 	twitter: { label: "Twitter", icon: "simple-icons:x" },
 	youtube: { label: "YouTube", icon: "simple-icons:youtube" },
