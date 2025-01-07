@@ -14,20 +14,20 @@
     "items": [
       {
         "item": {
-          "discriminant": "news",
-          "value": "caa-2025-call-for-papers-for-atrium-session"
+          "discriminant": "tweets",
+          "value": "1859561912733773951"
         }
       },
       {
         "item": {
           "discriminant": "events",
-          "value": "daschcon-archaeology-and-interoperability"
+          "value": "ads-training-school-in-data-stewardship"
         }
       },
       {
         "item": {
-          "discriminant": "tweets",
-          "value": "1859561912733773951"
+          "discriminant": "news",
+          "value": "atrium-first-researcher-forum"
         }
       }
     ]
