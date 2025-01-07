@@ -4,6 +4,7 @@ import {
 	createAssetOptions,
 	createContentFieldOptions,
 	createSingleton,
+	withI18nPrefix,
 } from "@acdh-oeaw/keystatic-lib";
 import { fields, singleton } from "@keystatic/core";
 
@@ -89,12 +90,12 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 										events: fields.relationship({
 											label: "Event",
 											validation: { isRequired: true },
-											collection: "events",
+											collection: withI18nPrefix("events", locale),
 										}),
 										news: fields.relationship({
 											label: "News",
 											validation: { isRequired: true },
-											collection: "news",
+											collection: withI18nPrefix("news", locale),
 										}),
 										tweets: fields.text({
 											label: "Tweet ID",
