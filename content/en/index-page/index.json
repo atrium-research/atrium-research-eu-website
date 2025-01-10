@@ -14,12 +14,6 @@
     "items": [
       {
         "item": {
-          "discriminant": "tweets",
-          "value": "1876945409555280003"
-        }
-      },
-      {
-        "item": {
           "discriminant": "events",
           "value": "ads-training-school-in-data-stewardship"
         }
@@ -28,6 +22,12 @@
         "item": {
           "discriminant": "news",
           "value": "atrium-first-researcher-forum"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "tweets",
+          "value": "1876945409555280003"
         }
       }
     ]
