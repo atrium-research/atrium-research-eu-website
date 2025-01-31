@@ -82,7 +82,10 @@ export async function getSshOpenMarketplaceToolsServices() {
 		}),
 	});
 
-	const data = (await request(url, { responseType: "json" })) as ItemSearchResponse;
+	const data = (await request(url, {
+		responseType: "json",
+		timeout: 50_000,
+	})) as ItemSearchResponse;
 
 	return { items: data.items, total: data.hits };
 }
