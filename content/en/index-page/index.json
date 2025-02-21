@@ -14,20 +14,20 @@
     "items": [
       {
         "item": {
-          "discriminant": "events",
-          "value": "ads-training-school-in-data-stewardship"
-        }
-      },
-      {
-        "item": {
           "discriminant": "news",
-          "value": "atrium-first-researcher-forum"
+          "value": "atrium-tna-showcase-announced"
         }
       },
       {
         "item": {
           "discriminant": "tweets",
-          "value": "1876945409555280003"
+          "value": "1890360261548122463"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "events",
+          "value": "making-training-materials-matter-introducing-the-fair-by-design-methodology"
         }
       }
     ]
