@@ -20,14 +20,14 @@
       },
       {
         "item": {
-          "discriminant": "tweets",
-          "value": "1890360261548122463"
+          "discriminant": "events",
+          "value": "making-training-materials-matter-introducing-the-fair-by-design-methodology"
         }
       },
       {
         "item": {
-          "discriminant": "events",
-          "value": "making-training-materials-matter-introducing-the-fair-by-design-methodology"
+          "discriminant": "tweets",
+          "value": "1890360261548122463"
         }
       }
     ]
