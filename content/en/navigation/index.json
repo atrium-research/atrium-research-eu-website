@@ -1,119 +1,126 @@
 {
-	"links": [
-		{
-			"discriminant": "link",
-			"value": {
-				"label": "Home",
-				"href": "/"
-			}
-		},
-		{
-			"discriminant": "menu",
-			"value": {
-				"label": "About",
-				"links": [
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Objectives",
-							"id": "objectives"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Partners",
-							"id": "partners"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Governance",
-							"id": "governance"
-						}
-					}
-				]
-			}
-		},
-		{
-			"discriminant": "menu",
-			"value": {
-				"label": "Resources",
-				"links": [
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Transnational Access",
-							"id": "travel-grants"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Communications Kit",
-							"id": "communications-kit"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Deliverables",
-							"id": "deliverables"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Service & Software Catalogue",
-							"id": "services"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Workflows Catalogue",
-							"id": "workflows"
-						}
-					}
-				]
-			}
-		},
-		{
-			"discriminant": "menu",
-			"value": {
-				"label": "News",
-				"links": [
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Latest news",
-							"id": "news"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "Newsletters",
-							"id": "newsletters"
-						}
-					},
-					{
-						"discriminant": "page",
-						"value": {
-							"label": "TNA BLOG",
-							"id": "blog"
-						}
-					}
-				]
-			}
-		},
-		{
-			"discriminant": "page",
-			"value": {
-				"label": "Events",
-				"id": "events"
-			}
-		}
-	]
+  "links": [
+    {
+      "discriminant": "link",
+      "value": {
+        "label": "Home",
+        "href": "/"
+      }
+    },
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "About",
+        "links": [
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Objectives",
+              "id": "objectives"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Partners",
+              "id": "partners"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Governance",
+              "id": "governance"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Work packages",
+              "id": "work-packages"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "Resources",
+        "links": [
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Transnational Access",
+              "id": "travel-grants"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Communications Kit",
+              "id": "communications-kit"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Deliverables",
+              "id": "deliverables"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Service & Software Catalogue",
+              "id": "services"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Workflows Catalogue",
+              "id": "workflows"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "News",
+        "links": [
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Latest news",
+              "id": "news"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Newsletters",
+              "id": "newsletters"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "TNA BLOG",
+              "id": "blog"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "page",
+      "value": {
+        "label": "Events",
+        "id": "events"
+      }
+    }
+  ]
 }
