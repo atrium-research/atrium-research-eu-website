@@ -219,42 +219,42 @@ export const createMetadata = createSingleton("/metadata/", (paths, _locale) => 
 	});
 });
 
-const links = {
-	link: fields.object(
-		{
-			label: fields.text({
-				label: "Label",
-				validation: { isRequired: true },
-			}),
-			href: fields.url({
-				label: "URL",
-				validation: { isRequired: true },
-			}),
-		},
-		{
-			label: "Link",
-		},
-	),
-	page: fields.object(
-		{
-			label: fields.text({
-				label: "Label",
-				validation: { isRequired: true },
-			}),
-			id: fields.relationship({
+export const createNavigation = createSingleton("/navigation/", (paths, locale) => {
+	const links = {
+		link: fields.object(
+			{
+				label: fields.text({
+					label: "Label",
+					validation: { isRequired: true },
+				}),
+				href: fields.url({
+					label: "URL",
+					validation: { isRequired: true },
+				}),
+			},
+			{
+				label: "Link",
+			},
+		),
+		page: fields.object(
+			{
+				label: fields.text({
+					label: "Label",
+					validation: { isRequired: true },
+				}),
+				id: fields.relationship({
+					label: "Page",
+					validation: { isRequired: true },
+					collection: withI18nPrefix("pages", locale),
+				}),
+			},
+			{
 				label: "Page",
-				validation: { isRequired: true },
-				collection: "pages",
-			}),
-		},
-		{
-			label: "Page",
-		},
-	),
-	separator: fields.empty(),
-};
+			},
+		),
+		separator: fields.empty(),
+	};
 
-export const createNavigation = createSingleton("/navigation/", (paths, _locale) => {
 	return singleton({
 		label: "Navigation",
 		path: paths.contentPath,
