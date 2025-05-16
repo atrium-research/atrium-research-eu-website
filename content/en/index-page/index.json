@@ -14,14 +14,14 @@
     "items": [
       {
         "item": {
-          "discriminant": "events",
-          "value": "caa-2025-conference-of-computer-applications-and-quantitative-methods-in-archaeology"
+          "discriminant": "news",
+          "value": "caa-2025-reusable-digital-research-workflows-for-archaeology"
         }
       },
       {
         "item": {
           "discriminant": "news",
-          "value": "atrium-and-skills4-eosc-sessions-training-materials-from-a-a-fair-perspective"
+          "value": "atrium-first-mutual-learning-exercise"
         }
       },
       {
