@@ -14,14 +14,14 @@
     "items": [
       {
         "item": {
-          "discriminant": "news",
-          "value": "atrium-first-mutual-learning-exercise"
+          "discriminant": "events",
+          "value": "dariah-annual-event-2025"
         }
       },
       {
         "item": {
-          "discriminant": "events",
-          "value": "dariah-annual-event-2025"
+          "discriminant": "news",
+          "value": "caa-2025-reusable-digital-research-workflows-for-archaeology"
         }
       },
       {
