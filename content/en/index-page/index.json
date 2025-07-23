@@ -14,14 +14,14 @@
     "items": [
       {
         "item": {
-          "discriminant": "events",
-          "value": "dariah-annual-event-2025"
+          "discriminant": "news",
+          "value": "call-for-papers-for-tag-2025-york-uk"
         }
       },
       {
         "item": {
           "discriminant": "news",
-          "value": "caa-2025-reusable-digital-research-workflows-for-archaeology"
+          "value": "atrium-at-dh-2025-accessibility-and-citizenship"
         }
       },
       {
