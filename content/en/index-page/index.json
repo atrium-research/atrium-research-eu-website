@@ -21,13 +21,13 @@
       {
         "item": {
           "discriminant": "news",
-          "value": "atrium-at-dh-2025-accessibility-and-citizenship"
+          "value": "caa-2026-call-for-papers"
         }
       },
       {
         "item": {
-          "discriminant": "news",
-          "value": "archaeology-recordings-wanted"
+          "discriminant": "events",
+          "value": "clarin-annual-conference-2025"
         }
       }
     ]
