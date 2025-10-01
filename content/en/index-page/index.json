@@ -26,8 +26,8 @@
       },
       {
         "item": {
-          "discriminant": "events",
-          "value": "clarin-annual-conference-2025"
+          "discriminant": "news",
+          "value": "atrium-at-clarin-annual-conference-2025"
         }
       }
     ]
