@@ -1,0 +1,217 @@
+---
+import { createUrl, createUrlSearchParams, isNonEmptyArray } from "@acdh-oeaw/lib";
+import { Image } from "astro:assets";
+
+import MainContent from "@/components/main-content.astro";
+import PageSection from "@/components/page-section.astro";
+import PageTitle from "@/components/page-title.astro";
+import { defaultLocale as locale } from "@/config/i18n.config";
+import PageLayout from "@/layouts/page-layout.astro";
+import { getImageImport } from "@/lib/get-image-import";
+import { createCollectionResource } from "@/lib/keystatic/resources";
+
+interface ZenodoResponse {
+	hits: {
+		hits: Array<{
+			created: string;
+			modified: string;
+			id: number;
+			conceptrecid: string;
+			doi: string;
+			conceptdoi: string;
+			doi_url: string;
+			metadata: {
+				title: string;
+				doi: string;
+				publication_date: Date;
+				description: string;
+				access_right: unknown;
+				creators: Array<{
+					name: string;
+					affiliation: null | string;
+					type?: string;
+					orcid?: string;
+				}>;
+				contributors?: Array<{
+					name: string;
+					affiliation: null | string;
+					type?: string;
+					orcid?: string;
+				}>;
+				keywords?: Array<string>;
+				language?: string;
+				resource_type: unknown;
+				license: unknown;
+				grants?: Array<unknown>;
+				communities: Array<unknown>;
+				relations: unknown;
+				dates?: Array<unknown>;
+				version?: string;
+				meeting?: unknown;
+				custom?: unknown;
+				related_identifiers?: Array<{
+					identifier: string;
+					relation: string;
+					resource_type: string;
+					scheme: string;
+				}>;
+			};
+			title: string;
+			links: unknown;
+			updated: string;
+			recid: string;
+			revision: number;
+			files: Array<{
+				id: string;
+				key: string;
+				size: number;
+				checksum: string;
+				links: { self: string };
+			}>;
+			swh: unknown;
+			owners: Array<{ id: string }>;
+			status: string;
+			stats: {
+				downloads: number;
+				unique_downloads: number;
+				views: number;
+				unique_views: number;
+				version_downloads: number;
+				version_unique_downloads: number;
+				version_unique_views: number;
+				version_views: number;
+			};
+			state: string;
+			submitted: boolean;
+		}>;
+		total: number;
+	};
+	aggregations: unknown;
+	links: { self: string };
+}
+
+const page = await createCollectionResource("pages", locale).read("publications");
+
+async function getAllPublications() {
+	const publications: ZenodoResponse["hits"]["hits"] = [];
+
+	let page = 1;
+	let response: ZenodoResponse;
+
+	do {
+		const url = createUrl({
+			baseUrl: "https://zenodo.org",
+			pathname: "/api/records",
+			searchParams: createUrlSearchParams({
+				communities: "atrium-research",
+				size: 100,
+				sort: "newest",
+				page,
+			}),
+		});
+
+		response = await fetch(url).then((response) => {
+			return response.json();
+		});
+
+		publications.push(...response.hits.hits);
+
+		page += 1;
+	} while (publications.length < response.hits.total);
+
+	return publications;
+}
+
+const publications = await getAllPublications();
+
+const { content, image, title } = page.data;
+const documentTitle = title;
+const { default: Content } = await page.compile(content);
+---
+
+<PageLayout locale={locale} title={documentTitle}>
+	<MainContent>
+		<div class="relative h-56">
+			<Image
+				alt=""
+				class="absolute inset-0 size-full object-cover"
+				loading="eager"
+				src={getImageImport(image)}
+			/>
+		</div>
+		<PageSection class="my-12">
+			<PageTitle>{title}</PageTitle>
+			<div class="prose">
+				<Content />
+			</div>
+			<div class="grid gap-y-16">
+				<ul class="divide-y" role="list">
+					{
+						publications.map((publication) => {
+							const { doi, doi_url, metadata, files } = publication;
+							const { title, description, creators, contributors } = metadata;
+
+							const list = new Intl.ListFormat("en");
+
+							const hasCreators = isNonEmptyArray(creators);
+							const hasContributors = isNonEmptyArray(contributors);
+							const hasFiles = isNonEmptyArray(files);
+
+							return (
+								<li class="py-8">
+									<article class="flex max-w-screen-md flex-col gap-y-4">
+										<h3 class="text-xl font-semibold">{title}</h3>
+										{hasCreators || hasContributors ? (
+											<dl class="flex flex-col gap-y-1.5 text-sm text-[#374151]">
+												{hasCreators ? (
+													<div class="flex gap-x-1.5">
+														<dt class="font-semibold">Creators: </dt>
+														<dd>
+															{list.format(
+																creators.map((creator) => {
+																	return creator.name;
+																}),
+															)}
+														</dd>
+													</div>
+												) : null}
+												{hasContributors ? (
+													<div class="flex gap-x-1.5">
+														<dt class="font-semibold">Contributors: </dt>
+														<dd>
+															{list.format(
+																contributors.map((contributor) => {
+																	return contributor.name;
+																}),
+															)}
+														</dd>
+													</div>
+												) : null}
+											</dl>
+										) : null}
+
+										<div class="prose prose-sm" set:html={description} />
+
+										{hasFiles ? (
+											<div class="prose prose-sm">
+												<div class="flex flex-col">
+													{files.map((file) => {
+														return <a href={file.links.self}>{file.key}</a>;
+													})}
+												</div>
+											</div>
+										) : null}
+
+										<div class="prose prose-sm">
+											<a href={doi_url}>{doi}</a>
+										</div>
+									</article>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</div>
+		</PageSection>
+	</MainContent>
+</PageLayout>
