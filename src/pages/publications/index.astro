@@ -148,14 +148,13 @@ const { default: Content } = await page.compile(content);
 				<ul class="divide-y" role="list">
 					{
 						publications.map((publication) => {
-							const { doi, doi_url, metadata, files } = publication;
+							const { doi, doi_url, metadata } = publication;
 							const { title, description, creators, contributors } = metadata;
 
 							const list = new Intl.ListFormat("en");
 
 							const hasCreators = isNonEmptyArray(creators);
 							const hasContributors = isNonEmptyArray(contributors);
-							const hasFiles = isNonEmptyArray(files);
 
 							return (
 								<li class="py-8">
@@ -191,16 +190,6 @@ const { default: Content } = await page.compile(content);
 										) : null}
 
 										<div class="prose prose-sm" set:html={description} />
-
-										{hasFiles ? (
-											<div class="prose prose-sm">
-												<div class="flex flex-col">
-													{files.map((file) => {
-														return <a href={file.links.self}>{file.key}</a>;
-													})}
-												</div>
-											</div>
-										) : null}
 
 										<div class="prose prose-sm">
 											<a href={doi_url}>{doi}</a>
