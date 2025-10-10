@@ -1,6 +1,7 @@
 ---
 import { createUrl, createUrlSearchParams, isNonEmptyArray } from "@acdh-oeaw/lib";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
@@ -166,7 +167,12 @@ const { default: Content } = await page.compile(content);
 
 							return (
 								<li class="py-8">
-									<article class="flex max-w-screen-md flex-col gap-y-4">
+									<article class="relative flex max-w-screen-md flex-col gap-y-4 sm:pl-10 md:pl-12">
+										<Icon
+											aria-hidden="true"
+											class="absolute left-0 top-0 my-0.5 hidden size-6 text-neutral-600 sm:block md:size-8"
+											name="lucide:file-text"
+										/>
 										<h3 class="text-xl font-semibold">{title}</h3>
 										{hasCreators || hasContributors ? (
 											<dl class="flex flex-col gap-y-1.5 text-sm text-[#374151]">

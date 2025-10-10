@@ -24,6 +24,7 @@ export default defineConfig({
 					"check",
 					"chevron-down",
 					"chevron-right",
+					"file-text",
 					// "linkedin",
 					"mail",
 					"menu",
