@@ -82,6 +82,13 @@
               "label": "Workflows Catalogue",
               "id": "workflows"
             }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Publications",
+              "id": "publications"
+            }
           }
         ]
       }
