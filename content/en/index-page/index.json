@@ -15,12 +15,6 @@
       {
         "item": {
           "discriminant": "news",
-          "value": "call-for-papers-for-nordic-tag-2026"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "news",
           "value": "caa-2026-call-for-papers"
         }
       },
@@ -28,6 +22,12 @@
         "item": {
           "discriminant": "news",
           "value": "atrium-at-clarin-annual-conference-2025"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "news",
+          "value": "atrium-at-open-science-conference-2025"
         }
       }
     ]
