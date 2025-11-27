@@ -95,6 +95,8 @@ interface ZenodoResponse {
 const page = await createCollectionResource("pages", locale).read("publications");
 
 async function getAllPublications() {
+	const apiToken = env.ZENODO_API_ACCESS_TOKEN;
+
 	const publications: ZenodoResponse["hits"]["hits"] = [];
 
 	let page = 1;
@@ -106,18 +108,13 @@ async function getAllPublications() {
 			pathname: "/api/records",
 			searchParams: createUrlSearchParams({
 				communities: "atrium-research",
-				size: 100,
+				size: apiToken ? 100 : 25,
 				sort: "newest",
 				page,
 			}),
 		});
 
-		const headers =
-			env.ZENODO_API_ACCESS_TOKEN != null
-				? {
-						Authorization: `Bearer ${env.ZENODO_API_ACCESS_TOKEN}`,
-					}
-				: undefined;
+		const headers = apiToken != null ? { Authorization: `Bearer ${apiToken}` } : undefined;
 
 		response = await fetch(url, { headers }).then((response) => {
 			return response.json();
