@@ -52,9 +52,11 @@ ENV NODE_ENV=production
 RUN --mount=type=secret,id=KEYSTATIC_GITHUB_CLIENT_ID,uid=1000 \
 		--mount=type=secret,id=KEYSTATIC_GITHUB_CLIENT_SECRET,uid=1000 \
 		--mount=type=secret,id=KEYSTATIC_SECRET,uid=1000 \
+		--mount=type=secret,id=ZENODO_API_ACCESS_TOKEN,uid=1000 \
 			KEYSTATIC_GITHUB_CLIENT_ID=$(cat /run/secrets/KEYSTATIC_GITHUB_CLIENT_ID) \
 			KEYSTATIC_GITHUB_CLIENT_SECRET=$(cat /run/secrets/KEYSTATIC_GITHUB_CLIENT_SECRET) \
 			KEYSTATIC_SECRET=$(cat /run/secrets/KEYSTATIC_SECRET) \
+			ZENODO_API_ACCESS_TOKEN=$(cat /run/secrets/ZENODO_API_ACCESS_TOKEN) \
 		pnpm run build
 
 # serve
