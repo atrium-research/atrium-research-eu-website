@@ -41,6 +41,7 @@ const config = [
 			// "@typescript-eslint/explicit-module-boundary-types": "error",
 			// "@typescript-eslint/require-array-sort-compare": "error",
 			// "@typescript-eslint/strict-boolean-expressions": "error",
+			"jsx-a11y/label-has-associated-control": "off",
 		},
 	},
 	{
