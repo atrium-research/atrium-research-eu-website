@@ -9,6 +9,7 @@ import { createI18n } from "@/lib/i18n";
 export const prerender = false;
 
 const NewsletterFormSchema = v.object({
+	"accept-tos": v.literal("on"),
 	email: v.pipe(v.string(), v.email()),
 	lastName: v.pipe(v.string(), v.nonEmpty()),
 	firstName: v.pipe(v.string(), v.nonEmpty()),

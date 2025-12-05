@@ -47,12 +47,34 @@ const honeypot = t("MailingListForm.honeypot");
 		<div data-form-status></div>
 	</div>
 	<TextInputField label={email} name="email" required type="email" />
-	<TextInputField label={firstName} name="firstName" />
+	<TextInputField label={firstName} name="firstName" required />
 	<TextInputField label={lastName} name="lastName" required />
 	<TextInputField label={institution} name="institution" />
 	<div style="display: none;">
 		<TextInputField label={honeypot} name="url" />
 	</div>
+	<label class="my-2 flex items-start gap-x-1.5 text-xs">
+		<input class="h-[1lh]" name="accept-tos" required type="checkbox" />
+		<div class="flex flex-col gap-y-2">
+			<p>
+				If you subscribe to ATRIUM's mailing list and newsletter, you agree to share with us the
+				following personal information: your name (first and last name), your email address and,
+				optionally, your institution/affiliation (i.e. the research institute or university you are
+				working in).
+			</p>
+			<p>
+				We use these data to send you messages (at the email address you gave us) about ATRIUM's
+				activities (i.e. events, call for projects, etc.) or activities carried out by our partners
+				(i.e. events, job offers, etc.). All messages sent to this mailing list have to be approved
+				by the ATRIUM Project Officer, so that you only receive moderated information we believe to
+				be of interest to you.
+			</p>
+			<p>
+				For this, we use the services of MailChimp. Your data will be stored as long as you use the
+				service. You can change or delete your personal information at any time by contacting us.
+			</p>
+		</div>
+	</label>
 	<div class="mt-2 flex justify-end">
 		<button
 			class="rounded-md bg-sunbleached px-4 py-2 font-heading font-semibold text-granite transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring,white)] disabled:pointer-events-none disabled:opacity-50"
