@@ -7,7 +7,7 @@ project website for the atrium project. deployed at<https://atrium-research.eu>.
 prerequisites:
 
 - [node.js 24.x](https://nodejs.org/en/download)
-- [pnpm 9.x](https://pnpm.io/installation)
+- [pnpm 10.x](https://pnpm.io/installation)
 
 > [!TIP]
 >

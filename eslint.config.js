@@ -1,5 +1,3 @@
-/** @typedef {import("typescript-eslint").Config} Config */
-
 import baseConfig from "@acdh-oeaw/eslint-config";
 import astroConfig from "@acdh-oeaw/eslint-config-astro";
 import playwrightConfig from "@acdh-oeaw/eslint-config-playwright";
@@ -15,7 +13,6 @@ const reactFiles = [
 	"**/keystatic/**/*.@(ts|tsx)",
 ];
 
-/** @type {Config} */
 const config = [
 	gitignore({ strict: false }),
 	...baseConfig,

@@ -1,2 +1,3 @@
 # package manager lock file
 pnpm-lock.yaml
+pnpm-workspace.yaml
