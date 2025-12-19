@@ -129,7 +129,7 @@ jobs:
             "KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.K8S_SECRET_KEYSTATIC_GITHUB_CLIENT_ID }}"
             "KEYSTATIC_GITHUB_CLIENT_SECRET=${{ secrets.K8S_SECRET_KEYSTATIC_GITHUB_CLIENT_SECRET }}"
             "KEYSTATIC_SECRET=${{ secrets.K8S_SECRET_KEYSTATIC_SECRET }}"
-            "ZENODO_API_ACCESS_TOKEN=${{ secrets.K8S_SECRET_K8S_SECRET_ZENODO_API_ACCESS_TOKEN }}"
+            "ZENODO_API_ACCESS_TOKEN=${{ secrets.K8S_SECRET_ZENODO_API_ACCESS_TOKEN }}"
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
