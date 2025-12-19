@@ -114,7 +114,10 @@ async function getAllPublications() {
 			}),
 		});
 
-		const headers = apiToken != null ? { Authorization: `Bearer ${apiToken}` } : undefined;
+		const headers =
+			apiToken != null
+				? { Authorization: `Bearer ${apiToken}`, Accept: "application/json" }
+				: undefined;
 
 		response = await fetch(url, { headers }).then((response) => {
 			return response.json();
