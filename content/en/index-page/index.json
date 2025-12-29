@@ -15,12 +15,6 @@
       {
         "item": {
           "discriminant": "news",
-          "value": "miracles-wonders-and-the-art-of-coping-with-setbacks"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "news",
           "value": "call-for-papers-open-for-dariah-annual-event-2026"
         }
       },
@@ -28,6 +22,12 @@
         "item": {
           "discriminant": "news",
           "value": "call-for-papers-eaa-2026"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "news",
+          "value": "unpacking-digital-competences-and-recommendations-for-online-training-key-findings-from-the-atrium-skills-assessment-report"
         }
       }
     ]
