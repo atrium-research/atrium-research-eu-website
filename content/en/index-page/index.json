@@ -15,13 +15,13 @@
       {
         "item": {
           "discriminant": "news",
-          "value": "call-for-papers-open-for-dariah-annual-event-2026"
+          "value": "atrium-at-tourism-a-2026"
         }
       },
       {
         "item": {
-          "discriminant": "news",
-          "value": "call-for-papers-eaa-2026"
+          "discriminant": "events",
+          "value": "caa-2026-in-vienna-austria"
         }
       },
       {
