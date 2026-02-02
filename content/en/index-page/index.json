@@ -20,14 +20,14 @@
       },
       {
         "item": {
-          "discriminant": "events",
-          "value": "caa-2026-in-vienna-austria"
+          "discriminant": "news",
+          "value": "unpacking-digital-competences-and-recommendations-for-online-training-key-findings-from-the-atrium-skills-assessment-report"
         }
       },
       {
         "item": {
           "discriminant": "news",
-          "value": "unpacking-digital-competences-and-recommendations-for-online-training-key-findings-from-the-atrium-skills-assessment-report"
+          "value": "call-for-papers-eaa-2026"
         }
       }
     ]
