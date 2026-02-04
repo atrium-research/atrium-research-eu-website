@@ -65,13 +65,6 @@
           {
             "discriminant": "page",
             "value": {
-              "label": "Deliverables",
-              "id": "deliverables"
-            }
-          },
-          {
-            "discriminant": "page",
-            "value": {
               "label": "Service & Software Catalogue",
               "id": "services"
             }
@@ -86,8 +79,22 @@
           {
             "discriminant": "page",
             "value": {
+              "label": "Peer Review Framework",
+              "id": "atrium-peer-review-framework"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
               "label": "Publications",
               "id": "publications"
+            }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "Deliverables",
+              "id": "deliverables"
             }
           }
         ]
