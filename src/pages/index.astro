@@ -72,7 +72,11 @@ const formatter = getFormatter(locale);
 					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
 						{
 							videos.items.map((item) => {
-								return <Video caption={item.caption} id={item.id} provider="youtube" />;
+								return (
+									<li>
+										<Video caption={item.caption} id={item.id} provider="youtube" />
+									</li>
+								);
 							})
 						}
 					</ul>
