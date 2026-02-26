@@ -19,11 +19,13 @@ const href = String(
 );
 ---
 
-<figure>
+<figure class="flex flex-col gap-y-1.5">
 	<iframe
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 		allowfullscreen
 		class="aspect-video w-full overflow-hidden rounded-lg"
+		referrerpolicy="strict-origin-when-cross-origin"
 		src={href}
 		title={caption ?? "Video"}></iframe>
-	{caption ? <figcaption>{caption}</figcaption> : null}
+	{caption ? <figcaption class="text-red-clay">{caption}</figcaption> : null}
 </figure>

@@ -10,6 +10,22 @@
     ]
   },
   "main": {},
+  "videos": {
+    "items": [
+      {
+        "id": "lxi5uesaqd0",
+        "caption": "Why Workflows Matter"
+      },
+      {
+        "id": "BNhy6adHOL8",
+        "caption": "Peer Review Framework"
+      },
+      {
+        "id": "6_EFmojbhYs",
+        "caption": "Collaborative Map Annotation"
+      }
+    ]
+  },
   "latest": {
     "items": [
       {

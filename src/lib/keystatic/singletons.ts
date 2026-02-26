@@ -71,6 +71,32 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 					label: "Main content",
 				},
 			),
+			videos: fields.object(
+				{
+					items: fields.array(
+						fields.object({
+							id: fields.text({
+								label: "YouTube Video ID",
+								validation: { isRequired: true },
+							}),
+							caption: fields.text({
+								label: "Caption",
+								validation: { isRequired: true },
+							}),
+						}),
+						{
+							label: "YouTube videos",
+							itemLabel(props) {
+								return props.fields.caption.value;
+							},
+							validation: { length: { min: 1 } },
+						},
+					),
+				},
+				{
+					label: "Videos",
+				},
+			),
 			latest: fields.object(
 				{
 					items: fields.array(
