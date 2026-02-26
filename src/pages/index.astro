@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 
 import LinkButton from "@/components/content/link-button.astro";
 import Tweet from "@/components/content/tweet.astro";
+import Video from "@/components/content/video.astro";
 import Link from "@/components/link.astro";
 import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
@@ -20,7 +21,7 @@ const page = await createSingletonResource("indexPage", locale).read();
 const { t } = await createI18n(locale);
 
 const documentTitle = t("IndexPage.meta.title");
-const { hero, main, latest } = page.data;
+const { hero, main, videos, latest } = page.data;
 const { default: Content } = await page.compile(main.content);
 
 const formatter = getFormatter(locale);
@@ -60,6 +61,21 @@ const formatter = getFormatter(locale);
 			<PageSection>
 				<div class="prose">
 					<Content />
+				</div>
+			</PageSection>
+		</div>
+
+		<div class="border-y border-sunbleached py-8">
+			<PageSection>
+				<h2 class="text-2xl font-semibold text-red-clay">Videos</h2>
+				<div>
+					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
+						{
+							videos.items.map((item) => {
+								return <Video caption={item.caption} id={item.id} provider="youtube" />;
+							})
+						}
+					</ul>
 				</div>
 			</PageSection>
 		</div>
