@@ -17,12 +17,12 @@
         "caption": "Why Workflows Matter"
       },
       {
-        "id": "BNhy6adHOL8",
-        "caption": "Peer Review Framework"
-      },
-      {
         "id": "6_EFmojbhYs",
         "caption": "Collaborative Map Annotation"
+      },
+      {
+        "id": "BNhy6adHOL8",
+        "caption": "Peer Review Framework"
       }
     ]
   },
@@ -31,13 +31,13 @@
       {
         "item": {
           "discriminant": "news",
-          "value": "atrium-at-tourism-a-2026"
+          "value": "job-opportunity-dariah-eric-seeks-a-research-software-engineer"
         }
       },
       {
         "item": {
           "discriminant": "news",
-          "value": "call-for-applications-atrium-athens-summer-school-2026"
+          "value": "atrium-at-tourism-a-2026"
         }
       },
       {
