@@ -71,6 +71,9 @@ USER node
 COPY --from=build --chown=node:node /app/content/en/pages/publications ./content/en/pages/publications
 COPY --from=build --chown=node:node /app/content/en/pages/services ./content/en/pages/services
 COPY --from=build --chown=node:node /app/content/en/pages/workflows ./content/en/pages/workflows
+COPY --from=build --chown=node:node /app/content/en/navigation ./content/en/navigation
+COPY --from=build --chown=node:node /app/content/en/metadata ./content/en/metadata
+
 COPY --from=base --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/dist ./
 
