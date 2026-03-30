@@ -73,6 +73,7 @@ COPY --from=build --chown=node:node /app/content/en/pages/services ./content/en/
 COPY --from=build --chown=node:node /app/content/en/pages/workflows ./content/en/pages/workflows
 COPY --from=build --chown=node:node /app/content/en/navigation ./content/en/navigation
 COPY --from=build --chown=node:node /app/content/en/metadata ./content/en/metadata
+COPY --from=build --chown=node:node /app/content/en/social-media ./content/en/social-media
 
 COPY --from=base --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/dist ./
