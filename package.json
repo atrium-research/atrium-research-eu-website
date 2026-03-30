@@ -6,7 +6,7 @@
 	"engines": {
 		"node": "24.x"
 	},
-	"packageManager": "pnpm@10.26.1",
+	"packageManager": "pnpm@10.33.0",
 	"scripts": {
 		"build": "run-s build:site generate:search-index",
 		"build:site": "astro build",
