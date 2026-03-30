@@ -67,6 +67,10 @@ WORKDIR /app
 
 USER node
 
+# Ensure content for pages which are not prerendered are included.
+COPY --from=build --chown=node:node /app/content/en/pages/publications ./content/en/pages/publications
+COPY --from=build --chown=node:node /app/content/en/pages/service ./content/en/pages/service
+COPY --from=build --chown=node:node /app/content/en/pages/workflows ./content/en/pages/workflows
 COPY --from=base --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/dist ./
 
