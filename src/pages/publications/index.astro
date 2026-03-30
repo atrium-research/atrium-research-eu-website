@@ -12,8 +12,6 @@ import PageLayout from "@/layouts/page-layout.astro";
 import { getImageImport } from "@/lib/get-image-import";
 import { createCollectionResource } from "@/lib/keystatic/resources";
 
-export const prerender = false;
-
 interface ZenodoResponse {
 	hits: {
 		hits: Array<{

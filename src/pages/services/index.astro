@@ -11,8 +11,6 @@ import { getImageImport } from "@/lib/get-image-import";
 import { createCollectionResource } from "@/lib/keystatic/resources";
 import { createSshOpenMarketplaceItemUrl, getSshOpenMarketplaceToolsServices } from "@/lib/sshoc";
 
-export const prerender = false;
-
 const page = await createCollectionResource("pages", locale).read("services");
 
 const { content, image, title } = page.data;
