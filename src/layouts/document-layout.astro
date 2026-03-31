@@ -6,6 +6,7 @@ import "@/styles/index.css";
 
 import barlow from "@fontsource/barlow/files/barlow-latin-600-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
+import LoadingIndicator from "astro-loading-indicator/component";
 import type { WebSite, WithContext } from "schema-dts";
 
 import Analytics from "@/components/analytics.astro";
@@ -97,6 +98,8 @@ const googleSiteVerification = env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 		<link as="font" crossorigin href={barlow} rel="preload" type="font/woff2" />
 
 		<ClientRouter />
+		{/** `var(--color-sunbleached)` */}
+		<LoadingIndicator color="#e8dac8" />
 
 		<script
 			is:inline
