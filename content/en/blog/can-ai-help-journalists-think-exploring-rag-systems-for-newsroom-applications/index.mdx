@@ -1,0 +1,103 @@
+---
+title: >-
+  Can AI Help Journalists Think? Exploring RAG Systems for Newsroom
+  Applications 
+publicationDate: 2026-04-21
+image: >-
+  /assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/image.png
+authors:
+  - Tasos Galanopoulos
+summary: >
+  Large Language Models (LLMs) are increasingly present in newsrooms — but often
+  in ways that are difficult to control, audit, or verify. Journalists may use
+  general-purpose tools to search archives, summarise documents, or draft
+  content, without clear visibility into what sources inform the output or how
+  reliable it is...
+bannerImage: >-
+  /assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/bannerImage.jpg
+---
+Large Language Models (LLMs) are increasingly present in newsrooms — but often in ways that are difficult to control, audit, or verify. Journalists may use general-purpose tools to search archives, summarise documents, or draft content, without clear visibility into what sources inform the output or how reliable it is. This raises real concerns about editorial integrity and the traceability of AI-assisted work.
+
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.31.png" alignment="stretch">
+
+</Figure>
+
+
+
+As part of my Master’s thesis in Digital Humanities at the Hellenic Open University, which focuses on the development of a digital toolkit for a newsroom environment, integrating NLP techniques and database systems using Python, I had the opportunity to visit (7–17 April 2026) the University of Sheffield for a second time through the ATRIUM Transnational Access programme, this time specifically to explore Retrieval-Augmented Generation (RAG) — an architecture that allows LLMs to work not from general training data alone, but from a defined, controlled corpus of documents. This makes outputs more grounded, traceable, and domain-specific. The primary objectives of the visit were to understand the core principles and design choices behind RAG architecture, to implement and test a configurable RAG system on journalistically relevant datasets, to evaluate the impact of different parameters on system performance and to lay the groundwork for integrating a RAG-based assistant into the newsroom toolkit.
+
+
+
+The visit was hosted once again by the GATE (General Architecture for Text Engineering) team at the University of Sheffield's School of Computer Science — one of Europe's leading groups in Natural Language Processing and text analysis tools. Once again I had the great opportunity to work under the supervision of Dr Diana Maynard, with the valuable support from Olesya Razuvayevskaya and Ian Roberts. Their guidance was invaluable in helping me move from theoretical familiarity with RAG to a practical, experimentally rigorous implementation.
+
+#### **Building the System**
+
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.44.png" alignment="stretch">
+
+</Figure>
+
+A RAG application was developed using Streamlit as the interface, ChromaDB for vector storage and retrieval, and open-access LLMs — primarily Mistral and DeepSeek — selected for their availability under free-tier constraints. The system allows users to upload document collections, configure retrieval and generation parameters interactively, generate evaluation question sets, and run quantitative assessments of system outputs. The full codebase is openly available at: https\://github.com/tazgal/RAG\_assistant A key methodological choice was the deliberate heterogeneity of the test dataset, designed to simulate the variety of documents a journalist might encounter. Four collections were assembled:
+
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.50.png" alignment="stretch">
+
+</Figure>
+
+These datasets varied in length, linguistic style, structural complexity, technical vocabulary, and political orientation — all dimensions that matter in journalistic practice. Four distinct response styles were implemented via prompt engineering, reflecting different journalistic use cases:
+
+* Strict RAG (Factual): constrained, source-grounded responses onlyJournalistic
+* Style (Generative): fluid, newsroom-style text production
+* Analysis & Key Points: structured bullet-point summaries
+* Archivist (Citations & Quotes): extractive, documentation-focused responses with explicit sourcing
+
+A total of 20 experimental RAG configurations were tested per dataset, varying chunk size, chunk overlap, retrieval depth (Top-K), temperature, and response style.
+
+#### **Results**
+
+Performance was measured using four embedding-based metrics: Faithfulness (grounding in retrieved context), Answer Relevance (alignment with the query), Context Precision (quality of retrieved chunks), and Ground Truth Similarity (closeness to reference answers). Summary of Results by Dataset
+
+The results are presented below:
+
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.58.png" alignment="stretch">
+
+</Figure>
+
+The full results dataset[ is available here.](https://docs.google.com/spreadsheets/d/14pBZKNgQmLJ1UN6Q_BZWjnqe2xseBuM6SUsRg4CVQKE/edit?gid=0#gid=0)
+
+
+
+#### **Interesting Findings**
+
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.16.02.png" alignment="stretch">
+
+</Figure>
+
+As of the findings, one I did not expect is that dataset structure matters more than parameter tuning. The most important factor shaping RAG performance was not which settings were chosen, but the nature of the underlying documents.
+
+* The PMI economic dataset proved the most challenging. Despite reasonable Answer Relevance scores, Faithfulness was consistently very low (0.10–0.37), indicating that the system was generating plausible-sounding responses without genuine grounding in the retrieved content. This points to a fundamental limitation of standard semantic chunking when applied to structured numerical data — tables, indicators, and statistical formats do not chunk well.
+
+- The PM political interview dataset showed the most balanced performance across all metrics, making it the best benchmark for evaluating configuration trade-offs. Narrative, conversational text appears well-suited to standard RAG pipelines.
+- The Apopsi editorial dataset achieved very high Faithfulness, likely aided by thematic redundancy — repeated arguments and overlapping claims help the model stay grounded even when individual retrieval chunks are imperfect.
+- The ΤτΕ technical report dataset achieved near-ceiling Faithfulness, but Answer Relevance plateaued, suggesting that while responses are well-grounded, the density of the material limits the model's ability to adapt to query nuances.
+
+It has been confirmed that no single configuration performs well across all domains. Chunking parameters dominate in structured contexts (PMI, ΤτΕ), while generation parameters — temperature and response style — play a larger role in narrative texts (PM, Apopsi). This has a direct practical implication: a one-size-fits-all RAG assistant for journalism is not viable and these findings highlight the need for adaptive RAG systems that dynamically adjust retrieval and generation parameters based on dataset characteristics and task requirements, which are essentially human tasks.
+
+This visit produced both a working system and a clearer research agenda. The experiments confirm that RAG architecture is a promising approach for controlled, transparent AI-assisted journalism — but also that it requires domain-aware design choices that are not yet standard practice.
+
+As for the next steps these include:
+
+* Comparing all datasets systematically with a wider range of LLM models
+* Testing more "extreme" parameter combinations to identify performance limits
+* Integrating the RAG layer with the SQLite database component of the broader toolkit, particularly to introduce a temporal dimension (event-indexed retrieval)
+* Exploring combinations of RAG with fine-tuned models, to assess their combined effect
+
+Ultimately, the goal is to integrate into the newsroom toolkit a pre-configured RAG assistant with sensible defaults for different journalistic tasks — offering journalists not a black box, but a transparent, adjustable tool that shows its reasoning.
+
+#### **A valuable visit**
+
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.16.14.png" alignment="stretch">
+
+</Figure>
+
+The ATRIUM Transnational Access programme made this visit possible in a direct and practical sense — but its value went well beyond logistics. Access to the GATE team's expertise accelerated the development of the system significantly, particularly in understanding evaluation frameworks for RAG and the subtleties of retrieval design. Conversations with Dr Maynard and colleagues helped sharpen the experimental methodology and pushed the project toward more rigorous quantitative assessment than would have been possible working alone. For a researcher at the Master's level, working within an internationally recognised NLP group is a formative experience. It clarified both what is technically feasible and what genuinely interesting research questions remain open in this area. The visit was, in the most direct sense, a contribution to my development as a researcher — and one that will shape the final form of the thesis significantly.
+
+\
