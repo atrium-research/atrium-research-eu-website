@@ -18,27 +18,23 @@ bannerImage: >-
 ---
 Large Language Models (LLMs) are increasingly present in newsrooms — but often in ways that are difficult to control, audit, or verify. Journalists may use general-purpose tools to search archives, summarise documents, or draft content, without clear visibility into what sources inform the output or how reliable it is. This raises real concerns about editorial integrity and the traceability of AI-assisted work.
 
-<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.31.png" alignment="stretch">
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.31.png" alignment="center">
 
 </Figure>
 
-
-
 As part of my Master’s thesis in Digital Humanities at the Hellenic Open University, which focuses on the development of a digital toolkit for a newsroom environment, integrating NLP techniques and database systems using Python, I had the opportunity to visit (7–17 April 2026) the University of Sheffield for a second time through the ATRIUM Transnational Access programme, this time specifically to explore Retrieval-Augmented Generation (RAG) — an architecture that allows LLMs to work not from general training data alone, but from a defined, controlled corpus of documents. This makes outputs more grounded, traceable, and domain-specific. The primary objectives of the visit were to understand the core principles and design choices behind RAG architecture, to implement and test a configurable RAG system on journalistically relevant datasets, to evaluate the impact of different parameters on system performance and to lay the groundwork for integrating a RAG-based assistant into the newsroom toolkit.
-
-
 
 The visit was hosted once again by the GATE (General Architecture for Text Engineering) team at the University of Sheffield's School of Computer Science — one of Europe's leading groups in Natural Language Processing and text analysis tools. Once again I had the great opportunity to work under the supervision of Dr Diana Maynard, with the valuable support from Olesya Razuvayevskaya and Ian Roberts. Their guidance was invaluable in helping me move from theoretical familiarity with RAG to a practical, experimentally rigorous implementation.
 
 #### **Building the System**
 
-<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.44.png" alignment="stretch">
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.44.png" alt="DATA" alignment="center">
 
 </Figure>
 
-A RAG application was developed using Streamlit as the interface, ChromaDB for vector storage and retrieval, and open-access LLMs — primarily Mistral and DeepSeek — selected for their availability under free-tier constraints. The system allows users to upload document collections, configure retrieval and generation parameters interactively, generate evaluation question sets, and run quantitative assessments of system outputs. The full codebase is openly available at: https\://github.com/tazgal/RAG\_assistant A key methodological choice was the deliberate heterogeneity of the test dataset, designed to simulate the variety of documents a journalist might encounter. Four collections were assembled:
+A RAG application was developed using Streamlit as the interface, ChromaDB for vector storage and retrieval, and open-access LLMs — primarily Mistral and DeepSeek — selected for their availability under free-tier constraints. The system allows users to upload document collections, configure retrieval and generation parameters interactively, generate evaluation question sets, and run quantitative assessments of system outputs. The full codebase is openly available at: [https://github.com/tazgal/RAG\_assistant](https://github.com/tazgal/RAG_assistant) A key methodological choice was the deliberate heterogeneity of the test dataset, designed to simulate the variety of documents a journalist might encounter. Four collections were assembled:
 
-<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.50.png" alignment="stretch">
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.50.png" alignment="center">
 
 </Figure>
 
@@ -57,17 +53,15 @@ Performance was measured using four embedding-based metrics: Faithfulness (groun
 
 The results are presented below:
 
-<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.58.png" alignment="stretch">
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.15.58.png" alignment="center">
 
 </Figure>
 
 The full results dataset[ is available here.](https://docs.google.com/spreadsheets/d/14pBZKNgQmLJ1UN6Q_BZWjnqe2xseBuM6SUsRg4CVQKE/edit?gid=0#gid=0)
 
-
-
 #### **Interesting Findings**
 
-<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.16.02.png" alignment="stretch">
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.16.02.png" alignment="center">
 
 </Figure>
 
@@ -94,10 +88,8 @@ Ultimately, the goal is to integrate into the newsroom toolkit a pre-configured 
 
 #### **A valuable visit**
 
-<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.16.14.png" alignment="stretch">
+<Figure src="/assets/content/en/blog/can-ai-help-journalists-think-exploring-rag-systems-for-newsroom-applications/screenshot-2026-04-21-at-15.16.14.png" alt="Sheffield" alignment="center">
 
 </Figure>
 
 The ATRIUM Transnational Access programme made this visit possible in a direct and practical sense — but its value went well beyond logistics. Access to the GATE team's expertise accelerated the development of the system significantly, particularly in understanding evaluation frameworks for RAG and the subtleties of retrieval design. Conversations with Dr Maynard and colleagues helped sharpen the experimental methodology and pushed the project toward more rigorous quantitative assessment than would have been possible working alone. For a researcher at the Master's level, working within an internationally recognised NLP group is a formative experience. It clarified both what is technically feasible and what genuinely interesting research questions remain open in this area. The visit was, in the most direct sense, a contribution to my development as a researcher — and one that will shape the final form of the thesis significantly.
-
-\
