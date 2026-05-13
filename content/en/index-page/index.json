@@ -31,19 +31,19 @@
       {
         "item": {
           "discriminant": "news",
+          "value": "atrium-at-the-dariah-annual-event-2026"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "news",
           "value": "making-archaeology-accessible-introducing-the-aglaia-glossary-in-sign-languages"
         }
       },
       {
         "item": {
           "discriminant": "events",
-          "value": "atrium-and-lumen-webinar-making-meaningful-data-work-together"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "news",
-          "value": "atrium-mid-term-event-2026"
+          "value": "2nd-atrium-mutual-learning-exercise-research-spotlight"
         }
       }
     ]
