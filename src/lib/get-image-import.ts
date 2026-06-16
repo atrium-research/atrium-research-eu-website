@@ -4,7 +4,7 @@ import { assert } from "@acdh-oeaw/lib";
 import type { ImageMetadata } from "astro";
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-	"/public/assets/**/*.@(avif|bmp|gif|jpeg|jpg|png|svg|webp)",
+	"/public/assets/**/*.@(avif|AVIF|bmp|BMP|gif|GIF|jpeg|JPEG|jpg|JPG|png|PNG|svg|SVG|webp|WEBP)",
 );
 
 export function getImageImport(path: string) {
