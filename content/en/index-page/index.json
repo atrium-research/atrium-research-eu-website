@@ -31,19 +31,19 @@
       {
         "item": {
           "discriminant": "news",
-          "value": "atrium-at-the-dariah-annual-event-2026"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "news",
-          "value": "making-archaeology-accessible-introducing-the-aglaia-glossary-in-sign-languages"
+          "value": "atrium-second-mutual-learning-exercise"
         }
       },
       {
         "item": {
           "discriminant": "events",
-          "value": "2nd-atrium-mutual-learning-exercise-research-spotlight"
+          "value": "atrium-summer-school-athens-greec"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "events",
+          "value": "horizon-europe-programme-committee"
         }
       }
     ]
