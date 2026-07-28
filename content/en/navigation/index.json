@@ -96,6 +96,13 @@
               "label": "Deliverables",
               "id": "deliverables"
             }
+          },
+          {
+            "discriminant": "page",
+            "value": {
+              "label": "AGLAIA Glossary",
+              "id": "aglaia-glossary"
+            }
           }
         ]
       }
