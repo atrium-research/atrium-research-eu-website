@@ -1,0 +1,163 @@
+---
+title: >-
+  Mapping the Moral Behavior of AI Systems: An Ethical Dilemma-Based Study of
+  Large Language Models
+publicationDate: 2026-08-10
+image: >-
+  /assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/image.png
+authors:
+  - Ioannis Tzachristas
+summary: >
+  Can the ethical behaviour of an AI system be described in a way that is more
+  informative than labelling individual answers as simply right or wrong?
+  Ioannis Tzachristas explored this during a TNA visit to AUEB. 
+bannerImage: >-
+  /assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/bannerImage.jpg
+---
+**By Ioannis Tzachristas**
+
+## **Developing VirtueMap at the Athens University of Economics and Business (AUEB)**
+
+Can the ethical behaviour of an AI system be described in a way that is more informative than labelling individual answers as simply right or wrong? During this ATRIUM TNA research visit, I developed [VirtueMap](https://jtzach.github.io/Aristotle-Virtue-Map/), an interpretable framework for profiling how humans and Large Language Models rank responses to everyday ethical dilemmas through five dimensions inspired by Aristotelian virtue ethics.
+
+### **Researcher profile**
+
+Ioannis Tzachristas is a PhD candidate at the Chair of Transportation Systems Engineering, School of Engineering and Design, Technical University of Munich (TUM), Germany, and a researcher at the Huawei Munich Research Center, Germany. He holds a Diploma (M.Sc. and M.Eng.) in Electrical and Computer Engineering from the National Technical University of Athens (NTUA), Greece.
+
+His current research focuses on applications of Large Language Models (LLMs) in transportation systems and security. His research interests include AI-driven transport simulation, LLM-based AI agents, formal verification, cybersecurity, and mathematical modelling. In 2021, he received a Gold Medal at the International Mathematics Competition for University Students (IMC).
+
+<Figure src="/assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/20260603-171227.jpg" alt="TNA participant smiling in front of a sign for the AUEB. " alignment="stretch">
+
+</Figure>
+
+## **Research visit overview**
+
+From 28 May to 5 June 2026, I carried out a fully funded ATRIUM Transnational Access (TNA) research visit in Athens. The visit was hosted by the UNESCO Chair on Digital Methods for the Humanities and Social Sciences at AUEB and supervised by Prof. John Pavlopoulos. The ATRIUM TNA scheme provided a focused period of mobility, expert mentoring, and interdisciplinary collaboration in which the project could be developed into a complete and publicly accessible research output.
+
+The visit was conducted under the project title “Mapping the Moral Behavior of AI Systems: An Ethical Dilemma-Based Study of Large Language Models”. Its central outcome was VirtueMap: a framework, questionnaire, evaluation suite, and interactive website for describing ethical decision patterns in both humans and LLMs. The resulting paper, co-authored with Prof. Pavlopoulos, is titled “Aristotelian Virtue Profiling of LLMs through Ethical Dilemmas”.
+
+## **Research context and aim**
+
+Large Language Models increasingly support writing, analysis, planning, communication, and decision-making. When such systems encounter ethical trade-offs, however, several responses may be defensible while expressing different priorities. One response may emphasise fairness, another direct truthfulness, another courage in taking action, and another restraint or practical compromise.
+
+Many existing ethical evaluations ask whether a model selects an acceptable option or reaches a preferred answer. This is useful, but it can hide the structure of the model’s decision-making. Two systems may choose the same first option while ranking all remaining alternatives very differently. VirtueMap therefore asks a different question: what recurring ethical priorities are visible in the model’s complete ordering of possible responses?
+
+The project uses Aristotelian virtue ethics as an interpretable coordinate system rather than as a source of fixed moral answers. It is descriptive, not a test of moral worth, and it does not claim that AI systems literally possess virtues or moral character. Its aim is to represent observed response patterns in a transparent form that can support comparison, discussion, and further research.
+
+<Figure src="/assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/virtue-map-front-page.png" alt="The landing page of VirtueMap, which has an image of Aristolte on the right hand side. " alignment="stretch">
+
+</Figure>
+
+### **The five VirtueMap dimensions**
+
+**•** Practical Wisdom (Phronesis): context-sensitive judgement and the ability to balance competing considerations.
+
+**•** Justice (Dikaiosyne): fairness and giving each person what is due.
+
+**•** Truthfulness (Aletheia): openness, disclosure, and avoidance of deception.
+
+**•** Courage (Andreia): willingness to act despite personal, social, or professional cost.
+
+**•** Temperance (Sophrosyne): restraint, moderation, and avoidance of excess.
+
+## **Work undertaken and methodology**
+
+The first stage was the design of a compact ethical-dilemma instrument. VirtueMap contains seven everyday scenarios covering issues such as correcting a colleague’s error, granting a deadline exception, raising an early warning, accepting responsibility, responding to a favour request, giving a public explanation, and revising an imperfect resource allocation. The scenarios were deliberately written to avoid lethal, religious, and party-political content and to be understandable without specialist knowledge.
+
+For each dilemma, the respondent sees five possible responses and ranks all five from most to least ethically preferable. Requiring a complete ranking preserves more information than asking for a single choice. It reveals not only the preferred response, but also how the respondent distinguishes between the second-best, middle, and least-preferred alternatives.
+
+A second stage established the scoring key. For every combination of dilemma and virtue, an ordering of the five responses was proposed from most to least expressive of that virtue. Each ordering was then evaluated by more than 100 online respondents and retained as operational ground truth only when at least 95% confirmed it. This strict common-sense validation criterion reduces reliance on the researchers’ private interpretation and grounds the scoring framework in broad recognition of what each response expresses.
+
+The rankings are converted into scores using normalized Borda alignment, producing a 0-100 profile for each of the five virtues. The mathematical rule is explicit and reproducible: a ranking receives a higher score when it more closely matches the validated ordering associated with a particular virtue.
+
+The LLM evaluation covered nine model families: GPT, Claude, Gemini, Llama, DeepSeek, Mistral, MiniMax, Grok, and Qwen. Each model completed the full questionnaire repeatedly. Response options were randomly permuted before prompting, valid complete rankings were required in a fixed machine-readable format, and multiple runs were used to account for the stochastic nature of model outputs. Rather than treating variation between runs as noise, the methodology measures it as part of the model’s observed behaviour.
+
+<Figure src="/assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/llm-profiles.png" alignment="stretch">
+
+</Figure>
+
+### **Key results**
+
+| **9** | **44** | **90.3%** |
+| ----- | ------ | --------- |
+
+*Consistency summarises agreement among repeated rankings of the same model under the evaluation protocol.*
+
+| **Virtue dimension** | **Mean alignment across models** |
+| -------------------- | -------------------------------- |
+| Practical Wisdom     | **90.4**                         |
+| Truthfulness         | **82.3**                         |
+| Justice              | **80.5**                         |
+| Courage              | **78.0**                         |
+| Temperance           | **76.9**                         |
+
+*Scores indicate alignment with the validated virtue-expression orderings on this questionnaire; they are not moral grades and should not be interpreted as measurements of moral character.*
+
+Across the evaluated models, the highest average score was observed for Practical Wisdom, followed by Truthfulness, Justice, Courage, and Temperance. The largest differences between model families appeared on Courage, Temperance, and Justice. In practical terms, the systems often converged on balanced or context-sensitive responses, while differing more clearly in their willingness to intervene despite costs, their preference for restraint, and the way they handled fairness-related trade-offs.
+
+These findings are best understood as profiles of response patterns under a specified questionnaire and prompting protocol. They do not establish that one model is morally superior to another, and they may change with model versions, prompts, decoding settings, or broader sets of dilemmas.
+
+<Figure src="/assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/website-screenshot-overlay.png" alignment="stretch">
+
+</Figure>
+
+## **Research outputs**
+
+The visit produced three mutually supporting outputs: a research paper, an open interactive demonstrator, and a reusable code and data repository. Together, these outputs make the conceptual framework, scoring method, questionnaire, and model evaluation transparent and accessible to both specialist and non-specialist audiences.
+
+The VirtueMap website guides users through one dilemma at a time and generates a five-dimensional profile that can be compared with the measured LLM profiles. All profile calculations take place locally in the browser. This makes the demonstrator suitable for public engagement, teaching, and exploratory discussion about how different ethical priorities can appear in decision-making.
+
+<Figure src="/assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/website-screenshot-qna.png" alignment="stretch">
+
+</Figure>
+
+## **Impact of the TNA visit and host collaboration**
+
+The ATRIUM TNA visit provided the concentrated time, expert feedback, and collaborative setting needed to bring together several components that would otherwise have remained separate: philosophical framing, questionnaire design, empirical validation, mathematical scoring, repeated LLM evaluation, and public communication. Working under the supervision of Prof. John Pavlopoulos helped the project develop as both a technically explicit method and an interpretable research narrative.
+
+The interdisciplinary environment of the UNESCO Chair on Digital Methods for the Humanities and Social Sciences was particularly valuable. The project sits at the intersection of artificial intelligence, ethics, quantitative evaluation, and the humanities. The host context supported a way of working in which technical choices could be examined alongside questions of interpretation, transparency, and responsible communication.
+
+For my own research, the visit established a new methodological direction linking LLM evaluation with interpretable ethical profiling. It also created a concrete foundation for future collaboration and for extending the framework to broader scenarios and application domains. The immediate outcomes - a validated instrument, an interactive website, an open repository, and a co-authored paper - demonstrate how a relatively short research visit can catalyse durable and reusable results.
+
+More broadly, the experience illustrates the value of the ATRIUM TNA scheme for early-career researchers and future applicants. Access is not limited to physical infrastructure: it also means access to mentoring, specialised expertise, new disciplinary perspectives, and a community in which an exploratory idea can be tested and developed. The fully funded format lowers practical barriers to international collaboration and creates space for focused research that may be difficult to organise within ordinary institutional routines.
+
+<Figure src="/assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/website-screenshot-results.png" alignment="stretch">
+
+</Figure>
+
+## **Next steps**
+
+VirtueMap is a compact first version rather than an exhaustive account of moral reasoning. Future work can expand the number and diversity of dilemmas, examine additional virtues, compare the current confirmation-or-correction validation process with blind ranking designs, and test whether similar profiles remain stable across languages, cultures, application domains, and updated model versions.
+
+Another important direction is longitudinal evaluation. Because LLMs evolve quickly, repeating the same transparent protocol over time could show whether model behaviour becomes more stable, more homogeneous, or more differentiated across ethical dimensions. The framework may also support domain-specific studies in areas where LLMs assist complex human judgement, provided that its descriptive scope and limitations remain explicit.
+
+## **Closing reflection**
+
+Research mobility is especially valuable when a question crosses disciplinary boundaries. The ATRIUM TNA research visit at AUEB enabled the project to move from a broad question about AI decision-making to an open, reproducible, and publicly communicable framework. I thank Prof. John Pavlopoulos, the UNESCO Chair on Digital Methods for the Humanities and Social Sciences, AUEB, and the ATRIUM community for the support and collaborative environment that made this work possible.
+
+<LinkButton label="View the VirtueMap" link={{"discriminant":"external","value":"https://jtzach.github.io/Aristotle-Virtue-Map/"}} />
+
+### **Project links and further information**
+
+**•** [VirtueMap interactive website](https://jtzach.github.io/Aristotle-Virtue-Map/)
+
+**•** [Research paper on arXiv](https://arxiv.org/abs/2606.28683)
+
+**•** [Open code and data repository](https://github.com/jtzach/Aristotle-Virtue-Map)
+
+**•** [LinkedIn update](https://www.linkedin.com/posts/ioannis-tzachristas-83a00522a_happy-to-have-had-my-proposal-selected-for-ugcPost-7477852762630868992-Umtn/?utm_source=share\&utm_medium=member_desktop\&rcm=ACoAADlPRm4BgPkXfvzoJXVN7jQxtp-VJ8vbRRQ)
+
+**•** [ATRIUM Transnational Access scheme](https://atrium-research.eu/travel-grants/)
+
+**•** [UNESCO Chair at AUEB](https://www.dept.aueb.gr/en/unesco)
+
+
+
+**Suggested citation**
+
+*Tzachristas, I., & Pavlopoulos, J. (2026). Aristotelian Virtue Profiling of LLMs through Ethical Dilemmas. arXiv:2606.28683.*
+
+<Figure src="/assets/content/en/blog/mapping-the-moral-behavior-of-ai-systems-an-ethical-dilemma-based-study-of-large-language-models/20260601-115154.heic" alignment="stretch">
+
+</Figure>
+
