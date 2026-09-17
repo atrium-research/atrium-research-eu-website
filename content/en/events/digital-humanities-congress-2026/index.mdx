@@ -12,9 +12,11 @@ summary: |-
   collaboration' at the Digital Humanities Congress in Sheffield. 
 bannerImage: /assets/content/en/events/digital-humanities-congress-2026/bannerImage.png
 ---
-ATRIUM has the pleasure to present a paper 'Enhancing the ARIADNE Portal through European collaboration' at the Digital Humanities Congress in Sheffield, UK.&#x20;
+ATRIUM has the pleasure to present two papers at the Digital Humanities Congress in Sheffield, UK.&#x20;
 
-### About the Digital Humanities Congress
+Sarah Middle and Émilie Pagé-Perron will present 'Enhancing the ARIADNE Portal through European collaboration' and Diana Maynard will present 'Archaeologists Only Need Small Maps: A Geometric Approach to Geoparsing'.&#x20;
+
+## About the Digital Humanities Congress
 
 The [Digital Humanities Congress](https://www.dhi.ac.uk/congress) is a conference held in Sheffield every two years. Its purpose is to promote the sharing of knowledge, ideas and techniques within the digital humanities.
 
@@ -24,11 +26,7 @@ The University of Sheffield’s **Digital Humanities Institute** is delighted 
 
 The conference will take place at the University’s refurbished conference facility, The Edge.
 
-<LinkButton label="Register Here" link={{"discriminant":"external","value":"https://onlineshop.shef.ac.uk/conferences-and-events/faculty-of-arts-and-humanities/school-of-history-philosophy-and-digital-humanities/digital-humanities-congress-2026"}} />
-
-<Figure src="/assets/content/en/events/digital-humanities-congress-2026/dhc2026-darklogo-300x300.png" alt="A black background with white text 'DHC 2026, Digital Humanities Congress, University of Sheffield'." alignment="stretch">
-
-</Figure>
+## Presented Papers
 
 ### Abstract: Enhancing the ARIADNE Portal through European collaboration
 
@@ -41,3 +39,27 @@ Advancing fronTier Research In the arts and hUManities (ATRIUM) is a European Un
 Applying Reactive Twins to Enhance Monument Information Systems (ARTEMIS) is also funded by the European Union, and seeks to apply digital twins to facilitate conservation, engagement and research. A digital twin is an exact digital replica of a physical object, building or site (for example); in ARTEMIS, the Reactive Heritage Digital Twin (RHDT) takes this concept further by enabling responsive decision-making in real-time, based on sensor measurements. RHDTs are underpinned by data about the physical object, obtained through sources such as reports and scholarly publications, and modelled using the ARTEMIS ontology. Part of this work involves the use of open-source Large Language Models (LLMs) to extract relevant terminology from unstructured texts and semantically model the resulting relationships. We are additionally investigating the capability for entering natural language queries and translating them to SPARQL via an LLM, allowing for more nuanced and specialised searching. As the ARTEMIS database uses the same infrastructure as ARIADNE, these developments are planned for future integration with this more persistent resource, beyond the project’s lifespan.
 
 In our presentation, we will start by providing some background information on ARIADNE. We will then present our case studies from ATRIUM and ARTEMIS, as well as demonstrating enhancements that are already available. To close, we will reflect on how such developments have facilitated discoverability and improved the user experience in the ARIADNE Portal, before outlining some of our future plans.&#x20;
+
+## **Archaeologists Only Need Small Maps: A Geometric Approach to Geoparsing**
+
+**By Diana Maynard (University of Sheffield)**
+
+Wednesday 15:00 - 16:30
+
+In the Digital Humanities, the extraction of geographic data from unstructured text and its conversion to precise geographic coordinates (known as geoparsing) remains a bottleneck for spatial analysis, particularly when dealing with "grey literature" (fieldwork reports, site assessments, and niche journals). Standard geoparsing pipelines, built for global news or social media, often fail when applied to archaeological corpora. These tools typically rely on general-purpose Named Entity Recognition (NER) models (such as spaCy or NameTag) before linking the entity to global gazetteers such as GeoNames. However, these models lack the granular detail required for archaeological research and often fail to recognise historical or micro-local place names. If the NER fails to identify a place name, it can never be linked to a gazetteer and plotted on a map.
+
+This paper proposes a shift in methodology, grounded in the observation that archaeological reports typically focus on "small maps": a single site or a cluster of closely related locations. While standard tools struggle with the extreme ambiguity of descriptive local names (e.g., "Church Street" or "Mill Pond"), we argue that the local nature of archaeological discourse provides a geometric constraint that can be leveraged for highly accurate disambiguation.
+
+Our approach "flips" the traditional geoparsing pipeline. Rather than starting with an error-prone NER stage, we use a gazetteer-first approach to ensure high recall. By harvesting all possible candidate locations from relevant georeferenced datasets, including historical gazetteers like Pleiades and the Digital Survey of English Place-Names, as well as GeoNames, we identify every potential spatial mention within a text. To address the resulting drop in precision (where a place name is also a common word or refers to one of a thousand identical UK street names), we implement a dataset-agnostic, geometric disambiguation algorithm using axis-aligned bounding boxes.
+
+While an exhaustive search of every possible combination of points would theoretically yield the best fit, the combinatorial complexity of documents with even a modest number of locations makes this computationally prohibitive. Instead, we employ an iterative heuristic: an initial selection of candidates is made, followed by successive refinements where each point is checked in turn for a better fit within the bounding box. This process continues until the system settles on a stable set of points for which no better solution can be found. For example, while there are over 1,000 "Church Streets" in the UK, the presence of a single unique anchor point like "Penistone" allows the system to minimise the map area and correctly disambiguate the surrounding local features.
+
+This methodology is inherently scale-agnostic and global. For example, a sentence describing an army marching "from Alexandria to Memphis, moving South along the Nile to Thebes" contains three highly ambiguous toponyms with counterparts across the globe. By minimising the geographic area of the resulting bounding box, the system naturally prioritises the Egyptian cluster over contemporary outliers in the United States or Greece. In this paper, we present results from experiments using GeoNames, Pleiades, and the Digital Survey of English Place-Names, demonstrating how this iterative geometric approach transforms "hidden" grey literature into structured, mappable Linked Open Data that is interoperable with wider heritage infrastructures. We make our toolkit freely available on GitHub \[1] as well as demo versions on GATE Cloud \[2].
+
+Read the full paper: [https://www.dhi.ac.uk/dhc/2026/paper/325](https://www.dhi.ac.uk/dhc/2026/paper/325)
+
+---
+
+1. [https://github.com/GateNLP/atrium-geoparsing](https://github.com/GateNLP/atrium-geoparsing)
+
+2. [https://cloud.gate.ac.uk/shopfront#tagged=ATRIUM](https://cloud.gate.ac.uk/shopfront#tagged=ATRIUM)
