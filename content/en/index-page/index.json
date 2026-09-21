@@ -31,19 +31,19 @@
       {
         "item": {
           "discriminant": "news",
-          "value": "atrium-second-mutual-learning-exercise"
+          "value": "computer-vision-in-archaeology-training-school-wraps-up-in-brno"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "news",
+          "value": "aglaia-project-selected-for-the-prestigious-heritage-in-motion-awards-2026"
         }
       },
       {
         "item": {
           "discriminant": "events",
-          "value": "atrium-summer-school-athens-greec"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "events",
-          "value": "horizon-europe-programme-committee"
+          "value": "ads-transnational-access-training-school"
         }
       }
     ]
