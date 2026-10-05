@@ -31,6 +31,12 @@
       {
         "item": {
           "discriminant": "news",
+          "value": "atrium-tna-clarin-el-summer-school-2026-successfully-completed"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "news",
           "value": "computer-vision-in-archaeology-training-school-wraps-up-in-brno"
         }
       },
@@ -38,12 +44,6 @@
         "item": {
           "discriminant": "news",
           "value": "aglaia-project-selected-for-the-prestigious-heritage-in-motion-awards-2026"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "events",
-          "value": "ads-transnational-access-training-school"
         }
       }
     ]
