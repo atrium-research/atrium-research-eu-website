@@ -1,0 +1,159 @@
+---
+title: ATRIUM Summer school – final report
+publicationDate: 2026-10-08
+image: /assets/content/en/blog/atrium-summer-school-final-report/image.png
+authors:
+  - Costanza Di Lorito
+summary: >-
+  From September 14th to 18th I had the opportunity to take part in the Computer
+  Vision for Archaeology summer school. The five-day training school was
+  organised within the trans-national access scheme of the ATRIUM Project,
+  hosted by the Institute of Archaeology of the Czech Academy of Sciences in
+  Brno and co-organised by the MAIA COST Action.
+bannerImage: /assets/content/en/blog/atrium-summer-school-final-report/bannerImage.jpg
+---
+PhD candidate in the “Humanities, Technology and Society” programme, University of Modena and Reggio Emilia \
+\
+**The programme** 
+
+From September 14th to 18th I had the opportunity to take part in the Computer Vision for Archaeology summer school. The five-day training school was organised within the trans-national access scheme of the ATRIUM Project, hosted by the Institute of Archaeology of the Czech Academy of Sciences in Brno and co-organised by the MAIA COST Action. 
+
+The extraordinary warmness and competence of the teaching staff, along with the quality of the training programme and the international vocation of the event, made this experience extremely enriching for me, not only as an aspiring researcher but also as a person.
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-10.18.07.png" alt="Summer school participants" alignment="center">
+
+</Figure>
+
+&#x20;                               *The summer school participants (Photo credit: ARUB team)* \
+\
+**Monday** 
+
+First morning started with an introduction, made by dr. Pajdla, to computer vision, a field that has become increasingly important because of the huge growth in visual data, including drone, satellite, LiDAR, and microscopic imagery. 
+
+Computer vision applications can perform a variety of tasks, the most important of which are classification, detection, segmentation, keypoints, and retrieval. 
+
+While such methods can be effective and timesaving, there are some cautions to be taken. First, method must be tailored to the dataset: even when examining the same features (e.g. burial mounds), significant differences can be prompted, for example, by different construction methods and environments, thus compromising the transferability of the model. One also must be conscious of the presence of possible mistakes in the results, especially false positives and false negatives. 
+
+A practical demonstration of these risks was provided through a demo classification, run on a Colab environment with OpenAI’s neural network “CLIP” (Contrastive Language–Image Pre-training). The example showed the classification of photos of seven objects, taken from the Institute of Archaeology own database. What struck me the most is that the model confidently gave an answer even when the available options were clearly all wrong, picking up the most plausible result. 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-10.19.13.png" alt="Example of CLIP-based classification with only wrong options: the software selects the most plausible answer (Photo credit: summer school training materials)" alignment="center">
+
+</Figure>
+
+*Example of CLIP-based classification with only wrong options: the software selects the most plausible answer (Photo credit: summer school training materials)*  \
+\
+Essential takeaways from this session are that images are composed by pixels, and what a machine exactly does is to interpret their number and nature. 
+
+In the afternoon, the session “Coding with agents”, taught by dr. Harasim, was about using AI agents as coding assistants that can interact with a software project. The important conceptual part was that agents can inspect a project, and use tools such as MCP (Model Context Protocol), that allows an AI agent to interact with additional tools, and make changes, rather than merely responding with text. Effective use of agents depends on giving them clear, focused prompts and well-defined expected outcomes. For example, it can be better to ask an agent to inspect a specific range of lines rather than requiring it to analyse an entire large file. 
+
+The final part of the day was focused on Python language’s fundamentals. This session, taught by dr. Hajek, first outlined the difference between an algorithm (a logical workflow) and a program (the implementation of two or more algorithms through a programming language). We then proceeded to a practical part consisting of a code run in Google Colab: after defining the main types of errors that we may encounter while programming (syntax, runtime and logical ones), the instructor showed us how to import the Open-CV library to perform some tasks on a sample image (for example rotation, blurring and conversion into and from different formats). 
+
+As I did not have previous experience in coding, what I found particularly useful about these sessions was the opportunity to better understand and learn the basics of programming, which turned out to be crucial in the following days, and to learn how to correctly use AI agents that may support us while coding. \
+\
+**Tuesday** 
+
+The second day was about annotation. After a theoretical introduction centred on the most used annotation tools (COCO, YOLO, PASCAL, CVAT etc.), dr. Pajdla explained to us how to use the CVAT annotation platform and its working environment. We particularly focused on the “segment anything” AI-based function, which allows the user to automatically outline the object. From a conceptual standpoint, the instructor stressed the importance of effective and comprehensive labelling. I was able to use a small dataset that I had acquired during my MA’s thesis internship, consisting of pictures of golden ornaments from a necropolis in central Italy. 
+
+Although I do not normally work with such tools, as my PhD project is more centred on archival data and topography, I found the session very useful to obtain a better grasp of the functioning of annotation software and, more broadly, of machine learning algorithms. 
+
+In the afternoon, formal classes gave way to presentations of some participants’ projects. While all of them were remarkable and scientifically sound, I particularly enjoyed the presentation made by Cherene. 
+
+As her project addresses the relocation of graves resulting from uncontrolled urban development and employs a range of techniques, including a computer vision-based model (YOLO 4 Graves) for detecting graves in satellite and drone imagery, her contribution prompted me to consider applying a similar approach to the aerial photographs available for the area I am currently researching in central Italy. \
+\
+**Wednesday** 
+
+The third day was focused on computer vision for microscopic analysis. The instructor, dr. Eleftheriadou, first explained the difference between inter- (different researchers may interpret the same image differently) and intra-analyst variation (the same researchers may change their interpretation during the analytical process). Therefore, computer vision has the potential to make analyses more consistent and reproducible, but the quality and preparation of the images are crucial. 
+
+The session then introduced some basic concepts of image processing and machine learning. These techniques are particularly relevant to use-wear analysis, which examines traces on lithic surfaces. 
+
+In the afternoon, we practically performed some image augmentation tasks through a code run on Google Colab. We were able to directly try image-processing techniques such as interpolation, conversion to grayscale, brightness and contrast normalization, cropping of unfocused areas, duplicate removal, and histogram equalization to improve the quality and consistency of the data. 
+
+This session had the merit of making the machine-learning workflow (data collection, preparation of the dataset, model training and model test) even more comprehensible, with particular attention to the phase of data cleaning. 
+
+On this same day, the teaching staff also organised a guided tour in the institutes’ laboratories. The tour began in the microscopy room, where a researcher showed us how bronze artefacts undergo a careful conservation process. For example, de-ionization and de-salinization treatments remove salts and ions that could otherwise damage their surface over time. 
+
+Iron artefacts present a different challenge altogether. Tannin treatments are used to stabilize the metal, often leaving behind a characteristic black surface. 
+
+A further stop was the XRF (X-ray fluorescence) station, used to determine the elemental composition of metal artefacts. Two axes, one dated to the Copper Age, one to the Bronze Age, illustrated this beautifully: in the bronze piece, tin levels served as a general indicator of the alloy's corrosion process, since bronze is a copper-tin alloy. By contrast, the axe from the Copper Age showed a clear majority of copper, reflecting the metallurgical practices of its time, before tin alloying became widespread. 
+
+The machinery that struck me the most was the nano-analytics station, where the researcher demonstrated how even a small tool like a crucible can reveal traces of its past use. Analysis detected copper traces along its edge: although the metal was likely originally positioned along the shallow interior rather than the rim, the analysis offered a glimpse into the vessel's role in ancient metallurgical processes. 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-11.43.11.png" alt="The lab tour " alignment="center">
+
+</Figure>
+
+&#x20;                                            *The lab tour (Photo credit: ARUB team)* \
+\
+**Thursday** 
+
+During the fourth day of the training, we had the opportunity to delve into machine learning techniques applied to satellite imagery. This is the session I enjoyed the most, as my project is partly centred on the analysis of satellite data to retrace archaeological features. Moreover, the dynamic approach prompted using the Colab environment made this session even more useful. 
+
+After a brief introduction about satellite images and the type and nature of archaeological traces one may retrieve through them, dr. Hajek proceeded to the analysis of our case-study, a Sentinel-2 satellite image representing the Bronze-age site of Cornesti Larcuri, in Romania. Our objectives were to enhance the cropmark signal, distinguish it from surrounding vegetation and field variability, and ultimately segment the cropmark from the satellite image. 
+
+We first pre-processed our image (RGB stretch, NDVI, reflectance conversion, background removal) and applied a Frangi-ridge filter to highlight line-like cropmarks. We then combined these layers into a hybrid feature space to train a 300-tree Random Forest classifier on labelled cropmark and non-cropmark shapefiles, refined them with hard-negative mining of false positives, and exported the resulting archaeological candidates to GIS after removing very small detections. The automatically generated candidate polygons should be manually reviewed to produce a scientifically solid result, but we were still able to learn a practical workflow to perform basic machine learning-based operations. Such a skill could be crucial to improve and speed up the analysis of the satellite images and aerial photos dataset I will deal with in my doctoral project. 
+
+Before starting the afternoon session, dr. Lečbychová guided us in a brief tour of the institute’s archive. As I habitually work with archival and legacy data for my PhD project, this was one of the visits I enjoyed the most and I was more curious about. After a brief introduction about the history of the archive, the lead archivist showed us some documents that are preserved in the Institute. I was extremely struck at the similarities that they share with the documents I am currently working on, both in terms of typologies (administrative reports, maps, excavation journals) and record methods (e.g. protocol numbers). 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-11.44.29.png" alt="The archive tour" alignment="center">
+
+</Figure>
+
+&#x20;                                      *The archive tour (Photo credit: ARUB team)* 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-11.45.09.png" alt="An example of archival document dating to 1922 and written in German " alignment="center">
+
+</Figure>
+
+*An example of archival document dating to 1922 and written in German (Photo credit: Costanza Di Lorito)* \
+\
+The afternoon was devoted to the analysis of a Scandinavian rock-art dataset. After a historical introduction, dr. Green explained documentation challenges, visualization techniques like Local Relief Modeling for 3D data, and the complexities of automated classification (superimpositions, erosion, class imbalance). We then did an exercise focused on the segmentation of a dataset composed of rock-art pictures. 
+
+**Friday** 
+
+The fifth and final day was focused on coin dataset. Dr. Harasim first exposed the difficulties posed by such data, as preservation conditions and patterns can vary widely between specimens, making it important to ground analysis in objective facts. Vector comparison methods (e.g., identifying the number of dies used) help address this, though classification still carries an inherent degree of subjectivity. 
+
+**City exploration and social life** 
+
+Aside from the training, the summer school was a very nice occasion to visit and enjoy Brno. The city turned out to be very rich in terms of cultural life and venues. 
+
+When I read My Prisons two years ago, I could hardly imagine that I would one day visit the place where most of the memoir unfolds. Indeed, the account of Silvio Pellico's imprisonment in Špilberk Castle, a fairly well-known literary work in Italy by the Italian writer and patriot, is what prompted me to visit the fortress as soon as I arrived in Brno on Sunday afternoon. 
+
+The permanent exhibition, remarkably detailed, traced the castle's evolution from royal residence to prison, garrison, and eventually a Nazi-period bomb shelter. It also offered a valuable opportunity to reflect on a part of Italian national history, namely the Austrian Empire's repression of Italy's independence movements during the first half of the nineteenth century. 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-11.46.11.png" alt="Entrance of the Špilberk fortress" alignment="center">
+
+</Figure>
+
+&#x20;                     *Entrance of the Špilberk fortress (Photo credit: Costanza Di Lorito)* 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-11.46.55.png" alt="Commemorative plaque in honour of the Italian Carbonari imprisoned at Špilberk" alignment="center">
+
+</Figure>
+
+*Commemorative plaque in honour of the Italian Carbonari imprisoned at Špilberk (Photo credit: Costanza Di Lorito)* \
+\
+Moreover, on Tuesday afternoon, a city tour was organized. Our guide, Eva, brought us to the most iconic venues of Brno: the former city hall, with its wondrously sculpted portal, Zelný trh (Market Square) and the Parnassus fountain, the cathedral of Saints Peter and Paul and Saint James’ church, the new city hall in Dominikánské náměstí (Dominican square), and eventually náměstí Svobody (Freedom square) and Moravské náměstí. What I particularly enjoyed about this visit was that, alongside historical and chronological remarks, the guide filled her explanations with very interesting anecdotes! 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-11.47.41.png" alt="The group at Dominican square" alignment="center">
+
+</Figure>
+
+&#x20;                           *The group at Dominican square (Photo credit: ARUB team)* \
+\
+Finally, social events deserve a special mention. The icebreaker on Monday afternoon and the dinner held on Wednesday evening were remarkably well organized and lively. We had the opportunity to taste local food and, most importantly, the very local pivo! 
+
+However, the memory I will cherish the most and carry with me was the possibility to talk to and connect with passionate, competent people from all over Europe. The warmness and kindness of both organizers and participants really impressed me, and I hope to meet more people like them in my future academic path. 
+
+<Figure src="/assets/content/en/blog/atrium-summer-school-final-report/screenshot-2026-10-08-at-11.48.24.png" alt="The group having some wine in Zelný trh!" alignment="center">
+
+</Figure>
+
+&#x20;              Our group having some wine in Zelný trh! (Photo credit: Alessandra Bianchelli) \
+\
+**Further perspectives and conclusions** 
+
+The Computer Vision summer school was an important opportunity to deepen my understanding of computational methods applied to archaeological research. As my doctoral project deals with archival documents and geospatial data to assess the archaeological potential of my area of interest, I am eager to use some of the workflows presented, especially the ones concerning satellite and aerial images. While computer vision is currently not the main methodology of my PhD, the training was crucial to draw inspiration for further research that I may apply in my work. 
+
+From a methodological perspective, I particularly appreciated the instructors’ attention to the limitations posed by these methods, as they always explained ways to properly check the quality and reliability of the outputs. 
+
+In conclusion, I would like to express my gratitude to my “travel companions”, that accompanied me during these five days and contributed to make them most pleasant, and the wonderful organization and teaching staff: Petr, Ronald, Anastasia, Ashely, Zuzana, David, Vit, Tereza and Filip, to whom I would like to extend a special thank for the interest he showed in my research. 
