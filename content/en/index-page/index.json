@@ -31,6 +31,12 @@
       {
         "item": {
           "discriminant": "news",
+          "value": "aglaia-wins-heritage-in-motion-2026-award-in-the-new-digital-experiences-category"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "news",
           "value": "atrium-tna-clarin-el-summer-school-2026-successfully-completed"
         }
       },
@@ -38,12 +44,6 @@
         "item": {
           "discriminant": "news",
           "value": "computer-vision-in-archaeology-training-school-wraps-up-in-brno"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "news",
-          "value": "aglaia-project-selected-for-the-prestigious-heritage-in-motion-awards-2026"
         }
       }
     ]
