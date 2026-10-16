@@ -2,6 +2,8 @@ import { createUrl, createUrlSearchParams, request } from "@acdh-oeaw/lib";
 
 import { env } from "@/config/env.config";
 
+const timeout = 50_000;
+
 type IsoDateString = string;
 
 type ItemCategory =
@@ -82,10 +84,7 @@ export async function getSshOpenMarketplaceToolsServices() {
 		}),
 	});
 
-	const data = (await request(url, {
-		responseType: "json",
-		timeout: 50_000,
-	})) as ItemSearchResponse;
+	const data = (await request(url, { responseType: "json", timeout })) as ItemSearchResponse;
 
 	return { items: data.items, total: data.hits };
 }
@@ -102,7 +101,7 @@ export async function getSshOpenMarketplaceWorkflows() {
 		}),
 	});
 
-	const data = (await request(url, { responseType: "json" })) as ItemSearchResponse;
+	const data = (await request(url, { responseType: "json", timeout })) as ItemSearchResponse;
 
 	return { items: data.items, total: data.hits };
 }
