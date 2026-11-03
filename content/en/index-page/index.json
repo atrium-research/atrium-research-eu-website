@@ -31,6 +31,12 @@
       {
         "item": {
           "discriminant": "news",
+          "value": "ads-transnational-access-training-school-concludes"
+        }
+      },
+      {
+        "item": {
+          "discriminant": "news",
           "value": "transcription-portal-presented-at-clarin-cafe-speech-to-text-made-accessible-for-researchers"
         }
       },
@@ -38,12 +44,6 @@
         "item": {
           "discriminant": "news",
           "value": "atrium-s-peer-review-framework-presented-at-the-launch-of-the-prc-alliance"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "news",
-          "value": "aglaia-wins-heritage-in-motion-2026-award-in-the-new-digital-experiences-category"
         }
       }
     ]
