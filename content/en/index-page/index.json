@@ -30,6 +30,12 @@
     "items": [
       {
         "item": {
+          "discriminant": "events",
+          "value": "atrium-at-d-hd-2027-mind-the-gap-knowledge-uncertainty-and-responsibility"
+        }
+      },
+      {
+        "item": {
           "discriminant": "news",
           "value": "ads-transnational-access-training-school-concludes"
         }
@@ -38,12 +44,6 @@
         "item": {
           "discriminant": "news",
           "value": "transcription-portal-presented-at-clarin-cafe-speech-to-text-made-accessible-for-researchers"
-        }
-      },
-      {
-        "item": {
-          "discriminant": "news",
-          "value": "atrium-s-peer-review-framework-presented-at-the-launch-of-the-prc-alliance"
         }
       }
     ]
