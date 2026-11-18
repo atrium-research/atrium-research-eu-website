@@ -6,7 +6,7 @@ pre-commit:
   jobs:
     - name: lint code
       glob: "**/*.{astro,js,ts,tsx}"
-      run: pnpm exec eslint --cache --fix {staged_files}
+      run: pnpm exec oxlint --fix --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
 
     - name: lint styles

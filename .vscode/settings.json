@@ -15,8 +15,6 @@
 	"editor.snippetSuggestions": "bottom",
 	"editor.stickyScroll.enabled": true,
 	"emmet.showSuggestionsAsSnippets": true,
-	"eslint.enable": true,
-	"eslint.validate": ["astro", "javascript", "typescript", "typescriptreact"],
 	"files.associations": {
 		"*.css": "tailwindcss"
 	},
