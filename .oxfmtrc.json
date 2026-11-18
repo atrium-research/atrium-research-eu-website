@@ -11,5 +11,6 @@
 	"astro": {
 		"compressHTML": "html"
 	},
+	"sortImports": true,
 	"ignorePatterns": ["content/**", "public/**", "pnpm-workspace.yaml"]
 }

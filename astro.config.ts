@@ -5,8 +5,8 @@ import node from "@astrojs/node";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "astro/config";
 import icon from "astro-icon";
+import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
 // import { createConfig as createMdxConfig } from "./src/config/mdx.config";
