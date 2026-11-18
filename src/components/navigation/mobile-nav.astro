@@ -18,7 +18,7 @@ const navigation = await createSingletonResource("navigation", locale).read();
 					const { label, href } = item.value;
 
 					return <li>
-						<Link class="font-medium uppercase text-text transition hover:text-white" href={href}>
+						<Link class="font-medium text-text uppercase transition hover:text-white" href={href}>
 							{label}
 						</Link>
 					</li>;
@@ -29,7 +29,7 @@ const navigation = await createSingletonResource("navigation", locale).read();
 
 					return <li>
 						<Link
-							class="font-medium uppercase text-text transition hover:text-white"
+							class="font-medium text-text uppercase transition hover:text-white"
 							href={`/${id}`}
 						>
 							{label}
@@ -43,7 +43,7 @@ const navigation = await createSingletonResource("navigation", locale).read();
 					return <li>
 						<details class="group">
 							<summary
-								class="inline-flex cursor-pointer items-center gap-x-1.5 font-medium uppercase text-text transition hover:text-white"
+								class="inline-flex cursor-pointer items-center gap-x-1.5 font-medium text-text uppercase transition hover:text-white"
 							>
 								{label}
 								<Icon
@@ -52,7 +52,7 @@ const navigation = await createSingletonResource("navigation", locale).read();
 									name="lucide:chevron-down"
 								/>
 							</summary>
-							<ul class="ml-4 mt-2 grid gap-y-1" role="list">
+							<ul class="mt-2 ml-4 grid gap-y-1" role="list">
 								{links.map((link) => {
 									switch (link.discriminant) {
 										case "link": {
@@ -60,7 +60,7 @@ const navigation = await createSingletonResource("navigation", locale).read();
 
 											return <li>
 												<Link
-													class="font-medium uppercase text-text transition hover:text-white"
+													class="font-medium text-text uppercase transition hover:text-white"
 													href={href}
 												>
 													{label}
@@ -73,7 +73,7 @@ const navigation = await createSingletonResource("navigation", locale).read();
 
 											return <li>
 												<Link
-													class="font-medium uppercase text-text transition hover:text-white"
+													class="font-medium text-text uppercase transition hover:text-white"
 													href={`/${id}`}
 												>
 													{label}

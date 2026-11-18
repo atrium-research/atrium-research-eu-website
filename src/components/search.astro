@@ -10,7 +10,7 @@ const { t } = await createI18n(locale);
 
 <site-search transition:persist>
 	<button
-		class="inline-flex items-center gap-x-2 px-4 py-2 font-medium uppercase text-text transition hover:text-white"
+		class="inline-flex items-center gap-x-2 px-4 py-2 font-medium text-text uppercase transition hover:text-white"
 		data-search-open
 		disabled
 	>
@@ -23,7 +23,7 @@ const { t } = await createI18n(locale);
 		class="fixed mx-auto min-h-full w-full max-w-(--breakpoint-md) border bg-white backdrop:bg-black/20 backdrop:backdrop-blur-xs open:grid sm:mt-[5rem] sm:max-h-[calc(100%-10rem)] sm:min-h-[16rem] sm:rounded-lg sm:shadow-lg"
 	>
 		<div class="grid size-full gap-y-4 bg-sunbleached px-8 py-6" data-dialog-content>
-			<button class="absolute right-4 top-4 text-sm" data-search-close>
+			<button class="absolute top-4 right-4 text-sm" data-search-close>
 				<Icon aria-hidden="true" class="size-4 shrink-0" name="lucide:x" />
 				<span class="sr-only">{t("Search.close-dialog")}</span>
 			</button>
@@ -125,7 +125,7 @@ const { t } = await createI18n(locale);
 
 	/* stylelint-disable-next-line selector-class-pattern */
 	.pagefind-ui .pagefind-ui__result-inner {
-		@apply bg-white py-3 px-4 rounded-md;
+		@apply rounded-md bg-white px-4 py-3;
 	}
 
 	/* stylelint-disable-next-line selector-class-pattern */

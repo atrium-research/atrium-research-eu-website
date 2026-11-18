@@ -44,7 +44,7 @@ const formatter = getFormatter(locale);
 			<PageTitle>{title}</PageTitle>
 			<dl class="grid gap-y-2">
 				<div>
-					<dt class="text-xs font-medium uppercase text-neutral-600">Date</dt>
+					<dt class="text-xs font-medium text-neutral-600 uppercase">Date</dt>
 					<dd>
 						{endDate
 							? formatter.date.formatRange(new Date(startDate), new Date(endDate))
@@ -52,7 +52,7 @@ const formatter = getFormatter(locale);
 					</dd>
 				</div>
 				<div>
-					<dt class="text-xs font-medium uppercase text-neutral-600">Location</dt>
+					<dt class="text-xs font-medium text-neutral-600 uppercase">Location</dt>
 					<dd>{location}</dd>
 				</div>
 			</dl>

@@ -12,5 +12,9 @@
 		"compressHTML": "html"
 	},
 	"sortImports": true,
+	"sortTailwindcss": {
+		"stylesheet": "./src/styles/tailwind.css",
+		"functions": ["cn", "styles"]
+	},
 	"ignorePatterns": ["content/**", "public/**", "pnpm-workspace.yaml"]
 }

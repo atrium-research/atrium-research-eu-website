@@ -38,7 +38,7 @@ const { default: Content } = await page.compile(content);
 				<Content />
 			</div>
 			<div>
-				<ul class="grid gap-8 grid-fluid-cols-72" role="list">
+				<ul class="grid grid-fluid-cols-72 gap-8" role="list">
 					{sortedNews.map((item) => {
 						const { image, summary, title } = item.data;
 						const href = `/news/${item.id}/`;
@@ -59,7 +59,7 @@ const { default: Content } = await page.compile(content);
 										/>
 									</Link>
 								</div>
-								<h2 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
+								<h2 class="leading-tight font-medium text-red-clay transition hover:text-inherit">
 									<Link href={href}>{title}</Link>
 								</h2>
 								<div class="text-sm leading-relaxed text-neutral-700">{summary}</div>
