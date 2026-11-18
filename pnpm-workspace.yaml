@@ -3,7 +3,7 @@ engineStrict: true
 allowBuilds:
   esbuild: true
   sharp: true
-  simple-git-hooks: true
+  lefthook: true
 shellEmulator: true
 
 strictDepBuilds: true

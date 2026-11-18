@@ -106,14 +106,11 @@ const googleSiteVerification = env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 			set:html={JSON.stringify(jsonLd, safeJsonLdReplacer)}
 			type="application/ld+json"
 		/>
-
 		{matomoBaseUrl && matomoId ? <Analytics baseUrl={matomoBaseUrl} id={matomoId} /> : null}
 
-		{
-			googleSiteVerification != null ? (
-				<meta content={googleSiteVerification} name="google-site-verification" />
-			) : null
-		}
+		{googleSiteVerification != null ? (
+			<meta content={googleSiteVerification} name="google-site-verification" />
+		) : null}
 	</head>
 
 	<body>

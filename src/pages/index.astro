@@ -70,15 +70,11 @@ const formatter = getFormatter(locale);
 				<h2 class="text-2xl font-semibold text-red-clay">Videos</h2>
 				<div>
 					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
-						{
-							videos.items.map((item) => {
-								return (
-									<li>
-										<Video caption={item.caption} id={item.id} provider="youtube" />
-									</li>
-								);
-							})
-						}
+						{videos.items.map((item) => {
+							return <li>
+								<Video caption={item.caption} id={item.id} provider="youtube" />
+							</li>;
+						})}
 					</ul>
 				</div>
 			</PageSection>
@@ -89,104 +85,102 @@ const formatter = getFormatter(locale);
 				<h2 class="text-2xl font-semibold text-red-clay">Latest Events & News</h2>
 				<div>
 					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
-						{
-							latest.items.map(async (item) => {
-								switch (item.item.discriminant) {
-									case "events": {
-										const id = item.item.value;
+						{latest.items.map(async (item) => {
+							switch (item.item.discriminant) {
+								case "events": {
+									const id = item.item.value;
 
-										const event = await createCollectionResource("events", locale).read(id);
+									const event = await createCollectionResource("events", locale).read(id);
 
-										const { date, endDate, image, location, title } = event.data;
-										const href = `/events/${id}/`;
+									const { date, endDate, image, location, title } = event.data;
+									const href = `/events/${id}/`;
 
-										return (
-											<li>
-												<article class="grid gap-y-2">
-													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
-														<Link aria-hidden="true" href={href} tabindex={-1}>
-															<span class="sr-only">{title}</span>
-															<Image
-																alt=""
-																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
-																sizes="620px"
-																src={getImageImport(image)}
-																widths={[620]}
-															/>
-														</Link>
-													</div>
-													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-														<Link href={href}>{title}</Link>
-													</h3>
-													<dl class="text-sm">
-														<div class="flex gap-x-2">
-															<dt>Date:</dt>
-															<dd>
-																{endDate != null ? (
-																	<span>
-																		{formatter.date.formatRange(new Date(date), new Date(endDate))}
-																	</span>
-																) : (
-																	<time datetime={date}>
-																		{formatter.date.format(new Date(date))}
-																	</time>
-																)}
-															</dd>
-														</div>
-														<div class="flex gap-x-2">
-															<dt>Location:</dt>
-															<dd>{location}</dd>
-														</div>
-													</dl>
-												</article>
-											</li>
-										);
-									}
-
-									case "news": {
-										const id = item.item.value;
-
-										const news = await createCollectionResource("news", locale).read(id);
-
-										const { image, title } = news.data;
-										const href = `/news/${id}/`;
-
-										return (
-											<li>
-												<article class="grid gap-y-2">
-													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
-														<Link href={href}>
-															<span class="sr-only">{title}</span>
-															<Image
-																alt=""
-																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
-																sizes="620px"
-																src={getImageImport(image)}
-																widths={[620]}
-															/>
-														</Link>
-													</div>
-													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-														<Link href={href}>{title}</Link>
-													</h3>
-												</article>
-											</li>
-										);
-									}
-
-									case "tweets": {
-										const id = item.item.value;
-
-										return (
-											// eslint-disable-next-line tailwindcss/no-custom-classname
-											<li class="light">
-												<Tweet id={id} />
-											</li>
-										);
-									}
+									return <li>
+										<article class="grid gap-y-2">
+											<div
+												class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50"
+											>
+												<Link aria-hidden="true" href={href} tabindex={-1}>
+													<span class="sr-only">{title}</span>
+													<Image
+														alt=""
+														class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+														sizes="620px"
+														src={getImageImport(image)}
+														widths={[620]}
+													/>
+												</Link>
+											</div>
+											<h3
+												class="font-medium leading-tight text-red-clay transition hover:text-inherit"
+											>
+												<Link href={href}>{title}</Link>
+											</h3>
+											<dl class="text-sm">
+												<div class="flex gap-x-2">
+													<dt>Date:</dt>
+													<dd>
+														{endDate != null ? (
+															<span>
+																{formatter.date.formatRange(new Date(date), new Date(endDate))}
+															</span>
+														) : (
+															<time datetime={date}>{formatter.date.format(new Date(date))}</time>
+														)}
+													</dd>
+												</div>
+												<div class="flex gap-x-2">
+													<dt>Location:</dt>
+													<dd>{location}</dd>
+												</div>
+											</dl>
+										</article>
+									</li>;
 								}
-							})
-						}
+
+								case "news": {
+									const id = item.item.value;
+
+									const news = await createCollectionResource("news", locale).read(id);
+
+									const { image, title } = news.data;
+									const href = `/news/${id}/`;
+
+									return <li>
+										<article class="grid gap-y-2">
+											<div
+												class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50"
+											>
+												<Link href={href}>
+													<span class="sr-only">{title}</span>
+													<Image
+														alt=""
+														class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+														sizes="620px"
+														src={getImageImport(image)}
+														widths={[620]}
+													/>
+												</Link>
+											</div>
+											<h3
+												class="font-medium leading-tight text-red-clay transition hover:text-inherit"
+											>
+												<Link href={href}>{title}</Link>
+											</h3>
+										</article>
+									</li>;
+								}
+
+								case "tweets": {
+									const id = item.item.value;
+
+									return; // eslint-disable-next-line tailwindcss/no-custom-classname
+									<li class="light">
+										<Tweet id={id} />
+									</li>;
+								}
+							}
+						})}
 					</ul>
 				</div>
 			</PageSection>

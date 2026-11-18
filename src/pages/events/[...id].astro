@@ -46,11 +46,9 @@ const formatter = getFormatter(locale);
 				<div>
 					<dt class="text-xs font-medium uppercase text-neutral-600">Date</dt>
 					<dd>
-						{
-							endDate
-								? formatter.date.formatRange(new Date(startDate), new Date(endDate))
-								: formatter.date.format(new Date(startDate))
-						}
+						{endDate
+							? formatter.date.formatRange(new Date(startDate), new Date(endDate))
+							: formatter.date.format(new Date(startDate))}
 					</dd>
 				</div>
 				<div>

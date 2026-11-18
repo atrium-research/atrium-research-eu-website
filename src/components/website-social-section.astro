@@ -33,24 +33,22 @@ const socialMediaConfig = {
 			<div class="grid place-items-center bg-granite px-8">
 				<div class="grid gap-y-4">
 					<div class="flex justify-center gap-x-2">
-						{
-							links.map((link) => {
-								const config = socialMediaConfig[link.kind];
+						{links.map((link) => {
+							const config = socialMediaConfig[link.kind];
 
-								return (
-									<a
-										class="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-										href={link.href}
-										target="_blank"
-									>
-										<div class="grid size-10 place-content-center rounded-full bg-sunbleached p-2 text-granite transition hover:opacity-90">
-											<Icon aria-hidden="true" class="size-6" name={config.icon} />
-										</div>
-										<span class="sr-only">{config.label}</span>
-									</a>
-								);
-							})
-						}
+							return <a
+								class="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+								href={link.href}
+								target="_blank"
+							>
+								<div
+									class="grid size-10 place-content-center rounded-full bg-sunbleached p-2 text-granite transition hover:opacity-90"
+								>
+									<Icon aria-hidden="true" class="size-6" name={config.icon} />
+								</div>
+								<span class="sr-only">{config.label}</span>
+							</a>;
+						})}
 					</div>
 					<a
 						class="flex items-center gap-x-2 rounded-md px-1 py-0.5 transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

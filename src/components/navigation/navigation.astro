@@ -17,8 +17,7 @@ const { class: className, label } = Astro.props;
 	/**
 	 * In the initial html, all menus are open, so they work when javascript is disabled.
 	 * Close them as soon as javascript loads.
-	 */
-	document.querySelectorAll("div[data-nav-menu]").forEach((element) => {
+	 */ document.querySelectorAll("div[data-nav-menu]").forEach((element) => {
 		// @ts-expect-error div allows data attributes.
 		element.dataset.open = "false";
 	});

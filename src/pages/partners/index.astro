@@ -60,38 +60,29 @@ sortedPartners["Research infrastructures"].sort((a, z) => {
 				<Content />
 			</div>
 			<div class="grid gap-y-16">
-				{
-					Object.entries(sortedPartners).map(([kind, partners]) => {
-						return (
-							<div class="grid gap-y-8">
-								<h2 class="text-xl font-semibold">{kind}</h2>
-								<ul class="grid gap-x-4 gap-y-8 grid-fluid-cols-56" role="list">
-									{partners.map((partner) => {
-										const { image, name, website } = partner.data;
+				{Object.entries(sortedPartners).map(([kind, partners]) => {
+					return <div class="grid gap-y-8">
+						<h2 class="text-xl font-semibold">{kind}</h2>
+						<ul class="grid gap-x-4 gap-y-8 grid-fluid-cols-56" role="list">
+							{partners.map((partner) => {
+								const { image, name, website } = partner.data;
 
-										return (
-											<li>
-												<articlce>
-													<a
-														class="relative block h-36 rounded-lg border p-4 shadow-md"
-														href={website}
-													>
-														<span class="sr-only">{name}</span>
-														<Image
-															alt=""
-															class="absolute inset-0 size-full object-contain p-1"
-															src={getImageImport(image)}
-														/>
-													</a>
-												</articlce>
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						);
-					})
-				}
+								return <li>
+									<articlce>
+										<a class="relative block h-36 rounded-lg border p-4 shadow-md" href={website}>
+											<span class="sr-only">{name}</span>
+											<Image
+												alt=""
+												class="absolute inset-0 size-full object-contain p-1"
+												src={getImageImport(image)}
+											/>
+										</a>
+									</articlce>
+								</li>;
+							})}
+						</ul>
+					</div>;
+				})}
 			</div>
 		</PageSection>
 	</MainContent>

@@ -173,72 +173,68 @@ const { default: Content } = await page.compile(content);
 				<Content />
 			</div>
 			<div class="grid gap-y-16">
-				{
-					publications == null ? (
-						<p class="text-center text-[#374151]" role="alert">
-							Failed to load publications. Please try again later.
-						</p>
-					) : (
-						<ul class="divide-y" role="list">
-							{publications.map((publication) => {
-								const { doi, doi_url, metadata } = publication;
-								const { title, description, creators, contributors } = metadata;
+				{publications == null ? (
+					<p class="text-center text-[#374151]" role="alert">
+						Failed to load publications. Please try again later.
+					</p>
+				) : (
+					<ul class="divide-y" role="list">
+						{publications.map((publication) => {
+							const { doi, doi_url, metadata } = publication;
+							const { title, description, creators, contributors } = metadata;
 
-								const list = new Intl.ListFormat("en");
+							const list = new Intl.ListFormat("en");
 
-								const hasCreators = isNonEmptyArray(creators);
-								const hasContributors = isNonEmptyArray(contributors);
+							const hasCreators = isNonEmptyArray(creators);
+							const hasContributors = isNonEmptyArray(contributors);
 
-								return (
-									<li class="py-8">
-										<article class="relative flex max-w-screen-md flex-col gap-y-4 sm:pl-10 md:pl-12">
-											<Icon
-												aria-hidden="true"
-												class="absolute left-0 top-0 my-0.5 hidden size-6 text-neutral-600 sm:block md:size-8"
-												name="lucide:file-text"
-											/>
-											<h3 class="text-xl font-semibold">{title}</h3>
-											{hasCreators || hasContributors ? (
-												<dl class="flex flex-col gap-y-1.5 text-sm text-[#374151]">
-													{hasCreators ? (
-														<div class="flex gap-x-1.5">
-															<dt class="font-semibold">Creators: </dt>
-															<dd>
-																{list.format(
-																	creators.map((creator) => {
-																		return creator.name;
-																	}),
-																)}
-															</dd>
-														</div>
-													) : null}
-													{hasContributors ? (
-														<div class="flex gap-x-1.5">
-															<dt class="font-semibold">Contributors: </dt>
-															<dd>
-																{list.format(
-																	contributors.map((contributor) => {
-																		return contributor.name;
-																	}),
-																)}
-															</dd>
-														</div>
-													) : null}
-												</dl>
+							return <li class="py-8">
+								<article class="relative flex max-w-screen-md flex-col gap-y-4 sm:pl-10 md:pl-12">
+									<Icon
+										aria-hidden="true"
+										class="absolute left-0 top-0 my-0.5 hidden size-6 text-neutral-600 sm:block md:size-8"
+										name="lucide:file-text"
+									/>
+									<h3 class="text-xl font-semibold">{title}</h3>
+									{hasCreators || hasContributors ? (
+										<dl class="flex flex-col gap-y-1.5 text-sm text-[#374151]">
+											{hasCreators ? (
+												<div class="flex gap-x-1.5">
+													<dt class="font-semibold">Creators:</dt>
+													<dd>
+														{list.format(
+															creators.map((creator) => {
+																return creator.name;
+															}),
+														)}
+													</dd>
+												</div>
 											) : null}
+											{hasContributors ? (
+												<div class="flex gap-x-1.5">
+													<dt class="font-semibold">Contributors:</dt>
+													<dd>
+														{list.format(
+															contributors.map((contributor) => {
+																return contributor.name;
+															}),
+														)}
+													</dd>
+												</div>
+											) : null}
+										</dl>
+									) : null}
 
-											<div class="prose prose-sm" set:html={description} />
+									<div class="prose prose-sm" set:html={description} />
 
-											<div class="prose prose-sm">
-												<a href={doi_url}>{doi}</a>
-											</div>
-										</article>
-									</li>
-								);
-							})}
-						</ul>
-					)
-				}
+									<div class="prose prose-sm">
+										<a href={doi_url}>{doi}</a>
+									</div>
+								</article>
+							</li>;
+						})}
+					</ul>
+				)}
 			</div>
 		</PageSection>
 	</MainContent>

@@ -60,7 +60,8 @@ jobs:
         uses: actions/cache@v6
         with:
           path: node_modules/.astro/
-          key: ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}-${{ github.run_id }}
+          key:
+            ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}-${{ github.run_id }}
           restore-keys: ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}
 
       - name: Format
