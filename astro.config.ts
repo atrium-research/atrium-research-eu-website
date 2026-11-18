@@ -1,3 +1,5 @@
+import { fileURLToPath } from "node:url";
+
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
@@ -88,6 +90,16 @@ export default defineConfig({
 	},
 	site: env.PUBLIC_APP_BASE_URL,
 	vite: {
+		resolve: {
+			/**
+			 * Mirrors `compilerOptions.paths` in `tsconfig.json`. Astro only reads those when
+			 * `compilerOptions.baseUrl` is set, which `oxlint-tsgolint` does not support.
+			 */
+			alias: {
+				"@/": fileURLToPath(new URL("./src/", import.meta.url)),
+				"~/": fileURLToPath(new URL("./", import.meta.url)),
+			},
+		},
 		ssr: {
 			noExternal: ["react-tweet"],
 		},
