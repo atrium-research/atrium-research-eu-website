@@ -21,7 +21,7 @@ const { t } = await createI18n(locale);
 
 	<dialog
 		aria-label={t("Search.search")}
-		class="fixed mx-auto min-h-full w-full max-w-screen-md border bg-white backdrop:bg-black/20 backdrop:backdrop-blur-sm open:grid sm:mt-[5rem] sm:max-h-[calc(100%-10rem)] sm:min-h-[16rem] sm:rounded-lg sm:shadow-lg"
+		class="fixed mx-auto min-h-full w-full max-w-(--breakpoint-md) border bg-white backdrop:bg-black/20 backdrop:backdrop-blur-xs open:grid sm:mt-[5rem] sm:max-h-[calc(100%-10rem)] sm:min-h-[16rem] sm:rounded-lg sm:shadow-lg"
 	>
 		<div class="grid size-full gap-y-4 bg-sunbleached px-8 py-6" data-dialog-content>
 			<button class="absolute right-4 top-4 text-sm" data-search-close>
@@ -108,6 +108,8 @@ const { t } = await createI18n(locale);
 </script>
 
 <style is:global>
+	@reference "../styles/tailwind.css";
+
 	site-search {
 		display: contents;
 	}
@@ -119,7 +121,7 @@ const { t } = await createI18n(locale);
 
 	/* stylelint-disable-next-line selector-class-pattern */
 	.pagefind-ui .pagefind-ui__result {
-		@apply !border-t-0 !py-2;
+		@apply border-t-0! py-2!;
 	}
 
 	/* stylelint-disable-next-line selector-class-pattern */

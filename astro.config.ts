@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 import { loadEnv } from "vite";
@@ -97,6 +98,7 @@ export default defineConfig({
 	},
 	site: env.PUBLIC_APP_BASE_URL,
 	vite: {
+		plugins: [tailwindcss()],
 		resolve: {
 			/**
 			 * Mirrors `compilerOptions.paths` in `tsconfig.json`. Astro only reads those when

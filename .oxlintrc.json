@@ -24,7 +24,8 @@
 			"linkComponents": ["Link", "NavLink"]
 		},
 		"tailwindcss": {
-			"callees": ["cn", "styles"],
+			"cssConfigPath": "./src/styles/tailwind.css",
+			"functions": ["cn", "styles"],
 			"ignoredKeys": ["combinations", "defaults"]
 		}
 	},

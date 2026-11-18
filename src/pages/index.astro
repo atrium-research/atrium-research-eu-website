@@ -48,7 +48,7 @@ const formatter = getFormatter(locale);
 			<div class="bg-sunbleached">
 				<Image
 					alt=""
-					class="aspect-video size-full max-h-screen-xs object-cover md:aspect-[2.5]"
+					class="aspect-video size-full max-h-(--breakpoint-xs) object-cover md:aspect-[2.5]"
 					loading="eager"
 					sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 100vw"
 					src={getImageImport(hero.images.at(0)!)}

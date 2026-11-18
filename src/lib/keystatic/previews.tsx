@@ -88,7 +88,7 @@ export function LinkButtonPreview(props: LinkButtonPreviewProps): ReactNode {
 	if (children == null || children === "") return null;
 
 	return (
-		<div className="inline-flex cursor-pointer select-none rounded-md bg-red-clay px-6 py-2 font-semibold text-white no-underline transition hover:bg-red-clay-intent">
+		<div className="inline-flex cursor-pointer rounded-md bg-red-clay px-6 py-2 font-semibold text-white no-underline transition select-none hover:bg-red-clay-intent">
 			{children}
 		</div>
 	);
