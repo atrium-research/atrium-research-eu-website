@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - uses: dorny/paths-filter@v4
         id: filter
@@ -42,32 +42,26 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node-version: [24.x]
         os: [ubuntu-24.04]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v5
+      # installs pnpm and node.js from `devEngines`, then runs `pnpm install --frozen-lockfile`
+      - name: Install pnpm, node.js, and dependencies
+        id: setup
+        uses: pnpm/setup@v3
         with:
           cache: true
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{ matrix.node-version }}
+          require-lockfile: true
 
       - name: Cache astro build artefacts
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: node_modules/.astro/
-          key: ${{ runner.os }}-astro-${{ matrix.node-version }}-${{ github.run_id }}
-          restore-keys: ${{ runner.os }}-astro-${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          key: ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}
 
       - name: Format
         run: pnpm run format:check
@@ -87,7 +81,7 @@ jobs:
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
 
       - name: Cache playwright browsers
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: cache-playwright-browsers
         with:
           path: "~/.cache/ms-playwright"

@@ -69,17 +69,23 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Ensure astro build artefacts folder exists
         run: mkdir -p node_modules/.astro
 
+      - name: Get node.js version from `engines.runtime`
+        id: node_version
+        run: |
+          NODE_VERSION=$(jq --raw-output '[.engines.runtime] | flatten | map(select(.name == "node"))[0].version' package.json)
+          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
+
       - name: Cache astro build artefacts
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: node_modules/.astro/
-          key: ${{ runner.os }}-astro-24.x-${{ github.run_id }}
-          restore-keys: ${{ runner.os }}-astro-24.x
+          key: ${{ runner.os }}-astro-${{ steps.node_version.outputs.NODE_VERSION }}-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-astro-${{ steps.node_version.outputs.NODE_VERSION }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
