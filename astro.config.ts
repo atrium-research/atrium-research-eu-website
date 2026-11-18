@@ -52,7 +52,13 @@ export default defineConfig({
 		 * @see https://github.com/Thinkmill/keystatic/discussions/951
 		 */
 		react({
-			include: ["**/content/**", "**/keystatic/**"],
+			/**
+			 * Restricted to script files: in vite 8 this is also used as `vite:oxc`'s jsx refresh
+			 * filter, which would otherwise try to parse json files in `content` as javascript.
+			 * Using regular expressions, because `@vitejs/plugin-react` appends `{?*,}` to globs to
+			 * allow query strings, where `?` is a glob wildcard, so `*.js` would match `*.json`.
+			 */
+			include: [/\/content\/.+\.(?:[jt]sx?|mdx)$/, /\/keystatic\/.+\.[jt]sx?$/],
 		}),
 		sitemap(),
 	],
