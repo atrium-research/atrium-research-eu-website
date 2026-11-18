@@ -80,10 +80,16 @@ export default defineConfig({
 		},
 	},
 	scopedStyleStrategy: "where",
-	// security: {
-	// 	checkOrigin: true,
-	// },
-
+	security: {
+		/**
+		 * Trust `Host` and `X-Forwarded-*` headers only for the app's own domain. Without this,
+		 * astro uses `localhost` as the request origin, which breaks keystatic's github oauth
+		 * `redirect_uri` and the origin check for form submissions.
+		 */
+		allowedDomains: env.PUBLIC_APP_BASE_URL
+			? [{ hostname: new URL(env.PUBLIC_APP_BASE_URL).hostname }]
+			: [],
+	},
 	server: {
 		/** Required by keystatic. */
 		host: "127.0.0.1",
