@@ -4,7 +4,6 @@ import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-// import solidJs from "@astrojs/solid-js";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 import { loadEnv } from "vite";
@@ -49,16 +48,12 @@ export default defineConfig({
 		/** Only needed to make the astro jsx runtime work correctly. */
 		mdx(),
 		/**
-		 * @see https://docs.astro.build/en/guides/integrations-guide/solid-js/#combining-multiple-jsx-frameworks
 		 * @see https://github.com/Thinkmill/keystatic/discussions/951
 		 */
 		react({
 			include: ["**/content/**", "**/keystatic/**"],
 		}),
 		sitemap(),
-		// solidJs({
-		// 	exclude: ["**/content/**", "**/keystatic/**"],
-		// }),
 	],
 	/** Use `@/lib/keystatic/compile-mdx.ts` instead of astro's built-in markdown processor. */
 	// // @ts-expect-error Astro types are incomplete.
@@ -88,6 +83,7 @@ export default defineConfig({
 	// security: {
 	// 	checkOrigin: true,
 	// },
+
 	server: {
 		/** Required by keystatic. */
 		host: "127.0.0.1",

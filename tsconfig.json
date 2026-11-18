@@ -3,7 +3,6 @@
 	"extends": ["astro/tsconfigs/base", "@acdh-oeaw/tsconfig"],
 	"compilerOptions": {
 		"jsx": "preserve",
-		"jsxImportSource": "solid-js",
 		"paths": {
 			"@/*": ["./src/*"],
 			"~/*": ["./*"]
