@@ -18,6 +18,11 @@ export default defineConfig({
 		mode: "standalone",
 	}),
 	base: env.PUBLIC_APP_BASE_PATH,
+	/**
+	 * Keep html whitespace handling (astro v6 default), instead of jsx-style whitespace stripping.
+	 * Must match `astro.compressHTML` in `.oxfmtrc.json`.
+	 */
+	compressHTML: true,
 	integrations: [
 		icon({
 			/** @see https://www.astroicon.dev/reference/configuration/#include */
@@ -99,8 +104,7 @@ export default defineConfig({
 				"@/": fileURLToPath(new URL("./src/", import.meta.url)),
 				"~/": fileURLToPath(new URL("./", import.meta.url)),
 			},
-		},
-		ssr: {
+			/** `react-tweet` imports css modules, which need to be processed by vite in all environments. */
 			noExternal: ["react-tweet"],
 		},
 	},
