@@ -70,7 +70,7 @@ export const createBlog = createCollection("/blog/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: createContentFieldOptions(paths.assetPath),
+				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
 				components: {
 					...createFigure(paths.assetPath, locale),
 					...createFootnote(paths.assetPath, locale),
@@ -141,7 +141,7 @@ export const createEvents = createCollection("/events/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: createContentFieldOptions(paths.assetPath),
+				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
 				components: {
 					...createFigure(paths.assetPath, locale),
 					...createFootnote(paths.assetPath, locale),
@@ -195,7 +195,7 @@ export const createNews = createCollection("/news/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: createContentFieldOptions(paths.assetPath),
+				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
 				components: {
 					...createFigure(paths.assetPath, locale),
 					...createFootnote(paths.assetPath, locale),
@@ -239,7 +239,7 @@ export const createPages = createCollection("/pages/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: createContentFieldOptions(paths.assetPath),
+				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
 				components: {
 					...createFigure(paths.assetPath, locale),
 					...createFootnote(paths.assetPath, locale),
