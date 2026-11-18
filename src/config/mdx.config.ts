@@ -6,12 +6,12 @@ import {
 	typographyConfig,
 	withCustomHeadingIds,
 	withFootnotes,
+	withGfm,
 	withIframeTitles,
 } from "@acdh-oeaw/mdx-lib";
 import type { ElementContent } from "hast";
 import withHeadingIds from "rehype-slug";
 import withFrontmatter from "remark-frontmatter";
-import withGfm from "remark-gfm";
 import withMdxFrontmatter from "remark-mdx-frontmatter";
 import withTypographicQuotes from "remark-smartypants";
 

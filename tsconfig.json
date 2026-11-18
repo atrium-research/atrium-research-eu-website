@@ -13,6 +13,6 @@
 	"exclude": ["dist", "node_modules"],
 	"mdx": {
 		"checkMdx": false,
-		"plugins": ["remark-frontmatter", "remark-gfm"]
+		"plugins": ["remark-frontmatter"]
 	}
 }
