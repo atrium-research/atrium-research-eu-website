@@ -61,6 +61,15 @@ RUN --mount=type=secret,id=KEYSTATIC_GITHUB_CLIENT_ID,uid=1000 \
 			ZENODO_API_ACCESS_TOKEN=$(cat /run/secrets/ZENODO_API_ACCESS_TOKEN) \
 		pnpm run build
 
+# remove original images which are only used as input for astro's image optimisation.
+RUN node ./scripts/prune-assets.ts
+
+# astro assets cache, exported in ci (`--target astro-cache --output type=local`) to persist it
+# between deployments.
+FROM scratch AS astro-cache
+
+COPY --from=build /app/node_modules/.astro /
+
 # serve
 FROM node:26-alpine AS serve
 

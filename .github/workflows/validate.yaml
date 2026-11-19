@@ -5,11 +5,9 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  workflow_call:
   workflow_dispatch:
   pull_request:
-    branches:
-      - main
-  push:
     branches:
       - main
 
@@ -62,7 +60,10 @@ jobs:
           path: node_modules/.astro/
           key:
             ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}-${{ github.run_id }}
-          restore-keys: ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}
+          # fall back to the cache saved by the deployment workflow.
+          restore-keys: |
+            ${{ runner.os }}-astro-${{ steps.setup.outputs.runtime-version }}
+            ${{ runner.os }}-astro-
 
       - name: Format
         run: pnpm run format:check
@@ -86,14 +87,14 @@ jobs:
         id: cache-playwright-browsers
         with:
           path: "~/.cache/ms-playwright"
-          key: "${{ matrix.os }}-playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}"
+          key: "${{ matrix.os }}-playwright-chromium-${{ env.PLAYWRIGHT_VERSION }}"
 
       - name: Install playwright browsers
         if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install --with-deps
+        run: pnpm exec playwright install --with-deps chromium
       - name: Install playwright browsers (operating system dependencies)
         if: steps.cache-playwright-browsers.outputs.cache-hit == 'true'
-        run: pnpm exec playwright install-deps
+        run: pnpm exec playwright install-deps chromium
 
       - name: Build app
         run: pnpm run build
@@ -114,15 +115,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-
-  build-deploy:
-    name: Build and deploy
-    needs: [validate]
-    # @see https://github.com/orgs/community/discussions/45058
-    if: ${{ github.event_name == 'push' && !failure() && !cancelled() }}
-    uses: ./.github/workflows/build-deploy.yaml
-    secrets: inherit
-    # https://docs.github.com/en/actions/using-workflows/reusing-workflows#access-and-permissions
-    permissions:
-      contents: read
-      packages: write
