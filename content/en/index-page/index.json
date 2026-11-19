@@ -11,6 +11,7 @@
   },
   "main": {},
   "videos": {
+    "layout": "two-columns",
     "items": [
       {
         "id": "GxH2mTTvTLs",

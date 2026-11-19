@@ -12,6 +12,7 @@ import PageLayout from "@/layouts/page-layout.astro";
 import { getFormatter } from "@/lib/formatter";
 import { getImageImport } from "@/lib/get-image-import";
 import { createI18n } from "@/lib/i18n";
+import type { VideoGridLayout } from "@/lib/keystatic/component-options";
 import { createCollectionResource, createSingletonResource } from "@/lib/keystatic/resources";
 import logo from "~/public/assets/images/atrium-logo.png";
 import europe from "~/public/assets/images/atrium-map-of-europe.jpg";
@@ -25,6 +26,13 @@ const { hero, main, videos, latest } = page.data;
 const { default: Content } = await page.compile(main.content);
 
 const formatter = getFormatter(locale);
+
+const videoGridLayouts: Record<VideoGridLayout, string> = {
+	fluid: "grid-fluid-cols-72",
+	"two-columns": "sm:grid-cols-2",
+	"three-columns": "sm:grid-cols-2 md:grid-cols-3",
+	"four-columns": "sm:grid-cols-2 lg:grid-cols-4",
+};
 ---
 
 <PageLayout locale={locale} title={documentTitle}>
@@ -69,7 +77,7 @@ const formatter = getFormatter(locale);
 			<PageSection>
 				<h2 class="text-2xl font-semibold text-red-clay">Videos</h2>
 				<div>
-					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
+					<ul class:list={["grid gap-8", videoGridLayouts[videos.layout]]} role="list">
 						{
 							videos.items.map((item) => {
 								return (

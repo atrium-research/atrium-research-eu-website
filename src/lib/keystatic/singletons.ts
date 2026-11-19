@@ -8,7 +8,7 @@ import {
 } from "@acdh-oeaw/keystatic-lib";
 import { fields, singleton } from "@keystatic/core";
 
-import { socialMediaKinds } from "@/lib/keystatic/component-options";
+import { socialMediaKinds, videoGridLayouts } from "@/lib/keystatic/component-options";
 import { createVideo } from "@/lib/keystatic/components";
 import * as validation from "@/lib/keystatic/validation";
 
@@ -73,6 +73,12 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 			),
 			videos: fields.object(
 				{
+					layout: fields.select({
+						label: "Layout",
+						description: "Fluid fits as many videos per row as space allows.",
+						options: videoGridLayouts,
+						defaultValue: "fluid",
+					}),
 					items: fields.array(
 						fields.object({
 							id: fields.text({
