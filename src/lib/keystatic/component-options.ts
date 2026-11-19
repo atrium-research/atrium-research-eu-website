@@ -69,3 +69,12 @@ export type SocialMediaKind = (typeof socialMediaKinds)[number]["value"];
 export const videoProviders = [{ label: "YouTube", value: "youtube" }] as const;
 
 export type VideoProvider = (typeof videoProviders)[number]["value"];
+
+export const videoGridLayouts = [
+	{ label: "Fluid", value: "fluid" },
+	{ label: "Two columns", value: "two-columns" },
+	{ label: "Three columns", value: "three-columns" },
+	{ label: "Four columns", value: "four-columns" },
+] as const;
+
+export type VideoGridLayout = (typeof videoGridLayouts)[number]["value"];
