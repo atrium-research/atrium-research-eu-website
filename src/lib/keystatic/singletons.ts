@@ -53,7 +53,7 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 				{
 					content: fields.mdx({
 						label: "Content",
-						options: createContentFieldOptions(paths.assetPath),
+						options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
 						components: {
 							// ...createFigure(paths.assetPath, locale),
 							// ...createFootnote(paths.assetPath, locale),
@@ -176,7 +176,7 @@ export const createImprint = createSingleton("/imprint/", (paths, _locale) => {
 					}),
 					content: fields.mdx({
 						label: "Content",
-						options: createContentFieldOptions(paths.assetPath),
+						options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
 						components: {
 							// ...createFigure(paths.assetPath, locale),
 							// ...createFootnote(paths.assetPath, locale),

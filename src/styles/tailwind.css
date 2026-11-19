@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+/**
+ * Theme, ported from `@acdh-oeaw/tailwindcss-preset` (which only supports tailwind v3), plus
+ * project-specific colors and breakpoints.
+ */
+@theme {
+	--breakpoint-*: initial;
+	--breakpoint-xs: 30rem;
+	--breakpoint-sm: 40rem;
+	--breakpoint-md: 48rem;
+	--breakpoint-lg: 68rem;
+	--breakpoint-xl: 80rem;
+	--breakpoint-2xl: 96rem;
+	--breakpoint-3xl: 120rem;
+	--radius-*: initial;
+	--radius-none: 0;
+	--radius-sm: 2px;
+	--radius-md: 4px;
+	--radius-lg: 8px;
+	--radius-full: 9999px;
+	--color-*: initial;
+	--color-white: hsl(0deg 0% 100%);
+	--color-black: hsl(0deg 0% 0%);
+	--color-neutral-0: hsl(0deg 0% 100%);
+	--color-neutral-50: hsl(0deg 0% 98.04%);
+	--color-neutral-100: hsl(240deg 4.76% 95.88%);
+	--color-neutral-200: hsl(240deg 5.88% 90%);
+	--color-neutral-300: hsl(240deg 4.88% 83.92%);
+	--color-neutral-400: hsl(240deg 5.03% 64.9%);
+	--color-neutral-500: hsl(240deg 3.83% 46.08%);
+	--color-neutral-600: hsl(240deg 5.2% 33.92%);
+	--color-neutral-700: hsl(240deg 5.26% 26.08%);
+	--color-neutral-800: hsl(240deg 3.7% 15.88%);
+	--color-neutral-900: hsl(240deg 5.88% 10%);
+	--color-neutral-950: hsl(240deg 10% 3.92%);
+	--color-neutral-1000: hsl(0deg 0% 0%);
+	--color-background: var(--color-neutral-0);
+	--color-on-background: var(--color-neutral-950);
+	--color-surface: var(--color-neutral-0);
+	--color-on-surface: var(--color-neutral-950);
+	--color-overlay: var(--color-neutral-0);
+	--color-on-overlay: var(--color-neutral-950);
+	--color-primary: var(--color-neutral-900);
+	--color-on-primary: var(--color-neutral-50);
+	--color-secondary: var(--color-neutral-100);
+	--color-on-secondary: var(--color-neutral-900);
+	--color-muted: var(--color-neutral-100);
+	--color-on-muted: var(--color-neutral-500);
+	--color-accent: var(--color-neutral-100);
+	--color-on-accent: var(--color-neutral-900);
+	--color-negative: hsl(0deg 84.24% 60.2%);
+	--color-on-negative: var(--color-neutral-50);
+	--color-positive: hsl(142.09deg 70.56% 45.29%);
+	--color-on-positive: var(--color-neutral-50);
+	--color-notice: hsl(24.58deg 94.98% 53.14%);
+	--color-on-notice: var(--color-neutral-50);
+	--color-informative: hsl(198.63deg 88.66% 48.43%);
+	--color-on-informative: var(--color-neutral-50);
+	--color-border: var(--color-neutral-200);
+	--color-input: var(--color-neutral-200);
+	--color-focus-ring: var(--color-neutral-950);
+
+	/** @see https://drive.google.com/file/d/16XtcoYy2o6m58xbWXo8Ol1DW-7ehnAfx/view */
+	--color-red-clay: #a6503e;
+	--color-red-clay-intent: #ae6051;
+	--color-red-clay-light: #ae503e;
+	--color-sunbleached: #e8dac8;
+	--color-sandstone: #d39770;
+	--color-granite: #3a3736;
+	--color-text: #f5ede3;
+	--font-*: initial;
+	--font-body: "Acumin Variable", system-ui, sans-serif;
+	--font-heading: "Barlow", system-ui, sans-serif;
+	--text-*: initial;
+	--text-2xs: calc(0.625rem * var(--ui-scaling-factor));
+	--text-2xs--line-height: calc(0.75rem * var(--ui-scaling-factor));
+	--text-xs: calc(0.75rem * var(--ui-scaling-factor));
+	--text-xs--line-height: calc(1rem * var(--ui-scaling-factor));
+	--text-sm: calc(0.875rem * var(--ui-scaling-factor));
+	--text-sm--line-height: calc(1.25rem * var(--ui-scaling-factor));
+	--text-md: calc(1rem * var(--ui-scaling-factor));
+	--text-md--line-height: calc(1.5rem * var(--ui-scaling-factor));
+	--text-lg: calc(1.125rem * var(--ui-scaling-factor));
+	--text-lg--line-height: calc(1.75rem * var(--ui-scaling-factor));
+	--text-xl: calc(1.25rem * var(--ui-scaling-factor));
+	--text-xl--line-height: calc(1.75rem * var(--ui-scaling-factor));
+	--text-2xl: calc(1.5rem * var(--ui-scaling-factor));
+	--text-2xl--line-height: calc(2rem * var(--ui-scaling-factor));
+	--text-3xl: calc(1.875rem * var(--ui-scaling-factor));
+	--text-3xl--line-height: calc(2.25rem * var(--ui-scaling-factor));
+	--text-4xl: calc(2.25rem * var(--ui-scaling-factor));
+	--text-4xl--line-height: calc(2.5rem * var(--ui-scaling-factor));
+	--text-5xl: calc(3rem * var(--ui-scaling-factor));
+	--text-5xl--line-height: calc(3rem * var(--ui-scaling-factor));
+	--text-6xl: calc(3.75rem * var(--ui-scaling-factor));
+	--text-6xl--line-height: calc(3.75rem * var(--ui-scaling-factor));
+	--text-7xl: calc(4.5rem * var(--ui-scaling-factor));
+	--text-7xl--line-height: calc(4.5rem * var(--ui-scaling-factor));
+	--text-8xl: calc(6rem * var(--ui-scaling-factor));
+	--text-8xl--line-height: calc(6rem * var(--ui-scaling-factor));
+	--text-9xl: calc(8rem * var(--ui-scaling-factor));
+	--text-9xl--line-height: calc(8rem * var(--ui-scaling-factor));
+	--spacing: calc(0.25rem * var(--ui-scaling-factor));
+}
+
+@utility grid-fluid-cols-* {
+	grid-template-columns: repeat(
+		var(--fluid-columns-mode, auto-fill),
+		minmax(calc(var(--spacing) * --value(integer)), 1fr)
+	);
+}
+
+@utility grid-fluid-cols-auto-fill {
+	--fluid-columns-mode: auto-fill;
+}
+
+@utility grid-fluid-cols-auto-fit {
+	--fluid-columns-mode: auto-fit;
+}
+
+@utility prose {
+	--tw-prose-bullets: currentColor;
+
+	max-width: none;
+	font-size: 1.0625rem;
+
+	/** Don't add quotes around `blockquote`. */
+	&
+		:where(blockquote p:first-of-type):not(
+			:where([class~="not-prose"], [class~="not-prose"] *)
+		)::before,
+	&
+		:where(blockquote p:last-of-type):not(
+			:where([class~="not-prose"], [class~="not-prose"] *)
+		)::after {
+		content: none;
+	}
+
+	/** Don't add backticks around inline `code`. */
+	& :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
+	& :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
+		content: none;
+	}
+
+	& :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+		color: var(--color-red-clay);
+	}
+
+	& :where(figcaption p:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+		margin-top: 0;
+	}
+
+	& :where(figcaption p:last-child):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+		margin-bottom: 0;
+	}
+}
+
+/** Base styles, ported from `@acdh-oeaw/tailwindcss-preset`. */
+@layer base {
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		::before,
+		::after {
+			transition-duration: 0.01ms !important;
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			scroll-behavior: auto !important;
+		}
+	}
+
+	/** Scale up hit targets on high resolution mobile devices. */
+	@media (resolution >= 200dpi) {
+		:root {
+			font-size: 18px;
+		}
+	}
+
+	:root {
+		--ui-scaling-factor: 1;
+
+		overflow: hidden;
+		background-color: var(--color-background);
+		color: var(--color-on-background);
+		font-size: var(--text-md);
+		font-family: var(--font-body);
+		overflow-wrap: break-word;
+		tab-size: 4;
+		block-size: 100%;
+		font-synthesis: none;
+		text-rendering: optimizeLegibility;
+		text-size-adjust: none;
+		-webkit-tap-highlight-color: transparent;
+		color-scheme: light;
+	}
+
+	*,
+	::before,
+	::after,
+	::backdrop,
+	::file-selector-button {
+		margin: 0;
+		padding: 0;
+		border-color: var(--color-border);
+	}
+
+	body {
+		overflow-y: auto;
+		block-size: 100%;
+	}
+
+	:focus {
+		outline: none;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-focus-ring);
+		outline-offset: 0;
+	}
+
+	a {
+		text-underline-offset: 0.15em;
+	}
+
+	blockquote,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		text-wrap: balance;
+	}
+
+	dialog {
+		background-color: var(--color-background);
+		color: var(--color-on-background);
+	}
+
+	iframe {
+		border: 0;
+	}
+
+	p {
+		text-wrap: pretty;
+	}
+
+	table {
+		font-variant-numeric: tabular-nums;
+	}
+
+	textarea {
+		field-sizing: content;
+		min-block-size: 3lh;
+	}
+
+	[id] {
+		scroll-margin-block-start: 2ex;
+	}
+
+	/** Tailwind v3 defaults, which changed in v4. */
+	input::placeholder,
+	textarea::placeholder {
+		color: #9ca3af;
+	}
+
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
+}

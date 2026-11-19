@@ -31,7 +31,7 @@ const honeypot = t("MailingListForm.honeypot");
 	<div
 		aria-atomic="true"
 		aria-live="polite"
-		class="group mb-4 flex items-center gap-x-2 rounded-md px-2 py-1 font-heading font-semibold data-[state=initial]:sr-only data-[state=error]:bg-sunbleached data-[state=success]:bg-sunbleached data-[state=error]:text-granite data-[state=success]:text-granite"
+		class="group mb-4 flex items-center gap-x-2 rounded-md px-2 py-1 font-heading font-semibold data-[state=error]:bg-sunbleached data-[state=error]:text-granite data-[state=initial]:sr-only data-[state=success]:bg-sunbleached data-[state=success]:text-granite"
 		data-state="initial"
 	>
 		<Icon
@@ -50,7 +50,7 @@ const honeypot = t("MailingListForm.honeypot");
 	<TextInputField label={firstName} name="firstName" required />
 	<TextInputField label={lastName} name="lastName" required />
 	<TextInputField label={institution} name="institution" />
-	<div style="display: none;">
+	<div style="display: none">
 		<TextInputField label={honeypot} name="url" />
 	</div>
 	<label class="my-2 flex items-start gap-x-1.5 text-xs">

@@ -1,10 +1,12 @@
+import { fileURLToPath } from "node:url";
+
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-// import solidJs from "@astrojs/solid-js";
-import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
+import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
 // import { createConfig as createMdxConfig } from "./src/config/mdx.config";
@@ -16,6 +18,11 @@ export default defineConfig({
 		mode: "standalone",
 	}),
 	base: env.PUBLIC_APP_BASE_PATH,
+	/**
+	 * Keep html whitespace handling (astro v6 default), instead of jsx-style whitespace stripping.
+	 * Must match `astro.compressHTML` in `.oxfmtrc.json`.
+	 */
+	compressHTML: true,
 	integrations: [
 		icon({
 			/** @see https://www.astroicon.dev/reference/configuration/#include */
@@ -42,16 +49,18 @@ export default defineConfig({
 		/** Only needed to make the astro jsx runtime work correctly. */
 		mdx(),
 		/**
-		 * @see https://docs.astro.build/en/guides/integrations-guide/solid-js/#combining-multiple-jsx-frameworks
 		 * @see https://github.com/Thinkmill/keystatic/discussions/951
 		 */
 		react({
-			include: ["**/content/**", "**/keystatic/**"],
+			/**
+			 * Restricted to script files: in vite 8 this is also used as `vite:oxc`'s jsx refresh
+			 * filter, which would otherwise try to parse json files in `content` as javascript.
+			 * Using regular expressions, because `@vitejs/plugin-react` appends `{?*,}` to globs to
+			 * allow query strings, where `?` is a glob wildcard, so `*.js` would match `*.json`.
+			 */
+			include: [/\/content\/.+\.(?:[jt]sx?|mdx)$/, /\/keystatic\/.+\.[jt]sx?$/],
 		}),
 		sitemap(),
-		// solidJs({
-		// 	exclude: ["**/content/**", "**/keystatic/**"],
-		// }),
 	],
 	/** Use `@/lib/keystatic/compile-mdx.ts` instead of astro's built-in markdown processor. */
 	// // @ts-expect-error Astro types are incomplete.
@@ -78,9 +87,16 @@ export default defineConfig({
 		},
 	},
 	scopedStyleStrategy: "where",
-	// security: {
-	// 	checkOrigin: true,
-	// },
+	security: {
+		/**
+		 * Trust `Host` and `X-Forwarded-*` headers only for the app's own domain. Without this,
+		 * astro uses `localhost` as the request origin, which breaks keystatic's github oauth
+		 * `redirect_uri` and the origin check for form submissions.
+		 */
+		allowedDomains: env.PUBLIC_APP_BASE_URL
+			? [{ hostname: new URL(env.PUBLIC_APP_BASE_URL).hostname }]
+			: [],
+	},
 	server: {
 		/** Required by keystatic. */
 		host: "127.0.0.1",
@@ -88,7 +104,17 @@ export default defineConfig({
 	},
 	site: env.PUBLIC_APP_BASE_URL,
 	vite: {
-		ssr: {
+		plugins: [tailwindcss()],
+		resolve: {
+			/**
+			 * Mirrors `compilerOptions.paths` in `tsconfig.json`. Astro only reads those when
+			 * `compilerOptions.baseUrl` is set, which `oxlint-tsgolint` does not support.
+			 */
+			alias: {
+				"@/": fileURLToPath(new URL("./src/", import.meta.url)),
+				"~/": fileURLToPath(new URL("./", import.meta.url)),
+			},
+			/** `react-tweet` imports css modules, which need to be processed by vite in all environments. */
 			noExternal: ["react-tweet"],
 		},
 	},

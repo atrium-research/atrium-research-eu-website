@@ -1,8 +1,3 @@
-:root {
-	--font-body: "Acumin Variable";
-	--font-heading: "Barlow";
-}
-
 @font-face {
 	font-family: "Acumin Variable";
 	src: url("/assets/fonts/acumin-variable-concept.otf") format("opentype");
@@ -32,6 +27,6 @@ section .astro-tweet-theme {
 }
 
 :focus-visible {
-	outline: 2px solid theme("colors.granite");
+	outline: 2px solid var(--color-granite);
 	outline-offset: 2px;
 }

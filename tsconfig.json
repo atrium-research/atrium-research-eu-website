@@ -2,9 +2,7 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"extends": ["astro/tsconfigs/base", "@acdh-oeaw/tsconfig"],
 	"compilerOptions": {
-		"baseUrl": ".",
 		"jsx": "preserve",
-		"jsxImportSource": "solid-js",
 		"paths": {
 			"@/*": ["./src/*"],
 			"~/*": ["./*"]
@@ -15,6 +13,6 @@
 	"exclude": ["dist", "node_modules"],
 	"mdx": {
 		"checkMdx": false,
-		"plugins": ["remark-frontmatter", "remark-gfm"]
+		"plugins": ["remark-frontmatter"]
 	}
 }

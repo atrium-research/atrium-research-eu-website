@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 
 import MainContent from "@/components/main-content.astro";
 import PageSection from "@/components/page-section.astro";
@@ -40,38 +40,34 @@ const { items, total } = await getSshOpenMarketplaceWorkflows();
 			<div class="grid gap-y-12">
 				<h2 class="text-2xl font-semibold text-red-clay">{total} workflows</h2>
 				<ul class="grid gap-y-12" role="list">
-					{
-						items.map(async (item) => {
-							const { default: Content } = await page.compile(item.description);
+					{items.map(async (item) => {
+						const { default: Content } = await page.compile(item.description);
 
-							return (
-								<li>
-									<details class="group" name="services">
-										<summary class="flex cursor-pointer items-center justify-between gap-x-8">
-											<h3 class="text-xl font-semibold text-red-clay underline underline-offset-2 hover:no-underline">
-												{item.label}
-											</h3>
-											<Icon
-												class="size-5 shrink-0 text-red-clay group-open:rotate-90"
-												name="lucide:chevron-right"
-											/>
-										</summary>
-										<div class="prose mt-6">
-											<Content />
-											<a
-												class="hover:no-underline"
-												href={String(
-													createSshOpenMarketplaceItemUrl(item.category, item.persistentId),
-												)}
-											>
-												More info
-											</a>
-										</div>
-									</details>
-								</li>
-							);
-						})
-					}
+						return <li>
+							<details class="group" name="services">
+								<summary class="flex cursor-pointer items-center justify-between gap-x-8">
+									<h3
+										class="text-xl font-semibold text-red-clay underline underline-offset-2 hover:no-underline"
+									>
+										{item.label}
+									</h3>
+									<Icon
+										class="size-5 shrink-0 text-red-clay group-open:rotate-90"
+										name="lucide:chevron-right"
+									/>
+								</summary>
+								<div class="prose mt-6">
+									<Content />
+									<a
+										class="hover:no-underline"
+										href={String(createSshOpenMarketplaceItemUrl(item.category, item.persistentId))}
+									>
+										More info
+									</a>
+								</div>
+							</details>
+						</li>;
+					})}
 				</ul>
 			</div>
 		</PageSection>

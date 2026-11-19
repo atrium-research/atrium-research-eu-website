@@ -5,10 +5,20 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 on:
-  workflow_call:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
+  # runs in parallel with building the docker image, the deploy job waits for both.
+  validate:
+    name: Validate
+    uses: ./.github/workflows/validate.yaml
+    secrets: inherit
+    permissions:
+      contents: read
+
   env:
     name: Generate environment variables
     runs-on: ubuntu-24.04
@@ -69,17 +79,26 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Ensure astro build artefacts folder exists
         run: mkdir -p node_modules/.astro
 
+      - name: Get node.js version from `engines.runtime`
+        id: node
+        run: |
+          VERSION=$(jq --raw-output '[.engines.runtime] | flatten | map(select(.name == "node"))[0].version' package.json)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Cache astro build artefacts
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: node_modules/.astro/
-          key: ${{ runner.os }}-astro-24.x-${{ github.run_id }}
-          restore-keys: ${{ runner.os }}-astro-24.x
+          key: ${{ runner.os }}-astro-${{ steps.node.outputs.VERSION }}-${{ github.run_id }}
+          # fall back to the cache saved by the validation workflow.
+          restore-keys: |
+            ${{ runner.os }}-astro-${{ steps.node.outputs.VERSION }}
+            ${{ runner.os }}-astro-
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -107,7 +126,7 @@ jobs:
           push: true
           tags: "${{ steps.meta.outputs.tags }}"
           labels: "${{ steps.meta.outputs.labels }}"
-          build-args: |
+          build-args: &build-args |
             "PUBLIC_APP_BASE_PATH=${{ vars.PUBLIC_APP_BASE_PATH }}"
             "PUBLIC_APP_BASE_URL=${{ needs.vars.outputs.public_url }}"
             "PUBLIC_BOTS=${{ vars.PUBLIC_BOTS }}"
@@ -121,7 +140,7 @@ jobs:
             "PUBLIC_REDMINE_ID=${{ vars.SERVICE_ID }}"
             "PUBLIC_SSHOC_API_BASE_URL=${{ vars.PUBLIC_SSHOC_API_BASE_URL }}"
             "PUBLIC_SSHOC_BASE_URL=${{ vars.PUBLIC_SSHOC_BASE_URL }}"
-          secrets: |
+          secrets: &secrets |
             "KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.K8S_SECRET_KEYSTATIC_GITHUB_CLIENT_ID }}"
             "KEYSTATIC_GITHUB_CLIENT_SECRET=${{ secrets.K8S_SECRET_KEYSTATIC_GITHUB_CLIENT_SECRET }}"
             "KEYSTATIC_SECRET=${{ secrets.K8S_SECRET_KEYSTATIC_SECRET }}"
@@ -129,9 +148,29 @@ jobs:
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
 
+      # the docker build updates astro's assets cache inside the container, so export it to persist
+      # it between deployments. all layers are cached from the previous step, so this only copies.
+      - name: Export astro build artefacts from docker build
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          target: astro-cache
+          outputs: type=local,dest=${{ runner.temp }}/astro-cache
+          build-args: *build-args
+          secrets: *secrets
+
+      - name: Replace astro build artefacts with exported ones
+        run: |
+          rm -rf node_modules/.astro
+          mv "${{ runner.temp }}/astro-cache" node_modules/.astro
+          du -sh node_modules/.astro
+
   deploy:
     name: Deploy docker image
-    needs: [env, vars, build]
+    needs: [env, vars, validate, build]
+    # validation is skipped when only content changed.
+    # @see https://github.com/orgs/community/discussions/45058
+    if: ${{ !failure() && !cancelled() }}
     uses: atrium-research/gl-autodevops-minimal-port/.github/workflows/deploy.yml@main
     secrets: inherit
     with:

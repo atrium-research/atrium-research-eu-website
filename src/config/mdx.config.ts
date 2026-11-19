@@ -6,20 +6,17 @@ import {
 	typographyConfig,
 	withCustomHeadingIds,
 	withFootnotes,
+	withGfm,
 	withIframeTitles,
 } from "@acdh-oeaw/mdx-lib";
-import withSyntaxHighlighter from "@shikijs/rehype";
 import type { ElementContent } from "hast";
 import withHeadingIds from "rehype-slug";
 import withFrontmatter from "remark-frontmatter";
-import withGfm from "remark-gfm";
 import withMdxFrontmatter from "remark-mdx-frontmatter";
 import withTypographicQuotes from "remark-smartypants";
 
 import type { Locale } from "@/config/i18n.config.js";
 import { createI18n } from "@/lib/i18n";
-
-import { config as syntaxHighlighterConfig } from "./syntax-highlighter.config.js";
 
 export async function createMdxConfig(locale: Locale): Promise<MdxProcessorOptions> {
 	const { t } = await createI18n(locale);
@@ -69,7 +66,6 @@ export async function createMdxConfig(locale: Locale): Promise<MdxProcessorOptio
 			withHeadingIds,
 			[withIframeTitles, { components: ["Embed", "Video"] }],
 			// [withImageSizes, { components: ["Figure"] }],
-			[withSyntaxHighlighter, syntaxHighlighterConfig],
 			// withTableOfContents,
 		],
 	};

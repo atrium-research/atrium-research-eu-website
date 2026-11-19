@@ -1,0 +1,20 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"endOfLine": "lf",
+	"printWidth": 100,
+	"proseWrap": "always",
+	"semi": true,
+	"singleQuote": false,
+	"tabWidth": 2,
+	"trailingComma": "all",
+	"useTabs": true,
+	"astro": {
+		"compressHTML": "html"
+	},
+	"sortImports": true,
+	"sortTailwindcss": {
+		"stylesheet": "./src/styles/tailwind.css",
+		"functions": ["cn", "styles"]
+	},
+	"ignorePatterns": ["content/**", "public/**", "pnpm-workspace.yaml"]
+}

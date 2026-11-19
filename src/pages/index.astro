@@ -48,7 +48,7 @@ const videoGridLayouts: Record<VideoGridLayout, string> = {
 				/>
 				<div class="relative p-8 md:py-24">
 					<h1 class="sr-only">{hero.title}</h1>
-					<div class="text-md font-semibold leading-relaxed md:text-xl md:leading-[1.75]">
+					<div class="text-md leading-relaxed font-semibold md:text-xl md:leading-[1.75]">
 						{hero.leadIn}
 					</div>
 				</div>
@@ -56,7 +56,7 @@ const videoGridLayouts: Record<VideoGridLayout, string> = {
 			<div class="bg-sunbleached">
 				<Image
 					alt=""
-					class="aspect-video size-full max-h-screen-xs object-cover md:aspect-[2.5]"
+					class="aspect-video size-full max-h-(--breakpoint-xs) object-cover md:aspect-[2.5]"
 					loading="eager"
 					sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 100vw"
 					src={getImageImport(hero.images.at(0)!)}
@@ -78,15 +78,11 @@ const videoGridLayouts: Record<VideoGridLayout, string> = {
 				<h2 class="text-2xl font-semibold text-red-clay">Videos</h2>
 				<div>
 					<ul class:list={["grid gap-8", videoGridLayouts[videos.layout]]} role="list">
-						{
-							videos.items.map((item) => {
-								return (
-									<li>
-										<Video caption={item.caption} id={item.id} provider="youtube" />
-									</li>
-								);
-							})
-						}
+						{videos.items.map((item) => {
+							return <li>
+								<Video caption={item.caption} id={item.id} provider="youtube" />
+							</li>;
+						})}
 					</ul>
 				</div>
 			</PageSection>
@@ -96,105 +92,103 @@ const videoGridLayouts: Record<VideoGridLayout, string> = {
 			<PageSection>
 				<h2 class="text-2xl font-semibold text-red-clay">Latest Events & News</h2>
 				<div>
-					<ul class="grid gap-8 grid-fluid-cols-72" role="list">
-						{
-							latest.items.map(async (item) => {
-								switch (item.item.discriminant) {
-									case "events": {
-										const id = item.item.value;
+					<ul class="grid grid-fluid-cols-72 gap-8" role="list">
+						{latest.items.map(async (item) => {
+							switch (item.item.discriminant) {
+								case "events": {
+									const id = item.item.value;
 
-										const event = await createCollectionResource("events", locale).read(id);
+									const event = await createCollectionResource("events", locale).read(id);
 
-										const { date, endDate, image, location, title } = event.data;
-										const href = `/events/${id}/`;
+									const { date, endDate, image, location, title } = event.data;
+									const href = `/events/${id}/`;
 
-										return (
-											<li>
-												<article class="grid gap-y-2">
-													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
-														<Link aria-hidden="true" href={href} tabindex={-1}>
-															<span class="sr-only">{title}</span>
-															<Image
-																alt=""
-																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
-																sizes="620px"
-																src={getImageImport(image)}
-																widths={[620]}
-															/>
-														</Link>
-													</div>
-													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-														<Link href={href}>{title}</Link>
-													</h3>
-													<dl class="text-sm">
-														<div class="flex gap-x-2">
-															<dt>Date:</dt>
-															<dd>
-																{endDate != null ? (
-																	<span>
-																		{formatter.date.formatRange(new Date(date), new Date(endDate))}
-																	</span>
-																) : (
-																	<time datetime={date}>
-																		{formatter.date.format(new Date(date))}
-																	</time>
-																)}
-															</dd>
-														</div>
-														<div class="flex gap-x-2">
-															<dt>Location:</dt>
-															<dd>{location}</dd>
-														</div>
-													</dl>
-												</article>
-											</li>
-										);
-									}
-
-									case "news": {
-										const id = item.item.value;
-
-										const news = await createCollectionResource("news", locale).read(id);
-
-										const { image, title } = news.data;
-										const href = `/news/${id}/`;
-
-										return (
-											<li>
-												<article class="grid gap-y-2">
-													<div class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50">
-														<Link href={href}>
-															<span class="sr-only">{title}</span>
-															<Image
-																alt=""
-																class="absolute inset-0 size-full object-cover transition hover:opacity-75"
-																sizes="620px"
-																src={getImageImport(image)}
-																widths={[620]}
-															/>
-														</Link>
-													</div>
-													<h3 class="font-medium leading-tight text-red-clay transition hover:text-inherit">
-														<Link href={href}>{title}</Link>
-													</h3>
-												</article>
-											</li>
-										);
-									}
-
-									case "tweets": {
-										const id = item.item.value;
-
-										return (
-											// eslint-disable-next-line tailwindcss/no-custom-classname
-											<li class="light">
-												<Tweet id={id} />
-											</li>
-										);
-									}
+									return <li>
+										<article class="grid gap-y-2">
+											<div
+												class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50"
+											>
+												<Link aria-hidden="true" href={href} tabindex={-1}>
+													<span class="sr-only">{title}</span>
+													<Image
+														alt=""
+														class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+														sizes="620px"
+														src={getImageImport(image)}
+														widths={[620]}
+													/>
+												</Link>
+											</div>
+											<h3
+												class="leading-tight font-medium text-red-clay transition hover:text-inherit"
+											>
+												<Link href={href}>{title}</Link>
+											</h3>
+											<dl class="text-sm">
+												<div class="flex gap-x-2">
+													<dt>Date:</dt>
+													<dd>
+														{endDate != null ? (
+															<span>
+																{formatter.date.formatRange(new Date(date), new Date(endDate))}
+															</span>
+														) : (
+															<time datetime={date}>{formatter.date.format(new Date(date))}</time>
+														)}
+													</dd>
+												</div>
+												<div class="flex gap-x-2">
+													<dt>Location:</dt>
+													<dd>{location}</dd>
+												</div>
+											</dl>
+										</article>
+									</li>;
 								}
-							})
-						}
+
+								case "news": {
+									const id = item.item.value;
+
+									const news = await createCollectionResource("news", locale).read(id);
+
+									const { image, title } = news.data;
+									const href = `/news/${id}/`;
+
+									return <li>
+										<article class="grid gap-y-2">
+											<div
+												class="relative mb-2 h-48 overflow-hidden rounded-lg transition hover:bg-granite/50"
+											>
+												<Link href={href}>
+													<span class="sr-only">{title}</span>
+													<Image
+														alt=""
+														class="absolute inset-0 size-full object-cover transition hover:opacity-75"
+														sizes="620px"
+														src={getImageImport(image)}
+														widths={[620]}
+													/>
+												</Link>
+											</div>
+											<h3
+												class="leading-tight font-medium text-red-clay transition hover:text-inherit"
+											>
+												<Link href={href}>{title}</Link>
+											</h3>
+										</article>
+									</li>;
+								}
+
+								case "tweets": {
+									const id = item.item.value;
+
+									return; // eslint-disable-next-line tailwindcss/no-custom-classname
+									<li class="light">
+										<Tweet id={id} />
+									</li>;
+								}
+							}
+						})}
 					</ul>
 				</div>
 			</PageSection>
@@ -207,7 +201,7 @@ const videoGridLayouts: Record<VideoGridLayout, string> = {
 						<h2 class="text-center text-2xl font-semibold text-red-clay">
 							Transnational Access – Travel Grants
 						</h2>
-						<div class="prose my-4 text-center">
+						<div class="my-4 prose text-center">
 							ATRIUM will offer researchers and research teams the chance to visit 16 research
 							infrastructures and organisations in the Arts and Humanities abroad.
 						</div>
