@@ -29,7 +29,7 @@ import {
 	VideoPreview,
 } from "@/lib/keystatic/previews";
 
-export const createFigure = createComponent((assetPath, _locale) => {
+export const createFigure = createComponent((paths, _locale) => {
 	return {
 		Figure: wrapper({
 			label: "Figure",
@@ -39,7 +39,7 @@ export const createFigure = createComponent((assetPath, _locale) => {
 				src: fields.image({
 					label: "Image",
 					validation: { isRequired: true },
-					...createAssetOptions(assetPath),
+					...createAssetOptions(paths.assetPath),
 				}),
 				alt: fields.text({
 					label: "Image description for screen readers",
@@ -64,7 +64,7 @@ export const createFigure = createComponent((assetPath, _locale) => {
 	};
 });
 
-export const createFootnote = createComponent((_assetPath, _locale) => {
+export const createFootnote = createComponent((_paths, _locale) => {
 	return {
 		Footnote: mark({
 			label: "Footnote",
@@ -75,7 +75,7 @@ export const createFootnote = createComponent((_assetPath, _locale) => {
 	};
 });
 
-export const createGrid = createComponent((_assetPath, _locale) => {
+export const createGrid = createComponent((_paths, _locale) => {
 	return {
 		Grid: repeating({
 			label: "Grid",
@@ -121,7 +121,7 @@ export const createGrid = createComponent((_assetPath, _locale) => {
 	};
 });
 
-export const createHeadingId = createComponent((_assetPath, _locale) => {
+export const createHeadingId = createComponent((_paths, _locale) => {
 	return {
 		HeadingId: inline({
 			label: "HeadingId",
@@ -146,20 +146,20 @@ export const createHeadingId = createComponent((_assetPath, _locale) => {
 	};
 });
 
-export const createLink = createComponent((assetPath, locale) => {
+export const createLink = createComponent((paths, locale) => {
 	return {
 		Link: mark({
 			label: "Link",
 			icon: <LinkIcon />,
 			schema: {
-				link: createLinkSchema(assetPath, locale),
+				link: createLinkSchema(paths, locale),
 			},
 			tag: "a",
 		}),
 	};
 });
 
-export const createLinkButton = createComponent((assetPath, locale) => {
+export const createLinkButton = createComponent((paths, locale) => {
 	return {
 		LinkButton: block({
 			label: "LinkButton",
@@ -170,7 +170,7 @@ export const createLinkButton = createComponent((assetPath, locale) => {
 					label: "Label",
 					validation: { isRequired: true },
 				}),
-				link: createLinkSchema(assetPath, locale),
+				link: createLinkSchema(paths, locale),
 			},
 			ContentView(props) {
 				const { value } = props;
@@ -181,7 +181,7 @@ export const createLinkButton = createComponent((assetPath, locale) => {
 	};
 });
 
-export const createThumbnail = createComponent((assetPath, _locale) => {
+export const createThumbnail = createComponent((paths, _locale) => {
 	return {
 		Thumbnail: wrapper({
 			label: "Thumbnail",
@@ -191,7 +191,7 @@ export const createThumbnail = createComponent((assetPath, _locale) => {
 				src: fields.image({
 					label: "Thumbnail",
 					validation: { isRequired: true },
-					...createAssetOptions(assetPath),
+					...createAssetOptions(paths.assetPath),
 				}),
 			},
 			ContentView(props) {
@@ -203,7 +203,7 @@ export const createThumbnail = createComponent((assetPath, _locale) => {
 	};
 });
 
-export const createTweet = createComponent((_assetPath, _locale) => {
+export const createTweet = createComponent((_paths, _locale) => {
 	return {
 		Tweet: wrapper({
 			label: "Tweet",
@@ -225,7 +225,7 @@ export const createTweet = createComponent((_assetPath, _locale) => {
 	};
 });
 
-export const createVideo = createComponent((_assetPath, _locale) => {
+export const createVideo = createComponent((_paths, _locale) => {
 	return {
 		Video: wrapper({
 			label: "Video",

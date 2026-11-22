@@ -1,9 +1,17 @@
-engineStrict: true
-
 allowBuilds:
   esbuild: true
-  sharp: true
   lefthook: true
-shellEmulator: true
+  sharp: true
 
-strictDepBuilds: true
+autoDedupe: true
+
+engineStrict: true
+
+lockfile:
+  includeResolutionSettings: true
+
+minimumReleaseAge: 720
+
+saveTypes: true
+
+shellEmulator: true
