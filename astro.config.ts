@@ -81,6 +81,10 @@ export default defineConfig({
 				: "/keystatic",
 			status: 307,
 		},
+		"/blog/Reusing bibliographic content": {
+			destination: "/blog/reusing-bibliographic-content",
+			status: 301,
+		},
 		"/events": {
 			destination: "/events/tag/all",
 			status: 307,

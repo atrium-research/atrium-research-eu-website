@@ -20,6 +20,16 @@ import {
 	createVideo,
 } from "@/lib/keystatic/components";
 
+/** Slugs are used as folder names and url segments, so only allow lowercase kebab-case. */
+const slug = {
+	validation: {
+		pattern: {
+			regex: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+			message: "Slug must only contain lowercase letters, numbers, and hyphens.",
+		},
+	},
+};
+
 export const createBlog = createCollection("/blog/", (paths, locale) => {
 	return collection({
 		label: "Blog",
@@ -34,6 +44,7 @@ export const createBlog = createCollection("/blog/", (paths, locale) => {
 					label: "Title",
 					validation: { isRequired: true },
 				},
+				slug,
 			}),
 			publicationDate: fields.date({
 				label: "Publication date",
@@ -70,17 +81,17 @@ export const createBlog = createCollection("/blog/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
+				options: { ...createContentFieldOptions(paths), codeBlock: false },
 				components: {
-					...createFigure(paths.assetPath, locale),
-					...createFootnote(paths.assetPath, locale),
-					...createGrid(paths.assetPath, locale),
-					...createHeadingId(paths.assetPath, locale),
-					...createLink(paths.assetPath, locale),
-					...createLinkButton(paths.assetPath, locale),
-					...createThumbnail(paths.assetPath, locale),
-					...createTweet(paths.assetPath, locale),
-					...createVideo(paths.assetPath, locale),
+					...createFigure(paths, locale),
+					...createFootnote(paths, locale),
+					...createGrid(paths, locale),
+					...createHeadingId(paths, locale),
+					...createLink(paths, locale),
+					...createLinkButton(paths, locale),
+					...createThumbnail(paths, locale),
+					...createTweet(paths, locale),
+					...createVideo(paths, locale),
 				},
 			}),
 		},
@@ -101,6 +112,7 @@ export const createEvents = createCollection("/events/", (paths, locale) => {
 					label: "Title",
 					validation: { isRequired: true },
 				},
+				slug,
 			}),
 			tags: fields.multiselect({
 				label: "Tags",
@@ -141,17 +153,17 @@ export const createEvents = createCollection("/events/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
+				options: { ...createContentFieldOptions(paths), codeBlock: false },
 				components: {
-					...createFigure(paths.assetPath, locale),
-					...createFootnote(paths.assetPath, locale),
-					...createGrid(paths.assetPath, locale),
-					...createHeadingId(paths.assetPath, locale),
-					...createLink(paths.assetPath, locale),
-					...createLinkButton(paths.assetPath, locale),
-					...createThumbnail(paths.assetPath, locale),
-					...createTweet(paths.assetPath, locale),
-					...createVideo(paths.assetPath, locale),
+					...createFigure(paths, locale),
+					...createFootnote(paths, locale),
+					...createGrid(paths, locale),
+					...createHeadingId(paths, locale),
+					...createLink(paths, locale),
+					...createLinkButton(paths, locale),
+					...createThumbnail(paths, locale),
+					...createTweet(paths, locale),
+					...createVideo(paths, locale),
 				},
 			}),
 		},
@@ -172,6 +184,7 @@ export const createNews = createCollection("/news/", (paths, locale) => {
 					label: "Title",
 					validation: { isRequired: true },
 				},
+				slug,
 			}),
 			publicationDate: fields.date({
 				label: "Publication date",
@@ -195,17 +208,17 @@ export const createNews = createCollection("/news/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
+				options: { ...createContentFieldOptions(paths), codeBlock: false },
 				components: {
-					...createFigure(paths.assetPath, locale),
-					...createFootnote(paths.assetPath, locale),
-					...createGrid(paths.assetPath, locale),
-					...createHeadingId(paths.assetPath, locale),
-					...createLink(paths.assetPath, locale),
-					...createLinkButton(paths.assetPath, locale),
-					...createThumbnail(paths.assetPath, locale),
-					...createTweet(paths.assetPath, locale),
-					...createVideo(paths.assetPath, locale),
+					...createFigure(paths, locale),
+					...createFootnote(paths, locale),
+					...createGrid(paths, locale),
+					...createHeadingId(paths, locale),
+					...createLink(paths, locale),
+					...createLinkButton(paths, locale),
+					...createThumbnail(paths, locale),
+					...createTweet(paths, locale),
+					...createVideo(paths, locale),
 				},
 			}),
 		},
@@ -226,6 +239,7 @@ export const createPages = createCollection("/pages/", (paths, locale) => {
 					label: "Title",
 					validation: { isRequired: true },
 				},
+				slug,
 			}),
 			image: fields.image({
 				label: "Image",
@@ -239,17 +253,17 @@ export const createPages = createCollection("/pages/", (paths, locale) => {
 			}),
 			content: fields.mdx({
 				label: "Content",
-				options: { ...createContentFieldOptions(paths.assetPath), codeBlock: false },
+				options: { ...createContentFieldOptions(paths), codeBlock: false },
 				components: {
-					...createFigure(paths.assetPath, locale),
-					...createFootnote(paths.assetPath, locale),
-					...createGrid(paths.assetPath, locale),
-					...createHeadingId(paths.assetPath, locale),
-					...createLink(paths.assetPath, locale),
-					...createLinkButton(paths.assetPath, locale),
-					...createThumbnail(paths.assetPath, locale),
-					...createTweet(paths.assetPath, locale),
-					...createVideo(paths.assetPath, locale),
+					...createFigure(paths, locale),
+					...createFootnote(paths, locale),
+					...createGrid(paths, locale),
+					...createHeadingId(paths, locale),
+					...createLink(paths, locale),
+					...createLinkButton(paths, locale),
+					...createThumbnail(paths, locale),
+					...createTweet(paths, locale),
+					...createVideo(paths, locale),
 				},
 			}),
 		},
@@ -270,6 +284,7 @@ export const createPartners = createCollection("/partners/", (paths, _locale) =>
 					label: "Name",
 					validation: { isRequired: true },
 				},
+				slug,
 			}),
 			kind: fields.select({
 				label: "Kind",
